@@ -4,24 +4,34 @@
 .lftBox {
     position: absolute;
     width: 25%;
-    height: 65%;
+    height: 85%;
     left: 5%;
-    top: 128px;
-    display: inline-block;
-    background: #FFFFFF;
+    top: 70px;
+    background: #ececec73;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
     border-radius: 10px;
-    text-align: center;
     padding: 15px;
 }
+
+.interactionMode {
+    margin-bottom: 20px; /* Adjust as needed for spacing between elements */
+}
+
+.interactionMode label {
+    display: block;
+}
+
+.uploadFile {
+    margin-top: 20px; /* Adjust as needed for spacing */
+}
+
 .rghtBox{
     display: inline-block;
     position: absolute;
     width: 60%;
-    height: 65%;
+    height: 80%;
     left: 35%;
-    top: 128px;
-
+    top: 90px;
     background: #FFFFFF;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
     border-radius: 10px;
@@ -61,3 +71,44 @@
     display: block;
     object-fit: cover;
 }
+.main-container {
+    width: 100%;
+    height: 100%;
+    left: 5%;
+    top: 80px;
+    background: #ffffffec;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    text-align: left;
+    padding: 40px;
+  }
+  .img-container {
+    width: 100%;
+  }
+.chatbox {
+    margin: 51% 2%;
+    font-family: 'Poppins';
+    width: 730px;
+    height: 62px;
+    background: #F7F5FC;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
+    border-radius: 15px;
+
+}
+.col-1{
+    flex: 1;
+}
+.msg-row{
+    flex-basis: 250px;
+    background: #3874c9;
+}
+.msg-txt{
+ display: flex;
+ align-items: center;
+ margin: 40px;
+ font-style: normal;
+ font-weight: 400;
+ font-size: 15px;
+ 
+}
+
