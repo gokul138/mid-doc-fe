@@ -1,15 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import bin from "../../img/bin.png";
 import Dropzone from "react-dropzone";
 
-const UploadFile = ({fileTypes}) => {
+const UploadFile = ({ fileTypes }) => {
   const [file, setFile] = useState(null);
   const [type, setFileType] = useState("");
 
   useEffect(() => {
-  if(fileTypes){
-    fileTypes === "docGeniee"? setFileType('.pdf') : setFileType('.xlsx, .xls');
-  }
+    if (fileTypes) {
+      fileTypes === "docGeniee"
+        ? setFileType(".pdf")
+        : setFileType(".xlsx, .xls");
+    }
   }, [fileTypes]);
 
   const handleUpload = (acceptedFiles) => {
@@ -49,24 +52,24 @@ const UploadFile = ({fileTypes}) => {
   return (
     <div className="main-container">
       <div className="uploadFile">
-      <label for="avatar">Drag and drop files here:</label>
+      <label for="file">Drag and drop files here:</label>
         <input 
         id="file"
+        className="select-file"
         name="fileUploader"
         type="file" 
         accept={type}
         onChange={handleFileChange} />
-        {file &&<button className="remove-button" onClick={removeFile}>
-          X
-        </button>}
+        {file &&(<button className="remove-button" onClick={removeFile}>
+            <img className="" src={bin} />
+          </button>)}
       </div>
       <div>
-      {file &&
-      <button 
-        className="remove-button" 
-        onClick={handleUpload}>
-        Submit
-      </button>}
+        {file && (
+          <button className="submit-button" onClick={handleUpload}>
+            Submit
+          </button>
+        )}
       </div>
     </div>
   );
