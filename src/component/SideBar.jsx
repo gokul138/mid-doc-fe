@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import UploadFile from './FileDropper';
+import UploadFile from './helpers/FileDropper';
 
 const SideBar = () => {
     const [selectedMode, setSelectedMode] = useState('chatGeniee');
