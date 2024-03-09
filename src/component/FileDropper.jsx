@@ -36,20 +36,29 @@ const UploadFile = ({fileTypes}) => {
   };
 
   const removeFile = () => {
+    var input = document.getElementById('file');
+    input.value = ''; 
     setFile(null);
   };
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+    console.log('FRILS', file);
     setFile(file);
   };
 
   return (
     <div className="main-container">
       <div className="uploadFile">
-        <input type="file" accept={type} onChange={handleFileChange} />
-        <button className="remove-button" onClick={removeFile}>
+      <label for="avatar">Drag and drop files here:</label>
+        <input 
+        id="file"
+        name="fileUploader"
+        type="file" 
+        accept={type}
+        onChange={handleFileChange} />
+        {file &&<button className="remove-button" onClick={removeFile}>
           X
-        </button>
+        </button>}
       </div>
       <div>
       {file &&
