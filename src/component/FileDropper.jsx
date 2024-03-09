@@ -1,13 +1,19 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dropzone from "react-dropzone";
 
-const UploadFile = () => {
+const UploadFile = ({fileTypes}) => {
   const [file, setFile] = useState(null);
+  const [type, setFileType] = useState("");
+
+  useEffect(() => {
+  if(fileTypes){
+    fileTypes === "docGeniee"? setFileType('.pdf') : setFileType('.xlsx, .xls');
+  }
+  }, [fileTypes]);
 
   const handleUpload = (acceptedFiles) => {
     console.log("logging drop/selected file", acceptedFiles[0].size);
-    // fake request to upload file
     const url = "https://api.escuelajs.co/api/v1/files/upload";
     const formData = new FormData();
 
@@ -16,7 +22,6 @@ const UploadFile = () => {
     axios
       .post(url, formData)
       .then((response) => {
-        console.log(response, "sfsd");
         if (response.status === 201) {
           // File uploaded successfully
           setFile(acceptedFiles[0]);
@@ -33,39 +38,27 @@ const UploadFile = () => {
   const removeFile = () => {
     setFile(null);
   };
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setFile(file);
+  };
 
   return (
     <div className="main-container">
-      <Dropzone
-        onDrop={handleUpload}
-        accept="image/*"
-        minSize={1024}
-        maxSize={200000000}
-      >
-        {({ getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject }) => {
-          const additionalClass = isDragAccept ? "accept" : isDragReject ? "reject" : "";
-
-          return (
-            <div
-              {...getRootProps({
-                className: `dropzone ${additionalClass}`,
-              })}
-            >
-              <input {...getInputProps()} />
-              <p>Drag and drop images here, or click to select files</p>
-            </div>
-          );
-        }}
-      </Dropzone>
-      {file && (
-        <div className="file-preview">
-          <button className="remove-button" onClick={removeFile}>
-            X
-          </button>
-          <h4>File Uploaded Successfully !!</h4>
-          <img src={URL.createObjectURL(file)} className="img-container" alt="Uploaded file" />
-        </div>
-      )}
+      <div className="uploadFile">
+        <input type="file" accept={type} onChange={handleFileChange} />
+        <button className="remove-button" onClick={removeFile}>
+          X
+        </button>
+      </div>
+      <div>
+      {file &&
+      <button 
+        className="remove-button" 
+        onClick={handleUpload}>
+        Submit
+      </button>}
+      </div>
     </div>
   );
 };

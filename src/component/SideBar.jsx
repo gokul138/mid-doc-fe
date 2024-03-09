@@ -49,7 +49,7 @@ const SideBar = () => {
                 <br/>
                 {selectedMode === 'dataGeniee' ||
                 selectedMode === 'docGeniee' ?
-                 <UploadFile/>
+                <UploadFile fileTypes={selectedMode}/>
                  :
                  ''}
             </div>
