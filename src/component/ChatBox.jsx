@@ -1,8 +1,9 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 
 const ChatBox = () => {
   const inputRef = useRef(null);
+  const [inputHeight, setInputHeight] = useState("auto");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,31 +22,47 @@ const ChatBox = () => {
     if (message !== "") {
       console.log("Message sent:", message);
       inputRef.current.value = "";
+      setInputHeight("auto"); // Reset input height after sending message
+    }
+  };
+
+  const handleInputChange = () => {
+    const input = inputRef.current;
+    if (input) {
+      setInputHeight(`${input.scrollHeight}px`);
+    }
+  };
+
+  const handleInputDelete = () => {
+    const input = inputRef.current;
+    if (input && input.value === "") {
+      setInputHeight("auto");
     }
   };
 
   return (
     <div className="rghtBox">
-      <div className="searchbox">
-        <MultiSelectComponent />
-      </div>
+      <MultiSelectComponent />
       <div className="chatbox">
         <form id="message-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
+          <textarea
             id="message-input"
+            className="user-input"
             placeholder="Type your message..."
-            ref={inputRef} 
+            ref={inputRef}
             onKeyDown={handleKeyPress}
+            onChange={handleInputChange}
+            onInput={handleInputDelete}
+            style={{ height: inputHeight, maxHeight: "150px" }} // Set input height dynamically with a maximum height
           />
         </form>
       </div>
-      <div className="">
+      <div className="send-container">
         <button type="button" className="sendbtn" onClick={handleSubmit}>
           <img
             src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
-            alt="send"
-          ></img>
+            alt=""
+          />
         </button>
       </div>
     </div>
