@@ -1,11 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import bin from "../../img/bin.png";
 import Dropzone from "react-dropzone";
+import RemoveFileAlert from "./RemoveFileAlert"; // Import the RemoveFileAlert component
 
 const UploadFile = ({ fileTypes }) => {
   const [file, setFile] = useState(null);
   const [type, setFileType] = useState("");
+  const [showRemoveAlert, setShowRemoveAlert] = useState(false); // State to manage whether the alert is shown or not
 
   useEffect(() => {
     if (fileTypes) {
@@ -39,10 +41,18 @@ const UploadFile = ({ fileTypes }) => {
   };
 
   const removeFile = () => {
-    var input = document.getElementById("file");
-    input.value = "";
-    setFile(null);
+    setShowRemoveAlert(true); // Show the alert when the Remove button is clicked
   };
+
+  const confirmRemoveFile = (remove) => {
+    if (remove) {
+      var input = document.getElementById("file");
+      input.value = "";
+      setFile(null);
+    }
+    setShowRemoveAlert(false); // Hide the alert after confirming the removal
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     console.log("FRILS", file);
@@ -52,7 +62,7 @@ const UploadFile = ({ fileTypes }) => {
   return (
     <div className="main-container">
       <div className="uploadFile">
-        <label for="file">Drag and drop files here:</label>
+        <label htmlFor="file">Drag and drop files here:</label>
         <input
           id="file"
           className="select-file"
@@ -72,6 +82,10 @@ const UploadFile = ({ fileTypes }) => {
           </button>
         )}
       </div>
+      {showRemoveAlert && (
+        <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
+      )}{" "}
+      {/* Render the RemoveFileAlert component if showRemoveAlert is true */}
     </div>
   );
 };
