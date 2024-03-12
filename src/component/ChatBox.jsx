@@ -56,14 +56,14 @@ const ChatBox = () => {
             style={{ height: inputHeight, maxHeight: "150px" }} // Set input height dynamically with a maximum height
           />
         </form>
-      </div>
-      <div className="send-container">
-        <button type="button" className="sendbtn" onClick={handleSubmit}>
-          <img
-            src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
-            alt=""
-          />
-        </button>
+        <div className="send-container">
+          <button type="button" className="sendbtn" onClick={handleSubmit}>
+            <img
+              src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
+              alt=""
+            />
+          </button>
+        </div>
       </div>
     </div>
   );

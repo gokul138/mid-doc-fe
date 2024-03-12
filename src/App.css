@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Space Grotesk', sans-serif;
 }
 
 body {
@@ -29,53 +30,72 @@ body {
     display: block;
 }
 
-
 .main-container {
-    width: 100%;
-    height: 100%;
-    left: 5%;
-    top: 80px;
-    background: #ffffffec;
-    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
-    border-radius: 10px;
-    text-align: left;
-    padding: 40px;
-}
-
-.remove-button {
-    outline: none;
-    cursor: pointer;
-    border: none;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: transparent;
-    width: 5%;
-    height: 5%;
-    position: absolute;
-    margin-top: 10%;
+    padding: 5%;
+    width: 100%;
+    background-color: #FFFFFF;
+    outline: 2px dashed rgb(158, 158, 158);
+    border-radius: 10px;
+    margin-left: 11%;
 }
 
-.submit-button {
-    margin-top: 5%;
-    position: absolute;
-}
-
-.remove-button img {
+.uploadFile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5%;
     width: 90%;
-    height: auto;
 }
 
 .select-file {
-    width: 90%;
-    height: auto;
-    font-size: small;
+    width: 100%;
+    margin-top: 7%;
+}
+
+.remove-button {
+    margin-top: 10%;
+    background-color: white;
+    outline: 2px solid red;
+    border: none;
+    width: auto;
+    min-width: 30%;
+    padding: 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.submit-button {
+    background-color: white;
+    outline: 2px solid green;
+    border: none;
+    width: auto;
+    min-width: 30%;
+    padding: 2%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 4%;
+    cursor: pointer;
+    border-radius: 10px;
 }
 
 .rghtBox {
     display: inline-block;
     position: absolute;
     width: 75%;
+    width: 75%;
     height: 85%;
+    left: 26%;
+    top: 12%;
     left: 26%;
     top: 12%;
 }
@@ -144,16 +164,21 @@ body {
 
 .user-input {
     border: none;
-    border-radius: 6px;
+    border-radius: 12px;
     font-size: 16px;
     resize: none;
     outline: none;
     position: absolute;
-    width: 100%;
-    bottom: 4%;
-    min-height: 59px;
-    padding: 1%;
-    background-color: #F0f0f0;
+    width: 85%;
+    min-height: 60px;
+    outline: 1px solid rgb(158, 158, 158);
+    padding-top: 2%;
+    padding-left: 2%;
+    left: 12%;
+}
+
+.user-input:hover {
+    outline: 2px solid rgb(158, 158, 158);
 }
 
 .msg-txt {
@@ -161,26 +186,41 @@ body {
     font-weight: 400;
     font-size: 15px;
     text-align: center;
-    margin-left: 40px;
 }
 
 .sendbtn {
     width: 6%;
-    min-height: 62.01px;
+    min-height: 60px;
     position: absolute;
-    bottom: 7%;
-    left: 86%;
-    outline: none;
+    left: 91%;
+    outline: 1px solid rgb(158, 158, 158);
+    background-color: transparent;
     cursor: pointer;
     border: none;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 12px;
+}
+
+.sendbtn:hover {
+    outline: 2px solid rgb(158, 158, 158);
 }
 
 .sendbtn img {
     width: 55%;
     height: auto;
+    opacity: 50%;
+}
+
+.sendbtn img:hover {
+    width: 65%;
+    height: auto;
+    opacity: 50%;
+}
+
+.select-sheets {
+    display: flex;
+    align-items: center;
 }
 
 .select-sheets {
