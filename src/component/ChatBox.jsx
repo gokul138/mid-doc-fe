@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 
-// Define dummy chat data outside the component
 const dummyChatData = [
   {
     id: 1,
@@ -51,6 +50,7 @@ const dummyChatData = [
 
 const ChatBox = () => {
   const inputRef = useRef(null);
+  const messagesContainerRef = useRef(null);
   const [inputHeight, setInputHeight] = useState("auto");
   const [messages, setMessages] = useState(dummyChatData);
 
@@ -58,13 +58,13 @@ const ChatBox = () => {
     event.preventDefault();
     const messageText = inputRef.current.value.trim();
     if (messageText !== "") {
-      const currentTime = new Date().toLocaleTimeString(); // Get current time
+      const currentTime = new Date().toLocaleTimeString();
       const newMessage = {
         id: messages.length + 1,
         sender: "User 1",
         type: "user",
         text: messageText,
-        timestamp: currentTime, // Add current time to the message
+        timestamp: currentTime,
       };
       setMessages([...messages, newMessage]);
       inputRef.current.value = "";
@@ -79,11 +79,18 @@ const ChatBox = () => {
     }
   };
 
+  useEffect(() => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="rghtBox">
       <MultiSelectComponent />
       <div className="chatbox">
-        <div className="messages-container">
+        <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
             <div key={message.id} className={`message ${message.type}`}>
               <span className="sender">{message.sender}</span>
@@ -122,7 +129,7 @@ const ChatBox = () => {
             placeholder="Type your message..."
             ref={inputRef}
             onKeyDown={handleKeyPress}
-            style={{ height: inputHeight, maxHeight: "150px" }} // Set input height dynamically with a maximum height
+            style={{ height: inputHeight, maxHeight: "150px" }}
           />
           <button type="submit" className="sendbtn">
             <img
