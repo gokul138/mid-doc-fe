@@ -227,3 +227,36 @@ body {
     display: flex;
     align-items: center;
 }
+
+.message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
+  .user-message {
+    background-color: #dcf8c6;
+    align-self: flex-start;
+  }
+  
+  .response-message {
+    background-color: #d3d3d3;
+    align-self: flex-end;
+  }
+  
+  /* Add border to table elements */
+  .table-container table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table-container th,
+  .table-container td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .table-container th {
+    background-color: #f2f2f2;
+  }
+  

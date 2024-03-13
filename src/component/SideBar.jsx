@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UploadFile from './helpers/FileDropper';
 
 const SideBar = () => {
-    const [selectedMode, setSelectedMode] = useState('chatGeniee');
+    const [selectedMode, setSelectedMode] = useState('dataGeniee');
     console.log('selectedMode', selectedMode);
 
     const handleRadio = (event) => {
@@ -15,7 +15,7 @@ const SideBar = () => {
             <div className="interactionMode">
                 <p>Choose your interaction mode:</p>
                 <br />
-                <label>
+                {/* <label>
                     <input 
                         type="radio" 
                         name="interactionMode" 
@@ -33,8 +33,8 @@ const SideBar = () => {
                         onChange={handleRadio}
                         value="docGeniee" 
                     /> Doc Geniee
-                </label>
-                <br />
+                </label> 
+                <br />*/}
                 <label>
                     <input 
                         type="radio" 
