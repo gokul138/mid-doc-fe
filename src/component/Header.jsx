@@ -1,5 +1,7 @@
 import React from "react";
 import profile from "../img/profile.jpg";
+import Dropdown from "./helpers/Dropdown";
+
 const Header = () => {
   return (
     <div className="header">
@@ -9,9 +11,11 @@ const Header = () => {
         <div className="profileImage">
           <img className="pic" src={profile} alt="" />
         </div>
-        <div className="profilename">Vaisakh</div>
+        <div className="profilename">
+          Vaisakh
+          <Dropdown />
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 };
