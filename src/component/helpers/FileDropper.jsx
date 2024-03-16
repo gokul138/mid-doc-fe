@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import bin from "../../img/bin.png";
 import Dropzone from "react-dropzone";
 import RemoveFileAlert from "./RemoveFileAlert"; // Import the RemoveFileAlert component
 

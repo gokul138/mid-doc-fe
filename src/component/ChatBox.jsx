@@ -129,7 +129,10 @@ const ChatBox = () => {
             placeholder="Type your message..."
             ref={inputRef}
             onKeyDown={handleKeyPress}
-            style={{ height: inputHeight, maxHeight: "150px" }}
+            style={{
+              height: inputHeight,
+              maxHeight: "150px",
+            }}
           />
           <button type="submit" className="sendbtn">
             <img
