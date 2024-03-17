@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Dropzone from "react-dropzone";
 import RemoveFileAlert from "./RemoveFileAlert"; // Import the RemoveFileAlert component
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const UploadFile = ({ fileTypes }) => {
   const [file, setFile] = useState(null);
@@ -60,31 +63,37 @@ const UploadFile = ({ fileTypes }) => {
 
   return (
     <div className="main-container">
-      <div className="uploadFile">
-        <label htmlFor="file">Drag and drop files here:</label>
+      <div className="uploadFileBox">
+        <FontAwesomeIcon
+          icon={faArrowUpFromBracket}
+          style={{ marginTop: "5%" }}
+        />
+        <label htmlFor="file">
+          {"Drag & drop your file here Or browse file from device"}
+        </label>
         <input
           id="file"
           className="select-file"
           name="fileUploader"
           type="file"
           accept={type}
+          multiple
           onChange={handleFileChange}
         />
         {file && (
           <button className="remove-button" onClick={removeFile}>
-            Remove
-          </button>
-        )}
-        {file && (
-          <button className="submit-button" onClick={handleUpload}>
-            Submit
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         )}
       </div>
       {showRemoveAlert && (
         <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
-      )}{" "}
-      {/* Render the RemoveFileAlert component if showRemoveAlert is true */}
+      )}
+      {file && (
+        <button className="submit-button" onClick={handleUpload}>
+          Upload
+        </button>
+      )}
     </div>
   );
 };

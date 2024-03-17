@@ -40,6 +40,7 @@ const MultiSelectComponent = () => {
   return (
     <div className="select-sheets">
       <Select
+        className="selection"
         options={options}
         isMulti
         value={selectedOptions}

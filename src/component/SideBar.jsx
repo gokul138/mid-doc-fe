@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import UploadFile from './helpers/FileDropper';
+import React, { useState } from "react";
+import UploadFile from "./helpers/FileDropper";
 
 const SideBar = () => {
-    const [selectedMode, setSelectedMode] = useState('dataGeniee');
-    console.log('selectedMode', selectedMode);
+  const [selectedMode, setSelectedMode] = useState("dataGeniee");
+  console.log("selectedMode", selectedMode);
 
-    const handleRadio = (event) => {
-        setSelectedMode(event.target.value);
-        console.log('Selected Mode:', event.target.value);
-    };
+  const handleRadio = (event) => {
+    setSelectedMode(event.target.value);
+    console.log("Selected Mode:", event.target.value);
+  };
 
-    return (
-        <div className="lftBox">
-            <div className="interactionMode">
-                <p>Choose your interaction mode:</p>
-                <br />
-                {/* <label>
+  return (
+    <div className="lftBox">
+      <div className="interactionMode">
+        <p>Choose your interaction mode:</p>
+        <br />
+        {/* <label>
                     <input 
                         type="radio" 
                         name="interactionMode" 
@@ -35,26 +35,27 @@ const SideBar = () => {
                     /> Doc Geniee
                 </label> 
                 <br />*/}
-                <label>
-                    <input 
-                        type="radio" 
-                        name="interactionMode" 
-                        checked={selectedMode === "dataGeniee"}
-                        onChange={handleRadio}
-                        value="dataGeniee" 
-                    /> Data Geniee
-                </label>
-            </div>
-            <div className="uploadFile">
-                <br/>
-                {selectedMode === 'dataGeniee' ||
-                selectedMode === 'docGeniee' ?
-                <UploadFile fileTypes={selectedMode}/>
-                 :
-                 ''}
-            </div>
-        </div>
-    );
+        <label>
+          <input
+            type="radio"
+            name="interactionMode"
+            checked={selectedMode === "dataGeniee"}
+            onChange={handleRadio}
+            value="dataGeniee"
+          />{" "}
+          Data Geniee
+        </label>
+      </div>
+      <div className="uploadFile">
+        <br />
+        {selectedMode === "dataGeniee" || selectedMode === "docGeniee" ? (
+          <>
+            <UploadFile fileTypes={selectedMode} />
+          </>
+        ) : null}
+      </div>
+    </div>
+  );
 };
 
 export default SideBar;
