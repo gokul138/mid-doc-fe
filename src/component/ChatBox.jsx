@@ -29,14 +29,30 @@ const dummyChatData = [
     type: "user",
     text: "Sure, here is the table:",
     table: {
-      headers: ["Product", "Quantity"],
+      headers: [
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+        "Product",
+        "Quantity",
+      ],
       rows: [
         ["Product A", 10],
         ["Product B", 20],
         ["Product C", 15],
       ],
     },
-    timestamp: "10:15 AM",
   },
   {
     id: 5,
@@ -92,15 +108,15 @@ const ChatBox = () => {
       <div className="chatbox">
         <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
-            <div className={`message ${message.type}`}>
-              <div className="message-header">
-                <div className="sender">{message.sender}</div>
-                <div className="timestamp">{message.timestamp}</div>
+            <div key={message.id} className={`message ${message.type}`}>
+              <div className="message-head">
+                <div className="initial">{message.sender.charAt(0)}</div>
+                <span className="send">{message.sender}</span>
               </div>
               <div className="text">{message.text}</div>
               {message.table && (
                 <div className="table-container">
-                  <table>
+                  <table className="scroll-table">
                     <thead>
                       <tr>
                         {message.table.headers.map((header, index) => (
