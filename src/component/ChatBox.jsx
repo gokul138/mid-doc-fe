@@ -92,9 +92,11 @@ const ChatBox = () => {
       <div className="chatbox">
         <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
-            <div key={message.id} className={`message ${message.type}`}>
-              <span className="sender">{message.sender}</span>
-              <span className="timestamp">{message.timestamp}</span>
+            <div className={`message ${message.type}`}>
+              <div className="message-header">
+                <div className="sender">{message.sender}</div>
+                <div className="timestamp">{message.timestamp}</div>
+              </div>
               <div className="text">{message.text}</div>
               {message.table && (
                 <div className="table-container">
