@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
 function PricingBox() {
   const props = [
@@ -29,11 +30,27 @@ function PricingBox() {
             <h3>{item.price}</h3>
           </div>
           <div className="features">
-            <p>An Item</p>
-            <p>An Second Item</p>
-            <p>An Third Item</p>
-            <p>An Fourth Item</p>
-            <p>And a Fifth One</p>
+            <p>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span> </span>
+              An Item
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span> </span>An Second Item
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span> </span>An Third Item
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span> </span>An Fourth Item
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faCheckCircle} />
+              <span> </span>And a Fifth One
+            </p>
           </div>
           <button key={index} className="btn-getstarted">
             Get Started

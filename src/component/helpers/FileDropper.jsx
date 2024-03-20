@@ -79,6 +79,7 @@ const UploadFile = ({ fileTypes }) => {
           accept={type}
           multiple
           onChange={handleFileChange}
+          style={{ display: "none" }}
         />
         {file && (
           <button className="remove-button" onClick={removeFile}>

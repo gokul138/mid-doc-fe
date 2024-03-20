@@ -358,32 +358,65 @@ body {
 }
 
 .message {
-    margin-bottom: 3%;
-    padding: 10px;
-    border-radius: 5px;
+    margin-bottom: 5%;
     width: fit-content;
+    max-width: 95%;
+    word-wrap: break-word;
 }
 
-.sender {
+.message-head {
+    display: flex;
+    flex-direction: row;
+}
+
+.initial {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.send {
     font-weight: bold;
-}
-
-.timestamp {
-    font-size: 12px;
-    color: #777;
-    margin: 2% 0 2% 0;
+    padding-top: 8px;
 }
 
 .text {
-    margin-top: 5px;
-    white-space: pre-line;
+    display: inline-block;
+    white-space: pre-wrap;
+    width: 100%;
 }
 
 
 .table-container {
-    margin-top: 10px;
+    overflow-x: auto;
+    max-width: 100%;
+    padding-bottom: 2%;
 }
 
+.scroll-table {
+    width: 100%;
+    table-layout: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background-color: transparent;
+}
 
 .table-container table {
     width: 100%;
@@ -406,4 +439,3 @@ body {
     padding: 10px;
     background-color: #fff;
 }
-
