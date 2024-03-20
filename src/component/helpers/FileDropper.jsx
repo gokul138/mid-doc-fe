@@ -43,7 +43,7 @@ const UploadFile = ({ fileTypes }) => {
   };
 
   const removeFile = () => {
-    setShowRemoveAlert(true); // Show the alert when the Remove button is clicked
+    setShowRemoveAlert(true);
   };
 
   const confirmRemoveFile = (remove) => {
@@ -52,7 +52,7 @@ const UploadFile = ({ fileTypes }) => {
       input.value = "";
       setFile(null);
     }
-    setShowRemoveAlert(false); // Hide the alert after confirming the removal
+    setShowRemoveAlert(false);
   };
 
   const handleFileChange = (event) => {
@@ -81,6 +81,10 @@ const UploadFile = ({ fileTypes }) => {
           onChange={handleFileChange}
           style={{ display: "none" }}
         />
+        <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
+        <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
+        <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
+        <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
         {file && (
           <button className="remove-button" onClick={removeFile}>
             <FontAwesomeIcon icon={faTrash} />
@@ -90,11 +94,11 @@ const UploadFile = ({ fileTypes }) => {
       {showRemoveAlert && (
         <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
       )}
-      {file && (
+      {/* {file && (
         <button className="submit-button" onClick={handleUpload}>
           Upload
         </button>
-      )}
+      )} */}
     </div>
   );
 };

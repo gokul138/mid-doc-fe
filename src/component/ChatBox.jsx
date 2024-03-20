@@ -20,7 +20,7 @@ const dummyChatData = [
     id: 3,
     sender: "User 2",
     type: "response",
-    text: "Can you send me the sales report?",
+    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
     timestamp: "10:10 AM",
   },
   {
@@ -48,9 +48,60 @@ const dummyChatData = [
         "Quantity",
       ],
       rows: [
-        ["Product A", 10],
-        ["Product B", 20],
-        ["Product C", 15],
+        [
+          "Product A",
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+        ],
+        [
+          "Product B",
+          20,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+        ],
+        [
+          "Product C",
+          15,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+        ],
       ],
     },
   },
@@ -136,7 +187,7 @@ const ChatBox = () => {
                   </table>
                 </div>
               )}
-              {message.image && <img src={message.image} alt="Image" />}
+              {/* {message.image && <img src={message.image} alt="Image" />} */}
             </div>
           ))}
         </div>
