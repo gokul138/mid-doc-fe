@@ -19,7 +19,7 @@ const MultiSelectComponent = () => {
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      border: "1px solid #ccc",
+      border: "2px solid #ccc",
       borderRadius: "6px",
       boxShadow: state.isFocused ? "0 0 0 2px rgba(66, 153, 225, 0.5)" : null,
       "&:hover": {
