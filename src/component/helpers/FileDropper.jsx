@@ -85,20 +85,22 @@ const UploadFile = ({ fileTypes }) => {
         <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
         <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
         <p className="display-name">New Microsoft Excel Worksheet.xlxs</p>
+      </div>
+      <div className="button-container">
+        {file && (
+          <button className="submit-button" onClick={handleUpload}>
+            Upload
+          </button>
+        )}
         {file && (
           <button className="remove-button" onClick={removeFile}>
-            <FontAwesomeIcon icon={faTrash} />
+            Remove
           </button>
         )}
       </div>
       {showRemoveAlert && (
         <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
       )}
-      {/* {file && (
-        <button className="submit-button" onClick={handleUpload}>
-          Upload
-        </button>
-      )} */}
     </div>
   );
 };

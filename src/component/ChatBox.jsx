@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComputer, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const dummyChatData = [
   {
     id: 1,
     sender: "User 2",
     type: "response",
-    text: "Hello, how are you?",
+    text: "Hello, I am DocGeinee! How are you?",
     timestamp: "10:00 AM",
   },
   {
@@ -27,7 +29,7 @@ const dummyChatData = [
     id: 4,
     sender: "User 1",
     type: "user",
-    text: "Sure, here is the table:",
+    // text: "Sure, here is the table:",
     table: {
       headers: [
         "Product",
@@ -159,36 +161,43 @@ const ChatBox = () => {
       <div className="chatbox">
         <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
-            <div key={message.id} className={`message ${message.type}`}>
-              <div className="message-head">
-                <div className="initial">{message.sender.charAt(0)}</div>
-                <span className="send">{message.sender}</span>
-              </div>
-              <div className="text">{message.text}</div>
-              {message.table && (
-                <div className="table-container">
-                  <table className="scroll-table">
-                    <thead>
-                      <tr>
-                        {message.table.headers.map((header, index) => (
-                          <th key={index}>{header}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {message.table.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                          {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}>{cell}</td>
+            <>
+              <div className="chat-bubble">
+                <div className="initial">
+                  <FontAwesomeIcon
+                    icon={message.type == "user" ? faUser : faComputer}
+                  />
+                </div>
+                {!message.table && (
+                  <div key={message.id} className={`message ${message.type}`}>
+                    <div className="text">{message.text}</div>
+                  </div>
+                )}
+                {message.table && (
+                  <div className="table-container">
+                    <table className="scroll-table">
+                      <thead>
+                        <tr>
+                          {message.table.headers.map((header, index) => (
+                            <th key={index}>{header}</th>
                           ))}
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-              {/* {message.image && <img src={message.image} alt="Image" />} */}
-            </div>
+                      </thead>
+                      <tbody>
+                        {message.table.rows.map((row, rowIndex) => (
+                          <tr key={rowIndex}>
+                            {row.map((cell, cellIndex) => (
+                              <td key={cellIndex}>{cell}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+                {/* {message.image && <img src={message.image} alt="Image" />} */}
+              </div>
+            </>
           ))}
         </div>
         <form id="message-form" onSubmit={handleSubmit}>
@@ -198,10 +207,6 @@ const ChatBox = () => {
             placeholder="Type your message..."
             ref={inputRef}
             onKeyDown={handleKeyPress}
-            style={{
-              height: inputHeight,
-              maxHeight: "150px",
-            }}
           />
           <button type="submit" className="sendbtn">
             <img
