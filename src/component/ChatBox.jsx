@@ -2,128 +2,15 @@ import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComputer, faUser } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-const dummyChatData = [
-  {
-    id: 1,
-    sender: "User 2",
-    type: "response",
-    text: "Hello, I am DocGeinee! How are you?",
-    timestamp: "10:00 AM",
-  },
-  {
-    id: 2,
-    sender: "User 1",
-    type: "user",
-    text: "I'm doing great, thanks!",
-    timestamp: "10:05 AM",
-  },
-  {
-    id: 3,
-    sender: "User 2",
-    type: "response",
-    text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    timestamp: "10:10 AM",
-  },
-  {
-    id: 4,
-    sender: "User 1",
-    type: "user",
-    // text: "Sure, here is the table:",
-    table: {
-      headers: [
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-        "Product",
-        "Quantity",
-      ],
-      rows: [
-        [
-          "Product A",
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-        ],
-        [
-          "Product B",
-          20,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-        ],
-        [
-          "Product C",
-          15,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-          10,
-        ],
-      ],
-    },
-  },
-  {
-    id: 5,
-    sender: "User 2",
-    type: "response",
-    text: "And here is an image:",
-    image: "https://via.placeholder.com/150",
-    timestamp: "10:20 AM",
-  },
-];
-
-const ChatBox = () => {
+const ChatBox = ({ sessionId, fileResponse }) => {
   const inputRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const [inputHeight, setInputHeight] = useState("auto");
-  const [messages, setMessages] = useState(dummyChatData);
+  const [messages, setMessages] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const messageText = inputRef.current.value.trim();
     if (messageText !== "") {
@@ -138,6 +25,19 @@ const ChatBox = () => {
       setMessages([...messages, newMessage]);
       inputRef.current.value = "";
       setInputHeight("auto");
+
+      try {
+        const response = await axios.post(
+          "http://ec2-15-207-169-254.ap-south-1.compute.amazonaws.com:8081/conversation",
+          {
+            id: sessionId,
+            query: messageText,
+          }
+        );
+        console.log("API Response:", response.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
     }
   };
 
@@ -157,47 +57,20 @@ const ChatBox = () => {
 
   return (
     <div className="rghtBox">
-      <MultiSelectComponent />
+      <MultiSelectComponent sessionId={sessionId} fileResponse={fileResponse} />
       <div className="chatbox">
         <div className="messages-container" ref={messagesContainerRef}>
           {messages.map((message) => (
-            <>
-              <div className="chat-bubble">
-                <div className="initial">
-                  <FontAwesomeIcon
-                    icon={message.type == "user" ? faUser : faComputer}
-                  />
-                </div>
-                {!message.table && (
-                  <div key={message.id} className={`message ${message.type}`}>
-                    <div className="text">{message.text}</div>
-                  </div>
-                )}
-                {message.table && (
-                  <div className="table-container">
-                    <table className="scroll-table">
-                      <thead>
-                        <tr>
-                          {message.table.headers.map((header, index) => (
-                            <th key={index}>{header}</th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {message.table.rows.map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {row.map((cell, cellIndex) => (
-                              <td key={cellIndex}>{cell}</td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                {/* {message.image && <img src={message.image} alt="Image" />} */}
+            <div key={message.id} className="chat-bubble">
+              <div className="initial">
+                <FontAwesomeIcon
+                  icon={message.type === "user" ? faUser : faComputer}
+                />
               </div>
-            </>
+              <div className={`message ${message.type}`}>
+                {message.text}
+              </div>
+            </div>
           ))}
         </div>
         <form id="message-form" onSubmit={handleSubmit}>
