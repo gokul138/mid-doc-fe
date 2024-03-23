@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UploadFile from "./helpers/FileDropper";
 
-const SideBar = () => {
+const SideBar = ({setSession, setFileResponse}) => {
   const [selectedMode, setSelectedMode] = useState("dataGeniee");
   console.log("selectedMode", selectedMode);
 
@@ -50,7 +50,7 @@ const SideBar = () => {
         <br />
         {selectedMode === "dataGeniee" || selectedMode === "docGeniee" ? (
           <>
-            <UploadFile fileTypes={selectedMode} />
+            <UploadFile fileTypes={selectedMode} setSession={setSession} setFileResponse={setFileResponse} />
           </>
         ) : null}
       </div>
