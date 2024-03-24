@@ -370,7 +370,7 @@ body {
     background-color: rgb(219, 215, 215);
 } */
 
-.message {
+.message  {
     display: flex;
     margin-bottom: 5%;
     width: 100%;
@@ -381,8 +381,9 @@ body {
     border-radius: 10px;
     box-sizing: border-box;
     position: relative;
-    /* Required for pseudo-element positioning */
+   
 }
+
 
 .message-head {
     display: flex;
@@ -407,8 +408,11 @@ body {
 .text {
     display: inline-block;
     white-space: pre-wrap;
-    width: 100%;
+    width: 20%;
     margin-left: 40px;
+}
+.message-text{
+    width: 100%;
 }
 
 
@@ -477,7 +481,3 @@ body {
     margin-top: 10%;
 }
 
-/* @media only screen and (max-width: 768px) {
-
-
-} */
