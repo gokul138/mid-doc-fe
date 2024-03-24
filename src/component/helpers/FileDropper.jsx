@@ -6,9 +6,8 @@ import RemoveFileAlert from "./RemoveFileAlert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import "toastify-js/src/toastify.css"
+import "toastify-js/src/toastify.css";
 import StartToastifyInstance from "toastify-js";
-
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
@@ -27,7 +26,15 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
 
   const handleUpload = async () => {
     if (!file) {
-      alert("Please select a file to upload");
+      StartToastifyInstance({
+        text: "Please select a file to upload",
+        className: "info",
+        // gravity: "bottom", // top or bottom
+        // position: "right", // left, center or right
+        style: {
+          background: "linear-gradient(to right, #FFFF00, #FF0000)",
+        },
+      }).showToast();
       return;
     }
 
@@ -50,7 +57,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           className: "info",
           style: {
             background: "linear-gradient(to right, #00b09b, #96c93d)",
-          }
+          },
         }).showToast();
         // Optionally, you can reset the file state after successful upload
         // setFile([]);
@@ -59,7 +66,13 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       }
     } catch (error) {
       console.error("Error uploading file:", error);
-      alert("Failed to upload file");
+      StartToastifyInstance({
+        text: "Failed to upload file",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #FFA500, #FF0000)",
+        },
+      }).showToast();
     }
   };
 
@@ -140,6 +153,9 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           <button className="remove-button" onClick={removeFile}>
             Remove
           </button>
+        )}
+        {showRemoveAlert && (
+          <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
         )}
       </div>
     </div>

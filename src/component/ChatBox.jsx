@@ -68,7 +68,7 @@ const ChatBox = ({ sessionId, fileResponse }) => {
                 />
               </div>
               <div className={`message ${message.type}`}>
-                {message.text}
+                <p className="message-text">{message.text}</p>
               </div>
             </div>
           ))}
