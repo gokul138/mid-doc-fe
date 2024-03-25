@@ -3,6 +3,7 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import ChatBox from "./ChatBox";
 import Welcome from "./Welcome";
+import Loader from "./Loader";
 
 const Home = () => {
   const [sessionId, setSession] = useState("");
@@ -15,6 +16,7 @@ const Home = () => {
         <SideBar setSession={setSession} setFileResponse={setFileResponse} />
         <ChatBox sessionId={sessionId} fileResponse={fileResponse} />
         {/* <Welcome /> */}
+        {/* <Loader /> */}
       </div>
     </>
   );

@@ -1,0 +1,68 @@
+.loader {
+    width: 75vw;
+    height: 100vh;
+    margin-left: 25%;
+}
+
+.box1 {
+    background-color: rgb(235, 234, 234);
+    width: 50vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 6%;
+    border-radius: 12px;
+}
+
+.box2 {
+    background-color: rgb(235, 234, 234);
+    width: 30vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
+
+.box3 {
+    background-color: rgb(235, 234, 234);
+    width: 40vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
+
+.box4 {
+    background-color: rgb(235, 234, 234);
+    width: 55vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
+
+.box5 {
+    background-color: rgb(235, 234, 234);
+    width: 48vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
+
+.box6 {
+    background-color: rgb(235, 234, 234);
+    width: 8vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
+
+.box7 {
+    background-color: rgb(235, 234, 234);
+    width: 35vw;
+    height: 7vh;
+    margin-left: 17%;
+    margin-top: 2.5%;
+    border-radius: 12px;
+}
