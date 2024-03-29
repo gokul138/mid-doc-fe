@@ -10,11 +10,11 @@ const Route00 = () => {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/pricing/" element={<Pricing />} />
-          <Route path="/main/" element={<Home />} />
-          <Route path="/signup/" element={<Login />} />
-          <Route path="/login/" element={<Login />} />
-          <Route path="/password/" element={<Forgotpassword />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Login />} />
+          <Route path="/forgot-password" element={<Forgotpassword />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/main" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -86,6 +86,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       var input = document.getElementById("file");
       input.value = "";
       setFile([]);
+      setFileResponse([])
     }
     setShowRemoveAlert(false);
   };

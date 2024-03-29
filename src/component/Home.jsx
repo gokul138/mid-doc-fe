@@ -14,7 +14,7 @@ const Home = () => {
       <Header />
       <div>
         <SideBar setSession={setSession} setFileResponse={setFileResponse} />
-        <ChatBox sessionId={sessionId} fileResponse={fileResponse} />
+        <ChatBox sessionId={sessionId} fileResponse={fileResponse} setFileResponse={setFileResponse} />
         {/* <Welcome /> */}
         {/* <Loader /> */}
       </div>
