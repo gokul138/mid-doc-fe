@@ -148,14 +148,19 @@ body {
 .header-logo {
     background-image: url(../src/img/logo.png);
     background-size: cover;
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
+}
+
+.app-name {
+    margin: 5%;
 }
 
 .header-content {
     flex-direction: row;
     display: flex;
-    margin-top: 0.5%;
+    width: 11vw;
+    justify-content: space-between;
 }
 
 .profileImage {
