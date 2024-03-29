@@ -3,18 +3,17 @@
     align-items: center;
     justify-content: center;
     margin-left: 25%;
-    margin-top: 5%;
+    margin-top: 10%;
     flex-direction: column;
 }
 
 .welcome-text {
-    font-size: 40px;
+    font-size: 30px;
 }
 
 .welcome-logo {
-    height: 250px;
-    width: 250px;
-    /* border: 1px solid black; */
+    height: 150px;
+    width: 150px;
     background-image: url('./img/logo.png');
     background-repeat: no-repeat;
     background-size: cover;
@@ -29,8 +28,8 @@
 .file-icon,
 .computer-icon,
 .folder-open-icon {
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     color: #2082c4;
     margin: 4%;
     opacity: 25%;

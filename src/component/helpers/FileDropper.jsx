@@ -8,6 +8,7 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "toastify-js/src/toastify.css";
 import StartToastifyInstance from "toastify-js";
+import "../../../src/filedropper.css"
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);

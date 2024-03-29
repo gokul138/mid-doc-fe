@@ -7,8 +7,10 @@ import { faUser } from "@fortawesome/free-solid-svg-icons";
 const Header = () => {
   return (
     <div className="header">
-      {/* <div> */}
-      <span className="">DocGeniee</span>
+      <div className="header-content">
+        <div className="header-logo"></div>
+        <span className="app-name">DataGeniee</span>
+      </div>
       <div className="profile-container">
         <FontAwesomeIcon icon={faUser} className="user-icon" />
         <div className="profilename">

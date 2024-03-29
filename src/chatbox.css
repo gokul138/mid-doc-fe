@@ -1,0 +1,9 @@
+.send-icon {
+    width: 4vw;
+    height: 4vh;
+    color: rgb(133, 133, 133);
+}
+
+.send-icon:active {
+    color: black;
+}

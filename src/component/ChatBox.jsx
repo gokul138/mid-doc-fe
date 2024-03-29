@@ -1,8 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComputer, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComputer,
+  faUser,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import "../../src/chatbox.css";
 
 const ChatBox = ({ sessionId, fileResponse }) => {
   const inputRef = useRef(null);
@@ -82,9 +87,13 @@ const ChatBox = ({ sessionId, fileResponse }) => {
             onKeyDown={handleKeyPress}
           />
           <button type="submit" className="sendbtn">
-            <img
+            {/* <img
               src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
               alt=""
+            /> */}
+            <FontAwesomeIcon
+              className="send-icon"
+              icon={faArrowUpRightFromSquare}
             />
           </button>
         </form>
