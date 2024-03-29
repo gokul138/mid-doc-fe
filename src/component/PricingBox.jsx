@@ -37,15 +37,15 @@ function PricingBox() {
             </p>
             <p>
               <FontAwesomeIcon icon={faCheckCircle} />
-              <span> </span>An Second Item
+              <span> </span>Second Item
             </p>
             <p>
               <FontAwesomeIcon icon={faCheckCircle} />
-              <span> </span>An Third Item
+              <span> </span>Third Item
             </p>
             <p>
               <FontAwesomeIcon icon={faCheckCircle} />
-              <span> </span>An Fourth Item
+              <span> </span>Fourth Item
             </p>
             <p>
               <FontAwesomeIcon icon={faCheckCircle} />
