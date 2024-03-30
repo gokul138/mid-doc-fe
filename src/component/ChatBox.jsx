@@ -1,11 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faComputer,
-  faUser,
-  faArrowUpRightFromSquare,
-} from "@fortawesome/free-solid-svg-icons";
+import { faComputer, faUser } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "../../src/chatbox.css";
 
@@ -31,60 +27,60 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
             {
               data: [
                 {
-                  "Item": "Pencil",
-                  "OrderDate": "Wed, 06 Jan 2021 00:00:00 GMT",
-                  "Region": "East",
-                  "Rep": "Jones",
-                  "Total": 189.05,
+                  Item: "Pencil",
+                  OrderDate: "Wed, 06 Jan 2021 00:00:00 GMT",
+                  Region: "East",
+                  Rep: "Jones",
+                  Total: 189.05,
                   "Unit Cost": 1.99,
-                  "Units": 95
+                  Units: 95,
                 },
                 {
-                  "Item": "Binder",
-                  "OrderDate": "Sat, 23 Jan 2021 00:00:00 GMT",
-                  "Region": "Central",
-                  "Rep": "Kivell",
-                  "Total": 999.4999999999999,
+                  Item: "Binder",
+                  OrderDate: "Sat, 23 Jan 2021 00:00:00 GMT",
+                  Region: "Central",
+                  Rep: "Kivell",
+                  Total: 999.4999999999999,
                   "Unit Cost": 19.99,
-                  "Units": 50
+                  Units: 50,
                 },
                 {
-                  "Item": "Pencil",
-                  "OrderDate": "Tue, 09 Feb 2021 00:00:00 GMT",
-                  "Region": "Central",
-                  "Rep": "Jardine",
-                  "Total": 179.64000000000001,
+                  Item: "Pencil",
+                  OrderDate: "Tue, 09 Feb 2021 00:00:00 GMT",
+                  Region: "Central",
+                  Rep: "Jardine",
+                  Total: 179.64000000000001,
                   "Unit Cost": 4.99,
-                  "Units": 36
+                  Units: 36,
                 },
                 {
-                  "Item": "Pen",
-                  "OrderDate": "Fri, 26 Feb 2021 00:00:00 GMT",
-                  "Region": "Central",
-                  "Rep": "Gill",
-                  "Total": 539.7299999999999,
+                  Item: "Pen",
+                  OrderDate: "Fri, 26 Feb 2021 00:00:00 GMT",
+                  Region: "Central",
+                  Rep: "Gill",
+                  Total: 539.7299999999999,
                   "Unit Cost": 19.99,
-                  "Units": 27
+                  Units: 27,
                 },
                 {
-                  "Item": "Pencil",
-                  "OrderDate": "Mon, 15 Mar 2021 00:00:00 GMT",
-                  "Region": "West",
-                  "Rep": "Sorvino",
-                  "Total": 167.44,
+                  Item: "Pencil",
+                  OrderDate: "Mon, 15 Mar 2021 00:00:00 GMT",
+                  Region: "West",
+                  Rep: "Sorvino",
+                  Total: 167.44,
                   "Unit Cost": 2.99,
-                  "Units": 56
-                }
+                  Units: 56,
+                },
               ],
-              sheetName: "SalesOrders"
-            }
-          ]
-        }
-      ]
+              sheetName: "SalesOrders",
+            },
+          ],
+        },
+      ],
     };
     // setFileResponse(dummyFileResponse);
   }, []);
-console.log('tableResponse', messages, tableResponse);
+  console.log("tableResponse", messages, tableResponse);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const messageText = inputRef.current.value.trim();
@@ -114,7 +110,7 @@ console.log('tableResponse', messages, tableResponse);
         );
 
         // Process API response
-        console.log('response', response.data);
+        console.log("response", response.data);
         processApiResponse(response.data, currentTime);
       } catch (error) {
         console.error("Error:", error);
@@ -218,14 +214,10 @@ console.log('tableResponse', messages, tableResponse);
             onKeyDown={handleKeyPress}
           />
           <button type="submit" className="sendbtn">
-            {/* <img
+            <img
               src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
               alt=""
-            /> */}
-            <FontAwesomeIcon
-              className="send-icon"
-              icon={faArrowUpRightFromSquare}
-            />
+            ></img>
           </button>
         </form>
       </div>
