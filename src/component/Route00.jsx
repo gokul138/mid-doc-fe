@@ -4,6 +4,7 @@ import Home from "./Home";
 import Pricing from "./Pricing";
 import Login from "./Login";
 import Forgotpassword from "./Forgotpassword";
+import SignUp from "./Signup";
 
 const Route00 = () => {
   return (
@@ -11,6 +12,7 @@ const Route00 = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/signup" element={<Login />} />
           <Route path="/forgot-password" element={<Forgotpassword />} />
           <Route path="/pricing" element={<Pricing />} />
