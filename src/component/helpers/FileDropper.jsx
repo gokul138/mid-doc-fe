@@ -95,29 +95,53 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     const files = event.target.files;
     const fileList = Array.from(files);
 
-    // Extract file names and store in another variable
-    const fileNames = fileList.map((file) => file.name);
+    if (fileList.length <= 4) {
+      let totalSheetCount = 0;
 
-    // Set the files in the state
-    setFile(fileList);
+      const fileCheck = fileList.map(async (file) => {
+        const sheetCount = await readExcelFile(file);
+        totalSheetCount += sheetCount;
+      });
 
-    // Set the file names in another variable if needed
-    setFileName(fileNames);
+      Promise.all(fileCheck).then(() => {
+        if (totalSheetCount > 4) {
+          StartToastifyInstance({
+            text: "Total number of sheets across files cannot exceed 4",
+            className: "info",
+            style: {
+              background: "linear-gradient(to right, #FFA500, #FF0000)",
+            },
+          }).showToast();
+        } else {
+          const fileNames = fileList.map((file) => file.name);
+          setFile(fileList);
+          setFileResponse(fileList); // Assuming setFileResponse is a function to handle file response
+        }
+      });
+    } else {
+      StartToastifyInstance({
+        text: "Upload less than or equal to 4 files",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #FFA500, #FF0000)",
+        },
+      }).showToast();
+    }
   };
-
-  // console.log('sessionIzzd', response.data.files);
-
-  console.log("filesxs", file);
 
   const readExcelFile = (file) => {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const data = new Uint8Array(event.target.result);
-      const workbook = XLSX.read(data, { type: "array" });
-      // Here you can handle the Excel file data, such as extracting sheet names, etc.
-    };
-    reader.readAsArrayBuffer(file);
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const sheetCount = workbook.SheetNames.length;
+        resolve(sheetCount);
+      };
+      reader.readAsArrayBuffer(file);
+    });
   };
+  
 
   return (
     <div className="main-container">
