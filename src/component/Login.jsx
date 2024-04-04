@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../login.css";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
-
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
+  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -20,23 +22,27 @@ function Login() {
     setErrors({ ...errors, password: "" });
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     
     // Perform client-side validation
     const newErrors = {};
 
-    // if (!email) {
-    //   newErrors.email = "Please enter your email.";
-    // } else if (!emailRegex.test(email)) {
-    //   newErrors.email = "Please enter a valid email address.";
-    // }
-
-    // if (!password) {
-    //   newErrors.password = "Please enter your password.";
-    // } else if (!passwordRegex.test(password)) {
-    //   newErrors.password = "Please enter a password with at least 8 characters, including uppercase, lowercase, and numbers.";
-    // }
+    // Validate email and password (uncomment if needed)
+    if (!email) {
+      newErrors.email = "Please enter your email.";
+    } else if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!password) {
+      newErrors.password = "Please enter your password.";
+    } else if (!passwordRegex.test(password)) {
+      newErrors.password = "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -49,8 +55,12 @@ function Login() {
         email,
         password
       });
-
-      // Handle successful login
+      console.log('response', response);
+      if(response.data.msg === 'success'){
+        navigate("/main");
+      }else{
+        alert("Login failed"); // Show alert for login failure
+      }
       setErrors({ email: "", password: "" }); // Clear any previous errors
       // Redirect user to main page or perform any other action
     } catch (error) {
@@ -70,15 +80,18 @@ function Login() {
           onChange={handleEmailChange}
         />
         {errors.email && <p className="error-msg">{errors.email}</p>}
-        <h4>
-          Password
-        </h4>
-        <input
-          className={`inpt-box ${errors.password && "error-border"}`}
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+        <h4>Password</h4>
+        <div className="password-input-container">
+          <input
+            className={`inpt-box ${errors.password && "error-border"}`}
+            type={showPassword ? "text" : "password"}
+            value={password}
+            onChange={handlePasswordChange}
+          />
+          <button className="password-toggle-btn" onClick={togglePasswordVisibility}>
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        </div>
         {errors.password && <p className="error-msg">{errors.password}</p>}
       </div>
       <h4 className="forgot-password" href="/forgot-password">Forgot?</h4>
