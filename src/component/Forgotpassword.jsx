@@ -108,6 +108,7 @@ function Forgotpassword() {
               {otp.map((digit, index) => (
                 <input
                   key={index}
+                  className="otp-box"
                   id={`otp-${index}`}
                   type="text"
                   maxLength="1"

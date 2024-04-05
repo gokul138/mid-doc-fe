@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../login.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -28,7 +28,7 @@ function Login() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // Perform client-side validation
     const newErrors = {};
 
@@ -41,7 +41,8 @@ function Login() {
     if (!password) {
       newErrors.password = "Please enter your password.";
     } else if (!passwordRegex.test(password)) {
-      newErrors.password = "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
+      newErrors.password =
+        "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -51,20 +52,26 @@ function Login() {
 
     try {
       // Make API call to authenticate user
-      const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/login", {
-        email,
-        password
-      });
-      console.log('response', response);
-      if(response.data.msg === 'success'){
+      const response = await axios.post(
+        "https://docgeniee.org/mid-doc/doc-genie/login",
+        {
+          email,
+          password,
+        }
+      );
+      console.log("response", response);
+      if (response.data.msg === "success") {
         navigate("/main");
-      }else{
+      } else {
         alert("Login failed"); // Show alert for login failure
       }
       setErrors({ email: "", password: "" }); // Clear any previous errors
       // Redirect user to main page or perform any other action
     } catch (error) {
-      setErrors({ ...errors, email: "Invalid email or password. Please try again." });
+      setErrors({
+        ...errors,
+        email: "Invalid email or password. Please try again.",
+      });
     }
   };
 
@@ -79,8 +86,13 @@ function Login() {
           value={email}
           onChange={handleEmailChange}
         />
-        {errors.email && <p className="error-msg">{errors.email}</p>}
-        <h4>Password</h4>
+        {errors.email && <p className="error-msg-email">{errors.email}</p>}
+        <h4 className="password-header">
+          Password{" "}
+        
+            <a className="forgot-password" href="/forgot-password">Forgot?</a>
+
+        </h4>
         <div className="password-input-container">
           <input
             className={`inpt-box ${errors.password && "error-border"}`}
@@ -88,13 +100,16 @@ function Login() {
             value={password}
             onChange={handlePasswordChange}
           />
-          <button className="password-toggle-btn" onClick={togglePasswordVisibility}>
-            {showPassword ? "Hide" : "Show"}
-          </button>
+          <button
+          className="password-toggle-btn"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? "Hide Password" : "Show Password"}
+        </button>
+         
         </div>
-        {errors.password && <p className="error-msg">{errors.password}</p>}
+        {errors.password && <p className="error-msg-password">{errors.password}</p>}
       </div>
-      <h4 className="forgot-password" href="/forgot-password">Forgot?</h4>
       <button className="btn-sign-up" onClick={handleSubmit}>
         Sign In
       </button>

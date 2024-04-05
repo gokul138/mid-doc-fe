@@ -86,7 +86,8 @@ body {
 .remove-button,
 .submit-button {
     padding: 4%;
-    color: #fff;
+    
+    color: #896aef;
     border: none;
     border-radius: 10px;
     cursor: pointer;
@@ -96,10 +97,14 @@ body {
 }
 
 .remove-button {
-    outline: 2px solid red;
-    background-color: white;
-    color: red;
+    height: auto;
+    border-radius: 10px;
+    color: #fff;
+    font-size: medium;
     font-weight: bold;
+    background-color:red;
+    border: none;
+    margin-bottom: 2%;
 }
 
 .remove-button:active {
@@ -108,10 +113,14 @@ body {
 }
 
 .submit-button {
-    outline: 2px solid #007bff;
-    background-color: white;
-    color: #007bff;
+     height: auto;
+    border-radius: 10px;
+    color: #fff;
+    font-size: medium;
     font-weight: bold;
+    background-color: #673AB7;
+    border: none;
+    margin-bottom: 2%;
 }
 
 .submit-button:active {
@@ -191,9 +200,11 @@ body {
 
 .dropdown-menu {
     position: absolute;
+    /* width: 100%; */
     z-index: 5;
+    margin-top: 1%;
     top: 100%;
-    left: 50%;
+    right: 2%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -522,7 +533,7 @@ body {
     display: flex;
     flex-direction: row;
     position: absolute;
-    right: 8%;
+    right: 2%;
 }
 
 .user-icon {
