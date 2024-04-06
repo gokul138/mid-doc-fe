@@ -78,10 +78,13 @@
 
 
 .forgot-password-login{
-    position: absolute;
-    right: 1%;
-    bottom: 45%;
-    padding-top:0;
+    position: absolute; 
+     right: 1%;
+    /* bottom: 25%; */
+    bottom: calc(40% - 4vh); 
+    /* padding-top:0;
+    margin-left: 80%;
+    margin-top: 0%; */ 
     text-decoration: underline;
     cursor: pointer;
 }
@@ -138,7 +141,7 @@
   .error-msg-password{
     color: red;
     position: absolute;
-    bottom: 8%;
+    bottom: calc(35% - 12vh); 
     left: 0;
   }
   .error-msg-email{
@@ -167,4 +170,10 @@
 .fa-eye-slash,.fa-eye {
     height: 3vh !important;
     color: #BDBDBD;
+}
+
+.login-logo{
+    margin-top: 2%;
+    width: 80px;
+    height: 80px;
 }

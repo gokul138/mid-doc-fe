@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../forgotpassword.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Forgotpassword() {
   const [email, setEmail] = useState("");
@@ -12,7 +13,9 @@ function Forgotpassword() {
   const [showPasswordFields, setShowPasswordFields] = useState(false); // State to toggle new password fields visibility
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [otpSent, setOtpSent] = useState(false); // State
   const inputRefs = useRef(Array(6).fill(null)); // Refs to store input field references
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -23,6 +26,7 @@ function Forgotpassword() {
     // Simulate OTP sending
     setNotification("OTP sent successfully. Please check your email.");
     setShowOtp(true); // Show OTP input boxes after sending OTP
+    setOtpSent(true);
   };
 
   const handleOtpChange = (event, index) => {
@@ -82,10 +86,16 @@ function Forgotpassword() {
     setShowPasswordFields(false);
     setShowOtp(true);
   };
+  const togglePasswordVisibility = (event) => {
+    setShowPassword(!showPassword);
+    event.preventDefault();
+    
+  };
 
   return (
     <form>
       <div className="password-container">
+        {!otpSent&&<div className="email-container">
         <FontAwesomeIcon icon={faUnlock} className="unlock-logo" />
         <h3 className="password-heading">Enter your email below</h3>
 
@@ -101,8 +111,10 @@ function Forgotpassword() {
         </button>
         {error && <p className="error-msg">{error}</p>}
         {notification && <p className="notification-msg">{notification}</p>}
+        </div>}
         {showOtp && (
           <div className="otp-verification-container">
+          {notification && <p className="notification-msg">{notification}</p>}
             <h3 className="otp-message">Enter the code</h3>
             <div className="inputRow">
               {otp.map((digit, index) => (
@@ -127,13 +139,24 @@ function Forgotpassword() {
         {showPasswordFields && (
           <>
             <h3 className="password-heading">Enter new password</h3>
+            <div className="new-password-input-container">
             <input
               className="password-input"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={newPassword}
               onChange={handleNewPasswordChange}
               placeholder="New Password"
             />
+            <button
+            className="password-toggle-btn-forgot"
+            onClick={(event) => togglePasswordVisibility(event)}
+          >
+            {showPassword ? (
+              <FontAwesomeIcon icon={faEyeSlash} />
+            ) : (
+              <FontAwesomeIcon icon={faEye} />
+            )}
+          </button></div>
             <input
               className="password-input"
               type="password"

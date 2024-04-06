@@ -44,7 +44,7 @@
   label{
     font-weight: bold;
   }
-  .sign-up-container {
+  .new-user-container {
     position: relative;
     width: 35%;
     margin-top: 2%;
@@ -60,6 +60,7 @@
     margin-bottom: 2%;
     padding: 2%;
     font-size: 16px;
+    
   }
   
   .forgot-password {
@@ -79,6 +80,13 @@
     font-weight: bold;
     background-color: #673AB7;
     border: none;
+  }
+  .password-toggle-btn-signup {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 42%;
+    top: 15%;
   }
   
   .login-existing-user {
@@ -100,5 +108,8 @@
   
   .error-border {
     border-color: red !important;
+  }
+  .password-container-signup{
+    position: relative;
   }
   
