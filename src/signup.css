@@ -10,7 +10,7 @@
   }
   
   .create-acc-font {
-    margin-top: 3%;
+    margin-top: 1%;
   }
   
   .Sign-up-google {
@@ -27,34 +27,37 @@
     font-weight: bold;
   }
   
-  .google-logo {
+  /* .google-logo {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png");
     width: 7%;
     height: 4vh;
     background-repeat: no-repeat;
     background-size: cover;
     margin-right: 2%;
-  }
+  } */
   
   .sign-up-email {
     margin-top: 3%;
     color: #9E9E9E;
   }
   
+  label{
+    font-weight: bold;
+  }
   .sign-up-container {
     position: relative;
-    width: 25%;
+    width: 35%;
     margin-top: 2%;
     display: flex;
     flex-direction: column;
   }
   
-  .inpt-box {
-    width: 100%;
-    height: 8vh;
+  .input-box {
+    width: 60%;
+    height: 5vh;
     border: #BDBDBD solid 2px;
     border-radius: 10px;
-    margin-bottom: 10%;
+    margin-bottom: 2%;
     padding: 2%;
     font-size: 16px;
   }
@@ -82,7 +85,15 @@
     margin-top: 1%;
   }
   
-  .error-msg {
+
+  .relative-container-for-errmsg{
+    display: flex;
+    flex-direction: row;
+    width: 175%;
+    /* position: relative; */
+  }
+  .err-msg {
+    margin-left: 1%;
     color: red;
     margin-top: 0.5rem;
   }

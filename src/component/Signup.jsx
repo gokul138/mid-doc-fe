@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../login.css";
+import "../signup.css";
 import StartToastifyInstance from "toastify-js";
+
 
 function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -49,7 +50,8 @@ function SignUp() {
     setErrors({ ...errors, confirmPassword: "" });
   };
 
-  const handleGstChange = (event) => { // Change handler for GST
+  const handleGstChange = (event) => {
+    // Change handler for GST
     setGst(event.target.value);
     setErrors({ ...errors, gst: "" }); // Clear error when input changes
   };
@@ -98,15 +100,18 @@ function SignUp() {
 
     // If all validations pass, make API call to sign up
     try {
-      const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/signup", {
-        firstName,
-        lastName,
-        email,
-        password,
-        gst, // Include GST in the request payload
-      });
+      const response = await axios.post(
+        "https://docgeniee.org/mid-doc/doc-genie/signup",
+        {
+          firstName,
+          lastName,
+          email,
+          password,
+          gst, // Include GST in the request payload
+        }
+      );
 
-      if (response.data.msg === 'success') {
+      if (response.data.msg === "success") {
         navigate("/");
       }
 
@@ -135,57 +140,71 @@ function SignUp() {
       <h2 className="create-acc-font">Sign Up</h2>
       <div className="sign-up-container">
         <label htmlFor="firstName">First Name</label>
-        <input
-          type="text"
-          id="firstName"
-          value={firstName}
-          onChange={handleFirstNameChange}
-          className={`first-name ${errors.firstName && "error-border"}`}
-        />
-        {errors.firstName && <p className="error-msg">{errors.firstName}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            type="text"
+            id="firstName"
+            value={firstName}
+            onChange={handleFirstNameChange}
+            className={`input-box  ${errors.firstName && "error-border"}`}
+          />
+          {errors.firstName && <p className="err-msg">{errors.firstName}</p>}
+        </div>
         <label htmlFor="lastName">Last Name</label>
-        <input
-          type="text"
-          id="lastName"
-          value={lastName}
-          onChange={handleLastNameChange}
-          className={`first-name ${errors.lastName && "error-border"}`}
-        />
-        {errors.lastName && <p className="error-msg">{errors.lastName}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={handleLastNameChange}
+            className={`input-box  ${errors.lastName && "error-border"}`}
+          />
+          {errors.lastName && <p className="err-msg">{errors.lastName}</p>}
+        </div>
         <h4>Email</h4>
-        <input
-          className={`inpt-box ${errors.email && "error-border"}`}
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-          autoComplete="off"
-        />
-        {errors.email && <p className="error-msg">{errors.email}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            className={`input-box ${errors.email && "error-border"}`}
+            type="email"
+            value={email}
+            onChange={handleEmailChange}
+            autoComplete="off"
+          />
+          {errors.email && <p className="err-msg">{errors.email}</p>}
+        </div>
         <h4>Password</h4>
-        <input
-          className={`inpt-box ${errors.password && "error-border"}`}
-          type="password"
-          value={password}
-          onChange={handlePasswordChange}
-          autoComplete="off"
-        />
-        {errors.password && <p className="error-msg">{errors.password}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            className={`input-box ${errors.password && "error-border"}`}
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            autoComplete="off"
+          />
+          {errors.password && <p className="err-msg">{errors.password}</p>}
+        </div>
         <h4>Confirm Password</h4>
-        <input
-          className={`inpt-box ${errors.confirmPassword && "error-border"}`}
-          type="password"
-          value={confirmPassword}
-          onChange={handleConfirmPasswordChange}
-        />
-        {errors.confirmPassword && <p className="error-msg">{errors.confirmPassword}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            className={`input-box ${errors.confirmPassword && "error-border"}`}
+            type="password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          {errors.confirmPassword && (
+            <p className="err-msg">{errors.confirmPassword}</p>
+          )}
+        </div>
         <h4>GST</h4>
-        <input
-          className={`inpt-box ${errors.gst && "error-border"}`}
-          type="text"
-          value={gst}
-          onChange={handleGstChange}
-        />
-        {errors.gst && <p className="error-msg">{errors.gst}</p>}
+        <div className="relative-container-for-errmsg">
+          <input
+            className={`input-box ${errors.gst && "error-border"}`}
+            type="text"
+            value={gst}
+            onChange={handleGstChange}
+          />
+          {errors.gst && <p className="err-msg">{errors.gst}</p>}
+        </div>
       </div>
       <button className="btn-sign-up" onClick={handleSubmit}>
         Sign Up

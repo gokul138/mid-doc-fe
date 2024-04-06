@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -87,12 +89,7 @@ function Login() {
           onChange={handleEmailChange}
         />
         {errors.email && <p className="error-msg-email">{errors.email}</p>}
-        <h4 className="password-header">
-          Password{" "}
-        
-            <a className="forgot-password" href="/forgot-password">Forgot?</a>
-
-        </h4>
+        <h4 className="password-header">Password</h4>
         <div className="password-input-container">
           <input
             className={`inpt-box ${errors.password && "error-border"}`}
@@ -100,15 +97,23 @@ function Login() {
             value={password}
             onChange={handlePasswordChange}
           />
+          <a className="forgot-password-login" href="/forgot-password">
+            Forgot?
+          </a>
           <button
-          className="password-toggle-btn"
-          onClick={togglePasswordVisibility}
-        >
-          {showPassword ? "Hide Password" : "Show Password"}
-        </button>
-         
+            className="password-toggle-btn"
+            onClick={togglePasswordVisibility}
+          >
+            {showPassword ? (
+              <FontAwesomeIcon icon={faEyeSlash} />
+            ) : (
+              <FontAwesomeIcon icon={faEye} />
+            )}
+          </button>
         </div>
-        {errors.password && <p className="error-msg-password">{errors.password}</p>}
+        {errors.password && (
+          <p className="error-msg-password">{errors.password}</p>
+        )}
       </div>
       <button className="btn-sign-up" onClick={handleSubmit}>
         Sign In

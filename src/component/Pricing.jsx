@@ -9,7 +9,7 @@ function Pricing() {
         <h4 className="pricing-header">PRICING</h4>
         <br />
         <h2 className="slct-pln">Select your Plan</h2>
-        <br />
+       
         <p>
           "From active listening to strategic implementation, we redefine
           systems for {<br />} enhanced efficiency, simplified processes, and
