@@ -21,26 +21,26 @@
     flex-direction: column;
     align-items: center;
     border: 1px solid white;
-    margin-top: 7%;
+    margin-top: 5%;
     width: 18%;
-    height: 55vh;
+    height: 57vh;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    transition: all 0.7s ease;
+    transition: all 0.9s ease;
 
 }
 
 .Pricing-box:hover {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     color: #fff;
     background-color: #673AB7;
     border: 1px solid white;
     margin-top: 4%;
-    margin-left: 5%;
+    /* margin-left: 5%; */
     width: 18%;
-    height: 62vh;
+    height: 64vh;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 
@@ -82,18 +82,19 @@
 
 .btn-getstarted {
     background-color: #673AB7;
+    font-weight: bold;
     color: white;
     border: none;
     border-radius: 15px;
     width: 60%;
     height: 5vh;
-    margin-top: 10%;
+    margin-top: 6%;
 
 }
 
 .pricing-header {
     color: #673AB7;
-    margin-top: 3%;
+    margin-top: 1%;
     margin-bottom: 0;
 }
 
@@ -128,7 +129,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 4%;
+    margin-top: 7%;
     height: 8%;
     width: 50%;
     background-color: #F4F6FD;

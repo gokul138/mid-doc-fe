@@ -77,12 +77,12 @@
 
 
 
-.forgot-password {
-    margin-left: 66%;
-
+.forgot-password-login{
+    position: absolute;
+    right: 1%;
+    bottom: 45%;
     padding-top:0;
     text-decoration: underline;
-    font-weight: lighter;
     cursor: pointer;
 }
 
@@ -115,7 +115,7 @@
 }
 
 .password-input-container{
-    /* position: relative; */
+    position: relative;
     display: flex;
     flex-direction: column;
 
@@ -138,7 +138,7 @@
   .error-msg-password{
     color: red;
     position: absolute;
-    bottom: 12%;
+    bottom: 8%;
     left: 0;
   }
   .error-msg-email{
@@ -155,10 +155,16 @@
 }
 
 .password-toggle-btn{
-  width: 30%;
-  margin-bottom: 2%;
+  position: absolute;
+   right: 5%;
+   top: 15%;
   border: none; 
   background: none;
 
 
+}
+
+.fa-eye-slash,.fa-eye {
+    height: 3vh !important;
+    color: #BDBDBD;
 }

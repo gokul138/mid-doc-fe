@@ -200,11 +200,11 @@ body {
 
 .dropdown-menu {
     position: absolute;
-    /* width: 100%; */
+    width: 125%;
     z-index: 5;
-    margin-top: 1%;
+    margin-top: 5%;
     top: 100%;
-    right: 2%;
+    right:8%;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -244,8 +244,8 @@ body {
 .select-sheets {
     border: 2px solid #ccc;
     border-radius: 6px;
-    width: 60%;
-    margin-left: 13%;
+    width: 80%;
+    margin-left: 4%;
 }
 
 .css-1fdsijx-ValueContainer {
@@ -322,14 +322,14 @@ body {
 
 .confirm-button {
     border: 2px solid #4CAF50;
-    background-color: white;
-    color: #4CAF50;
+    background-color: #4CAF50;
+    color: #fff;
 }
 
 .cancel-button {
     border: 2px solid #f44336;
-    background-color: white;
-    color: #f44336;
+    background-color: #f44336;
+    color: #fff;
 }
 
 #message-form {
@@ -400,7 +400,7 @@ body {
     flex-grow: 1;
     overflow-y: auto;
     padding: 5%;
-    width: 65%;
+    width: 95%;
     margin-bottom: 2%;
     margin-right: 15%;
     margin-top: 2%;
@@ -448,6 +448,11 @@ body {
     position: relative;
 
 }
+table {
+    border-collapse: collapse;
+    text-indent: initial;
+    border-spacing: 0;
+}
 
 
 .message-head {
@@ -478,16 +483,27 @@ body {
 }
 
 .message-text {
-    width: 100%;
+    width: 97%;
+    margin-left: 2%;
 }
 
+.table{
+    .message-text{
+        width: 0;
+    }
+
+}
 
 .table-container {
     margin-top: 10px;
     margin-bottom: 5%;
     overflow-x: auto;
-    width: 4000000%;
+    width: 400%;
     padding: 0%;
+
+    img{
+        object-fit: fill;
+    }
 }
 
 .scroll-table {
@@ -534,6 +550,14 @@ body {
     flex-direction: row;
     position: absolute;
     right: 2%;
+}
+
+.plot-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+
 }
 
 .user-icon {
