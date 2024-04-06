@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import "../forgotpassword.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 function Forgotpassword() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ function Forgotpassword() {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [otpSent, setOtpSent] = useState(false); // State
   const inputRefs = useRef(Array(6).fill(null)); // Refs to store input field references
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -84,6 +86,11 @@ function Forgotpassword() {
     setShowPasswordFields(false);
     setShowOtp(true);
   };
+  const togglePasswordVisibility = (event) => {
+    setShowPassword(!showPassword);
+    event.preventDefault();
+    
+  };
 
   return (
     <form>
@@ -132,13 +139,24 @@ function Forgotpassword() {
         {showPasswordFields && (
           <>
             <h3 className="password-heading">Enter new password</h3>
+            <div className="new-password-input-container">
             <input
               className="password-input"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={newPassword}
               onChange={handleNewPasswordChange}
               placeholder="New Password"
             />
+            <button
+            className="password-toggle-btn-forgot"
+            onClick={(event) => togglePasswordVisibility(event)}
+          >
+            {showPassword ? (
+              <FontAwesomeIcon icon={faEyeSlash} />
+            ) : (
+              <FontAwesomeIcon icon={faEye} />
+            )}
+          </button></div>
             <input
               className="password-input"
               type="password"

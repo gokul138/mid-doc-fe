@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../signup.css";
 import StartToastifyInstance from "toastify-js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+
 
 
 function SignUp() {
@@ -11,7 +14,8 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [gst, setGst] = useState(""); // State for GST
+  const [gst, setGst] = useState("");
+  const [showPassword, setShowPassword] = useState(false) 
   const [errors, setErrors] = useState({
     firstName: "",
     lastName: "",
@@ -33,6 +37,11 @@ function SignUp() {
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
     setErrors({ ...errors, lastName: "" });
+  };
+
+  const togglePasswordVisibility = (event) => {
+    setShowPassword(!showPassword);
+    event.preventDefault();
   };
 
   const handleEmailChange = (event) => {
@@ -58,6 +67,8 @@ function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    
 
     // Perform client-side validation
     const newErrors = {};
@@ -138,7 +149,7 @@ function SignUp() {
   return (
     <div className="login-container">
       <h2 className="create-acc-font">Sign Up</h2>
-      <div className="sign-up-container">
+      <div className="new-user-container">
         <label htmlFor="firstName">First Name</label>
         <div className="relative-container-for-errmsg">
           <input
@@ -173,7 +184,7 @@ function SignUp() {
           {errors.email && <p className="err-msg">{errors.email}</p>}
         </div>
         <h4>Password</h4>
-        <div className="relative-container-for-errmsg">
+        <div className="relative-container-for-errmsg password-container-signup">
           <input
             className={`input-box ${errors.password && "error-border"}`}
             type="password"
@@ -181,6 +192,14 @@ function SignUp() {
             onChange={handlePasswordChange}
             autoComplete="off"
           />
+          <button
+            className="password-toggle-btn-signup"
+            onClick={togglePasswordVisibility}
+          >{showPassword ? (
+            <FontAwesomeIcon icon={faEyeSlash} />
+          ) : (
+            <FontAwesomeIcon icon={faEye} />
+          )}</button>
           {errors.password && <p className="err-msg">{errors.password}</p>}
         </div>
         <h4>Confirm Password</h4>

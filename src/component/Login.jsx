@@ -79,6 +79,7 @@ function Login() {
 
   return (
     <div className="login-container">
+       <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Login to Your Account</h2>
       <div className="sign-up-container">
         <h4>Email</h4>
