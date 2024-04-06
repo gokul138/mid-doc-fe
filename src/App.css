@@ -501,9 +501,6 @@ table {
     width: 400%;
     padding: 0%;
 
-    img{
-        object-fit: fill;
-    }
 }
 
 .scroll-table {
@@ -556,8 +553,19 @@ table {
     display: flex;
     justify-content: center;
     width: 100%;
+
+    
+    img{
+        object-fit: fill;
+    }
     
 
+}
+
+.plot{
+    .message-text{
+        width: 0;
+    }
 }
 
 .user-icon {

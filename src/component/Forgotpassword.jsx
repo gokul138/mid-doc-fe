@@ -12,6 +12,7 @@ function Forgotpassword() {
   const [showPasswordFields, setShowPasswordFields] = useState(false); // State to toggle new password fields visibility
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [otpSent, setOtpSent] = useState(false); // State
   const inputRefs = useRef(Array(6).fill(null)); // Refs to store input field references
 
   const handleEmailChange = (event) => {
@@ -23,6 +24,7 @@ function Forgotpassword() {
     // Simulate OTP sending
     setNotification("OTP sent successfully. Please check your email.");
     setShowOtp(true); // Show OTP input boxes after sending OTP
+    setOtpSent(true);
   };
 
   const handleOtpChange = (event, index) => {
@@ -86,6 +88,7 @@ function Forgotpassword() {
   return (
     <form>
       <div className="password-container">
+        {!otpSent&&<div className="email-container">
         <FontAwesomeIcon icon={faUnlock} className="unlock-logo" />
         <h3 className="password-heading">Enter your email below</h3>
 
@@ -101,8 +104,10 @@ function Forgotpassword() {
         </button>
         {error && <p className="error-msg">{error}</p>}
         {notification && <p className="notification-msg">{notification}</p>}
+        </div>}
         {showOtp && (
           <div className="otp-verification-container">
+          {notification && <p className="notification-msg">{notification}</p>}
             <h3 className="otp-message">Enter the code</h3>
             <div className="inputRow">
               {otp.map((digit, index) => (
