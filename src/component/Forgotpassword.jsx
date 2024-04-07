@@ -3,94 +3,129 @@ import "../forgotpassword.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { resetPassword, sendOTP, verifyOTP } from "./services/ForgotPasswordAPI"; // Import API functions
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 function Forgotpassword() {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [showOtp, setShowOtp] = useState(false); // State to toggle OTP input visibility
-  const [showPasswordFields, setShowPasswordFields] = useState(false); // State to toggle new password fields visibility
+  const [showOtp, setShowOtp] = useState(false);
+  const [showPasswordFields, setShowPasswordFields] = useState(false);
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [otpSent, setOtpSent] = useState(false); // State
-  const inputRefs = useRef(Array(6).fill(null)); // Refs to store input field references
+  const inputRefs = useRef(Array(6).fill(null));
+  const navigate = useNavigate(); // Initialize useNavigate hook
   const [showPassword, setShowPassword] = useState(false)
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleSendOtp = (event) => {
-    event.preventDefault(); // Prevent default form submission
-    // Simulate OTP sending
-    setNotification("OTP sent successfully. Please check your email.");
-    setShowOtp(true); // Show OTP input boxes after sending OTP
-    setOtpSent(true);
+  const handleSendOTP = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await sendOTP(email);
+      console.log('responseforOTP', response);
+      // Check response data if needed
+      if(response === 'success'){
+        setNotification("OTP sent successfully. Please check your email.");
+        setShowOtp(true);
+        setOtpSent(true);
+      }
+    } catch (error) {
+      setError("Failed to send OTP. Please try again.");
+    }
   };
+  
 
-  const handleOtpChange = (event, index) => {
+  const handleOTPChange = (event, index) => {
+    event.preventDefault();
     const val = event.target.value;
     const updatedOtp = [...otp];
     updatedOtp[index] = val;
     setOtp(updatedOtp);
-
-    // Move focus to the next input box if available
     if (val !== "" && index < 5) {
       inputRefs.current[index + 1].focus();
     }
   };
+  
 
   const handleNewPasswordChange = (event) => {
+    event.preventDefault();
     setNewPassword(event.target.value);
   };
 
   const handleConfirmNewPasswordChange = (event) => {
+    event.preventDefault();
     setConfirmNewPassword(event.target.value);
   };
 
   const handleResetPassword = (event) => {
-    event.preventDefault(); // Prevent default form submission
-    // Validate OTP
+    event.preventDefault();
     if (otp.join("") !== "123456") {
       setError("Incorrect OTP. Please enter the correct OTP.");
       return;
     }
-
-    // Hide OTP input and show new password fields
     setShowOtp(false);
     setShowPasswordFields(true);
   };
 
   const handleKeyUp = (event, index) => {
     const key = event.key.toLowerCase();
-
-    // Handle backspace or delete key
     if (key === "backspace" || key === "delete") {
-      // Clear the current input box
       const updatedOtp = [...otp];
       updatedOtp[index] = "";
       setOtp(updatedOtp);
-
-      // Move focus to the previous input box if available
       if (index > 0) {
         inputRefs.current[index - 1].focus();
       }
     }
   };
 
-  const handleResetOTP = () => {
-    // Reset OTP input
-    setOtp(Array(6).fill(""));
-    setError("");
-    setShowPasswordFields(false);
-    setShowOtp(true);
+  const handlePasswordReset = async (event) => {
+    event.preventDefault();
+    if (newPassword !== confirmNewPassword) {
+      setError("Passwords do not match. Please make sure both passwords are the same.");
+      return;
+    }
+    try {
+      const response = await resetPassword(email, confirmNewPassword);
+      // Handle response data if needed
+      if(response === 'success'){
+        setNotification("Password reset successfully.");
+        navigate("/"); // Navigate to main page
+      }
+      console.log('responseforReset', response);
+    } catch (error) {
+      setError("Failed to reset password. Please try again.");
+    }
+  };  
+
+  const handleVerifyOTP = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await verifyOTP(email, otp.join(""));
+      console.log('responseVarifyOTP', response);
+      if(response === 'success'){
+        setShowOtp(false);
+        setShowPasswordFields(true);
+      }
+      if(response === 'expired'){
+
+      }
+    } catch (error) {
+      setError("Incorrect OTP. Please enter the correct OTP.");
+    }
   };
   const togglePasswordVisibility = (event) => {
     setShowPassword(!showPassword);
     event.preventDefault();
     
   };
+  
 
   return (
     <form>
@@ -106,7 +141,7 @@ function Forgotpassword() {
           onChange={handleEmailChange}
           placeholder="Enter your email"
         />
-        <button className="btn-send-otp" onClick={handleSendOtp}>
+        <button className="btn-send-otp" onClick={handleSendOTP}>
           Send OTP
         </button>
         {error && <p className="error-msg">{error}</p>}
@@ -125,13 +160,13 @@ function Forgotpassword() {
                   type="text"
                   maxLength="1"
                   value={digit}
-                  onChange={(event) => handleOtpChange(event, index)}
+                  onChange={(event) => handleOTPChange(event, index)}
                   onKeyUp={(event) => handleKeyUp(event, index)}
-                  ref={(input) => (inputRefs.current[index] = input)} // Assign reference to input element
+                  ref={(input) => (inputRefs.current[index] = input)}
                 />
               ))}
             </div>
-            <button className="btn-reset" onClick={handleResetPassword}>
+            <button className="btn-reset" onClick={handleVerifyOTP}>
               Submit OTP
             </button>
           </div>
@@ -164,7 +199,7 @@ function Forgotpassword() {
               onChange={handleConfirmNewPasswordChange}
               placeholder="Confirm New Password"
             />
-            <button className="btn-reset" onClick={handleResetOTP}>
+           <button className="btn-reset" onClick={handlePasswordReset}>
               Reset
             </button>
           </>
