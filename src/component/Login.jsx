@@ -89,13 +89,16 @@ function Login() {
           password,
         }
       );
-      const cookieData = Cookies.get('X_DOCGENIEE_AUTH_TOKEN'); 
-      console.log('authToken', cookieData);
       // Check if login was successful
       if(response.status){
         const getUser = await axios.get(
           "https://docgeniee.org/mid-doc/doc-genie/user-info");
           console.log('/user-info', getUser);
+          if (getUser.data.primeUser === true) {
+            navigate("/main");
+          } else {
+            navigate("/pricing");
+          }
       }
       if (response.data.msg === "success") {
         // Retrieve token from response headers
@@ -105,16 +108,13 @@ function Login() {
         localStorage.setItem("authToken", authToken);
   
         // Redirect user to main page
-        if(response.data.isPrime === true){
-        navigate("/main");
-        }else{
-
-          navigate("/pricing");
-        }
       } else {
         alert("Login failed"); // Show alert for login failure
       }
-      setErrors({ email: "", password: "" }); // Clear any previous errors
+      setErrors({ email: "", password: "" });
+      const cookieData = Cookies.get('X_DOCGENIEE_AUTH_TOKEN'); 
+      console.log('authToken', cookieData);
+       // Clear any previous errors
       // Redirect user to main page or perform any other action
     } catch (error) {
       setErrors({
