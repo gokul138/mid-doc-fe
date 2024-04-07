@@ -4,6 +4,7 @@ import "../login.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie"; 
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ function Login() {
 
     // Perform client-side validation
     const newErrors = {};
-
+  
     // Validate email and password (uncomment if needed)
     if (!email) {
       newErrors.email = "Please enter your email.";
@@ -45,14 +46,41 @@ function Login() {
     } else if (!passwordRegex.test(password)) {
       newErrors.password =
         "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
+      newErrors.password =
+        "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
     }
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-
+  
     try {
+
+      // fetch('https://docgeniee.org/mid-doc/doc-genie/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //   },
+      //   // credentials: 'same-origin',
+      //   body: JSON.stringify({
+      //         email,
+      //         password,
+      //       }),
+      // }).then(res => {
+      //   console.log(res.headers.get('set-cookie')); // undefined
+      //   console.log(document,'JSJSJSJSSJ'); // nope
+      //   return res.json();
+      // }).then(json => {
+      //   if (json.success) {
+      //     this.setState({ error: '' });
+      //     this.context.router.push(json.redirect);
+      //   }
+      //   else {
+      //     this.setState({ error: json.error });
+      //   }
+      // });
       // Make API call to authenticate user
       const response = await axios.post(
         "https://docgeniee.org/mid-doc/doc-genie/login",
@@ -61,9 +89,28 @@ function Login() {
           password,
         }
       );
-      console.log("response", response);
+      const cookieData = Cookies.get('X_DOCGENIEE_AUTH_TOKEN'); 
+      console.log('authToken', cookieData);
+      // Check if login was successful
+      if(response.status){
+        const getUser = await axios.get(
+          "https://docgeniee.org/mid-doc/doc-genie/user-info");
+          console.log('/user-info', getUser);
+      }
       if (response.data.msg === "success") {
+        // Retrieve token from response headers
+        const authToken = response.headers.get('Set-Cookie');
+  
+        // Save token to local storage
+        localStorage.setItem("authToken", authToken);
+  
+        // Redirect user to main page
+        if(response.data.isPrime === true){
         navigate("/main");
+        }else{
+
+          navigate("/pricing");
+        }
       } else {
         alert("Login failed"); // Show alert for login failure
       }
@@ -76,7 +123,7 @@ function Login() {
       });
     }
   };
-
+  
   return (
     <div className="login-container">
        <div className="header-logo login-logo"></div>
