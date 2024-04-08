@@ -10,6 +10,10 @@ function PricingBox({ planList }) {
     try {
       const response = await axiosInstance.get(`/checkout?planId=${planId}`); // Use the Axios instance
       console.log("API call response:", response.data);
+      const url = response.data.url; 
+        if (url) {
+          window.open(url, '_blank');
+        }
     } catch (error) {
       console.error("Error:", error);
     }
