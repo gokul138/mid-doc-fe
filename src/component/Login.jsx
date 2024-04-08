@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,7 @@ import Cookies from "js-cookie";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,31 +57,6 @@ function Login() {
     }
   
     try {
-
-      // fetch('https://docgeniee.org/mid-doc/doc-genie/login', {
-      //   method: 'POST',
-      //   headers: {
-      //     Accept: 'application/json',
-      //     'Content-Type': 'application/json',
-      //   },
-      //   // credentials: 'same-origin',
-      //   body: JSON.stringify({
-      //         email,
-      //         password,
-      //       }),
-      // }).then(res => {
-      //   console.log(res.headers.get('set-cookie')); // undefined
-      //   console.log(document,'JSJSJSJSSJ'); // nope
-      //   return res.json();
-      // }).then(json => {
-      //   if (json.success) {
-      //     this.setState({ error: '' });
-      //     this.context.router.push(json.redirect);
-      //   }
-      //   else {
-      //     this.setState({ error: json.error });
-      //   }
-      // });
       // Make API call to authenticate user
       const response = await axios.post(
         "https://docgeniee.org/mid-doc/doc-genie/login",
@@ -94,26 +70,14 @@ function Login() {
         const getUser = await axios.get(
           "https://docgeniee.org/mid-doc/doc-genie/user-info");
           console.log('/user-info', getUser);
+          setUserData(getUser.data);
           if (getUser.data.primeUser === true) {
             navigate("/main");
           } else {
             navigate("/pricing");
           }
       }
-      if (response.data.msg === "success") {
-        // Retrieve token from response headers
-        const authToken = response.headers.get('Set-Cookie');
-  
-        // Save token to local storage
-        localStorage.setItem("authToken", authToken);
-  
-        // Redirect user to main page
-      } else {
-        alert("Login failed"); // Show alert for login failure
-      }
       setErrors({ email: "", password: "" });
-      const cookieData = Cookies.get('X_DOCGENIEE_AUTH_TOKEN'); 
-      console.log('authToken', cookieData);
        // Clear any previous errors
       // Redirect user to main page or perform any other action
     } catch (error) {
@@ -123,6 +87,15 @@ function Login() {
       });
     }
   };
+
+  const getCookieData = () => {
+    const cookieData = Cookies.get("X_DOCGENIEE_AUTH_TOKEN");
+    console.log("authToken", cookieData);
+  };
+
+  useEffect(() => {
+    getCookieData()
+  }, [userData]);
   
   return (
     <div className="login-container">

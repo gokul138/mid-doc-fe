@@ -11,7 +11,7 @@ function Pricing() {
   useEffect(() => {
     const fetchPlans = async () => {
       try {
-        const response = await axiosInstance.get("/doc-genie/plans"); // Use the Axios instance
+        const response = await axiosInstance.get("/plans"); // Use the Axios instance
         const { planList } = response.data;
         setPlanList(planList);
       } catch (error) {
