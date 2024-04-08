@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faCrown, faSignOutAlt, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +10,8 @@ const Dropdown = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  const navigate = useNavigate();
+
 
   const handleLogout = async () => {
     try {
@@ -19,16 +22,11 @@ const Dropdown = () => {
       //   return;
       // }
 
-      // Set the token in the request headers
-      const config = {
-        headers: {
-          X_DOCGENIEE_AUTH_TOKEN: `d3038ff2-e8e0-4101-ba8a-0c`
-        }
-      };
-
       // Send the logout request with the token in the headers
-      const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/logout", null, config);
-      console.log("Logout response:", response);
+      const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/logout");
+      if(response?.msg === 'success'){
+        navigate("/")
+      }
 
       // Handle successful logout, such as redirecting to login page
     } catch (error) {

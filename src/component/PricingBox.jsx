@@ -1,5 +1,3 @@
-// PricingBox.jsx
-
 import React from "react";
 import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,11 +6,17 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 function PricingBox({ planList }) {
   const handleGetStarted = async (planId) => {
     try {
-      const response = await axiosInstance.get(`/checkout?planId=${planId}`); // Use the Axios instance
-      const url = response.sessionId; 
-        if (url) {
-          window.open(url, '_blank');
+      const response = await axiosInstance.get(`/checkout?planId=${planId}`, {
+        headers: {
+          'Content-Type': 'application/json'
         }
+      });
+
+      const url = response.data.sessionId; // Assuming sessionId is the key containing the URL
+
+      if (url) {
+        window.open(url, '_blank');
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -43,4 +47,3 @@ function PricingBox({ planList }) {
   );
 }
 
-export default PricingBox;
