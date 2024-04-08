@@ -8,7 +8,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 function PricingBox({ planList }) {
   const handleGetStarted = async (planId) => {
     try {
-      const response = await axiosInstance.get(`/mid-doc/doc-genie/checkout?planId=${planId}`); // Use the Axios instance
+      const response = await axiosInstance.get(`/checkout?planId=${planId}`); // Use the Axios instance
       console.log("API call response:", response.data);
     } catch (error) {
       console.error("Error:", error);
@@ -21,7 +21,7 @@ function PricingBox({ planList }) {
         <div key={index} className="Pricing-box">
           <h4>{plan.planName}</h4>
           <div className="price-container">
-            <h3>{`Price: ₹${plan.price}`}</h3>
+            <h3>{`Price: ₹${plan?.price || 0}`}</h3>
           </div>
           <div className="features">
             <p>
