@@ -1,3 +1,5 @@
+// PricingBox.jsx
+
 import React from "react";
 import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,13 +12,11 @@ function PricingBox({ planList }) {
         headers: {
           'Content-Type': 'application/json'
         }
-      });
-
-      const url = response.data.sessionId; // Assuming sessionId is the key containing the URL
-
-      if (url) {
-        window.open(url, '_blank');
-      }
+      }); 
+      const url = response.sessionId; 
+        if (url) {
+          window.open(url, '_blank');
+        }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -47,3 +47,4 @@ function PricingBox({ planList }) {
   );
 }
 
+export default PricingBox;
