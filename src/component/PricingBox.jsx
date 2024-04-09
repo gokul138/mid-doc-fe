@@ -1,5 +1,3 @@
-// PricingBox.jsx
-
 import React from "react";
 import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,15 +29,17 @@ function PricingBox({ planList }) {
             <h3>{`Price: ₹${plan?.price || 0}`}</h3>
           </div>
           <div className="features">
-            <p>
-              <FontAwesomeIcon icon={faCheckCircle} />
-              <span> </span>
-              An Item
-            </p>
-            {/* Other features */}
+            <ul>
+              {plan.features.map((feature, index) => (
+                <li key={index}>
+                  <FontAwesomeIcon icon={faCheckCircle} />
+                  <span> {feature}</span>
+                </li>
+              ))}
+            </ul>
           </div>
           <button className="btn-getstarted" onClick={() => handleGetStarted(plan.planId)}>
-            Get Started
+            Subscribe
           </button>
         </div>
       ))}
