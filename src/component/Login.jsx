@@ -71,6 +71,7 @@ function Login() {
           "https://docgeniee.org/mid-doc/doc-genie/user-info");
           console.log('/user-info', getUser);
           setUserData(getUser.data);
+          // setIsAuthenticated(true);
           if (getUser.data.primeUser === true) {
             navigate("/main");
           } else {
@@ -87,15 +88,6 @@ function Login() {
       });
     }
   };
-
-  const getCookieData = () => {
-    const cookieData = Cookies.get("X_DOCGENIEE_AUTH_TOKEN");
-    console.log("authToken", cookieData);
-  };
-
-  useEffect(() => {
-    getCookieData()
-  }, [userData]);
   
   return (
     <div className="login-container">

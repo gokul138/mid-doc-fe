@@ -13,9 +13,9 @@ function PricingBox({ planList }) {
           'Content-Type': 'application/json'
         }
       }); 
-      const url = response.sessionId; 
+      const url = response?.data?.sessionId; 
         if (url) {
-          window.open(url, '_blank');
+          window.location.href = url;
         }
     } catch (error) {
       console.error("Error:", error);

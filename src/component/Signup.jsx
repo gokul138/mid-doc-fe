@@ -22,7 +22,7 @@ function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
-    gst: "", // Error for GST
+    gst: "",
   });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -114,7 +114,7 @@ function SignUp() {
         lastName,
         email,
         password,
-        gst, // Include GST in the request payload
+        gst,
       }
     );
 
