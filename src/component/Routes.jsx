@@ -10,7 +10,6 @@ import { AuthProvider } from "./AuthProvider";
 
 const Route00 = () => {
   return (
-    <AuthProvider>
       <div>
         <BrowserRouter>
           <Routes>
@@ -23,7 +22,6 @@ const Route00 = () => {
           </Routes>
         </BrowserRouter>
       </div>
-    </AuthProvider>
   );
 };
 
