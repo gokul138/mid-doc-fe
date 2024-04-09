@@ -6,8 +6,6 @@ import Pricing from "./Pricing";
 import Login from "./Login";
 import Forgotpassword from "./Forgotpassword";
 import SignUp from "./Signup";
-import { AuthProvider } from "./AuthProvider";
-
 const Route00 = () => {
   return (
       <div>
