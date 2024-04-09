@@ -1,10 +1,12 @@
+import React from 'react';
 import './App.css';
-import Route00 from './component/Route00';
+import Routes from './component/Routes';
+import { AuthProvider } from './component/AuthProvider';
 
 function App() {
   return (
     <div className="App">
-      <Route00 />
+      <Routes />
     </div>
   );
 }

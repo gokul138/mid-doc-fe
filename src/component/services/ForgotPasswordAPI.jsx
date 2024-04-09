@@ -6,7 +6,7 @@ export const sendOTP = async (email) => {
   try {
     const response = await axiosInstance.post('/send-otp', {
       email: email,
-      category: 'EMAIL',
+      category: 'PASSWORD',
     });
     return response.data;
   } catch (error) {
@@ -18,7 +18,7 @@ export const verifyOTP = async (email, otp) => {
   try {
     const response = await axiosInstance.post('/verify-otp', {
       email: email,
-      category: 'EMAIL',
+      category: 'PASSWORD',
       otp: otp,
     });
     return response.data;
