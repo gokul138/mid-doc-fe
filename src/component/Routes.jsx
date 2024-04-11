@@ -6,6 +6,8 @@ import Pricing from "./Pricing";
 import Login from "./Login";
 import Forgotpassword from "./Forgotpassword";
 import SignUp from "./Signup";
+import PaymentFail from "./PaymentFail";
+import PaymentSuccess from "./PaymentSuccess";
 const Route00 = () => {
   return (
       <div>
@@ -17,6 +19,8 @@ const Route00 = () => {
             <Route path="/forgot-password" element={<Forgotpassword />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/main" element={<Home />} />
+            <Route path="/payment-failed" element={<PaymentFail />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
           </Routes>
         </BrowserRouter>
       </div>
