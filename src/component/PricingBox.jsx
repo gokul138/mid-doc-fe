@@ -3,7 +3,34 @@ import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 
-function PricingBox({ planList }) {
+function PricingBox() {
+  const plans = [
+    {
+      title: "Free",
+      price: "₹ 0",
+      originalPrice: "₹5000",
+      planId: "FREE_PLAN_ID",
+    },
+    {
+      title: "Basic",
+      price: "₹ 149/day",
+      originalPrice: "₹5000",
+      planId: "BASIC_PLAN_ID",
+    },
+    {
+      title: "Professional",
+      price: "₹ 999/week",
+      originalPrice: "₹5000",
+      planId: "PROFESSIONAL_PLAN_ID",
+    },
+    {
+      title: "Advanced",
+      price: "₹ 3499/month",
+      originalPrice: "₹5000",
+      planId: "ADVANCED_PLAN_ID",
+    },
+  ];
+
   const handleGetStarted = async (planId) => {
     try {
       const response = await axiosInstance.get(`/checkout?planId=${planId}`, {
@@ -25,6 +52,7 @@ function PricingBox({ planList }) {
       {planList.map((plan, index) => (
         <div key={index} className="Pricing-box">
           <h4>{plan.planName}</h4>
+          <h3 className="original-price">{plan.originalPrice}</h3>
           <div className="price-container">
             <h3>{`Price: ₹${plan?.price || 0}`}</h3>
           </div>

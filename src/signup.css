@@ -1,115 +1,124 @@
 .signup-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-  
-  .docgeniee-font {
-    margin-top: 1%;
-  }
-  
-  .create-acc-font {
-    margin-top: 1%;
-  }
-  
-  .Sign-up-google {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    margin-top: 2%;
-    width: 25%;
-    height: 8vh;
-    border-radius: 30px;
-    border: #BDBDBD solid 2px;
-    background-color: #fff;
-    font-weight: bold;
-  }
-  
-  /* .google-logo {
-    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png");
-    width: 7%;
-    height: 4vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    margin-right: 2%;
-  } */
-  
-  .sign-up-email {
-    margin-top: 3%;
-    color: #9E9E9E;
-  }
-  
-  label{
-    font-weight: bold;
-  }
-  .new-user-container {
-    position: relative;
-    width: 35%;
-    margin-top: 2%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input-box {
-    width: 60%;
-    height: 5vh;
-    border: #BDBDBD solid 2px;
-    border-radius: 10px;
-    margin-bottom: 2%;
-    padding: 2%;
-    font-size: 16px;
-    
-  }
-  
-  .forgot-password {
-    position: absolute;
-    text-decoration: underline;
-    font-weight: lighter;
-    right: 0;
-    cursor: pointer;
-  }
-  
-  .signup-btn {
-    width: 25%;
-    height: 8vh;
-    border-radius: 30px;
-    color: #fff;
-    font-size: large;
-    font-weight: bold;
-    background-color: #673AB7;
-    border: none;
-  }
-  .password-toggle-btn-signup {
-    background: none;
-    border: none;
-    position: absolute;
-    right: 42%;
-    top: 15%;
-  }
-  
-  .login-existing-user {
-    margin-top: 1%;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-  .relative-container-for-errmsg{
-    display: flex;
-    flex-direction: row;
-    width: 175%;
-    /* position: relative; */
-  }
-  .err-msg {
-    margin-left: 1%;
-    color: red;
-    margin-top: 0.5rem;
-  }
+.docgeniee-font {
+  margin-top: 1%;
+}
+
+.create-acc-font {
+  margin-top: 1%;
+}
+
+.Sign-up-google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 2%;
+  width: 25%;
+  height: 8vh;
+  border-radius: 30px;
+  border: #BDBDBD solid 2px;
+  background-color: #fff;
+  font-weight: bold;
+}
+
+/* .google-logo {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png");
+  width: 7%;
+  height: 4vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 2%;
+} */
+
+.sign-up-email {
+  margin-top: 3%;
+  color: #9E9E9E;
+}
+
+label{
+  font-weight: bold;
+}
+.new-user-container {
+  position: relative;
+  width: 35%;
+  margin-top: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  position: relative;
+  width: 60%;
+  height: 5vh;
+  border: #BDBDBD solid 2px;
+  border-radius: 10px;
+  margin-bottom: 2%;
+  padding: 2%;
+  font-size: 16px;
   
-  .error-border {
-    border-color: red !important;
-  }
-  .password-container-signup{
-    position: relative;
-  }
+}
+
+.forgot-password {
+  position: absolute;
+  text-decoration: underline;
+  font-weight: lighter;
+  right: 0;
+  cursor: pointer;
+}
+
+.signup-btn {
+  width: 25%;
+  height: 8vh;
+  border-radius: 30px;
+  color: #fff;
+  font-size: large;
+  font-weight: bold;
+  background-color: #673AB7;
+  border: none;
+}
+.password-toggle-btn-signup {
+  background: none;
+  border: none;
+  position: absolute;
+  right:42%; 
+  top: 15%; 
+
   
+}
+
+.login-existing-user {
+  margin-top: 1%;
+}
+
+
+.relative-container-for-errmsg{
+  display: flex;
+  flex-direction: row;
+  width: 175%;
+
+}
+.err-msg {
+  margin-left: 1%;
+  width: 40%;
+  display: block;
+  top: 0%;
+  margin-top: 0.5rem;
+  color: red;
+  word-break: break-all; 
+}
+
+.error-border {
+  border-color: red !important;
+}
+.password-container-signup{
+  position: relative;
+  height: 10vh;
+  
+  
+}
