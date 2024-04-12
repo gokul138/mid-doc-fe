@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie"; 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userData, setUserData] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,7 +35,7 @@ function Login() {
 
     // Perform client-side validation
     const newErrors = {};
-
+  
     // Validate email and password (uncomment if needed)
     if (!email) {
       newErrors.email = "Please enter your email.";
@@ -45,13 +47,15 @@ function Login() {
     } else if (!passwordRegex.test(password)) {
       newErrors.password =
         "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
+      newErrors.password =
+        "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
     }
-
+  
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       return;
     }
-
+  
     try {
       // Make API call to authenticate user
       const response = await axios.post(
@@ -61,13 +65,21 @@ function Login() {
           password,
         }
       );
-      console.log("response", response);
-      if (response.data.msg === "success") {
-        navigate("/main");
-      } else {
-        alert("Login failed"); // Show alert for login failure
+      // Check if login was successful
+      if(response.status){
+        const getUser = await axios.get(
+          "https://docgeniee.org/mid-doc/doc-genie/user-info");
+          console.log('/user-info', getUser);
+          setUserData(getUser.data);
+          // setIsAuthenticated(true);
+          if (getUser.data.primeUser === true) {
+            navigate("/main");
+          } else {
+            navigate("/pricing");
+          }
       }
-      setErrors({ email: "", password: "" }); // Clear any previous errors
+      setErrors({ email: "", password: "" });
+       // Clear any previous errors
       // Redirect user to main page or perform any other action
     } catch (error) {
       setErrors({
@@ -76,7 +88,7 @@ function Login() {
       });
     }
   };
-
+  
   return (
     <div className="login-container">
        <div className="header-logo login-logo"></div>

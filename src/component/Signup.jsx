@@ -22,7 +22,7 @@ function SignUp() {
     email: "",
     password: "",
     confirmPassword: "",
-    gst: "", // Error for GST
+    gst: "",
   });
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,77 +73,73 @@ function SignUp() {
     // Perform client-side validation
     const newErrors = {};
 
-    if (!firstName) {
-      newErrors.firstName = "Please enter your first name.";
-    }
+  if (!firstName) {
+    newErrors.firstName = "Please enter your first name.";
+  }
 
-    if (!lastName) {
-      newErrors.lastName = "Please enter your last name.";
-    }
+  if (!lastName) {
+    newErrors.lastName = "Please enter your last name.";
+  }
 
-    if (!email) {
-      newErrors.email = "Please enter your email.";
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = "Please enter a valid email address.";
-    }
+  if (!email) {
+    newErrors.email = "Please enter your email.";
+  } else if (!emailRegex.test(email)) {
+    newErrors.email = "Please enter a valid email address.";
+  }
 
-    if (!password) {
-      newErrors.password = "Please enter your password.";
-    } else if (!passwordRegex.test(password)) {
-      newErrors.password =
-        "Please enter a password with at least 8 characters, including uppercase, lowercase, and numbers.";
-    }
+  if (!password) {
+    newErrors.password = "Please enter your password.";
+  } else if (!passwordRegex.test(password)) {
+    newErrors.password =
+      "Please enter a password with at least 8 characters, including uppercase, lowercase, and numbers.";
+  }
 
-    if (!confirmPassword) {
-      newErrors.confirmPassword = "Please confirm your password.";
-    } else if (password !== confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match.";
-    }
+  if (!confirmPassword) {
+    newErrors.confirmPassword = "Please confirm your password.";
+  } else if (password !== confirmPassword) {
+    newErrors.confirmPassword = "Passwords do not match.";
+  }
 
-    if (!gst) {
-      newErrors.gst = "Please enter your GST number.";
-    }
+  if (Object.keys(newErrors).length > 0) {
+    setErrors(newErrors);
+    return;
+  }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    // If all validations pass, make API call to sign up
-    try {
-      const response = await axios.post(
-        "https://docgeniee.org/mid-doc/doc-genie/signup",
-        {
-          firstName,
-          lastName,
-          email,
-          password,
-          gst, // Include GST in the request payload
-        }
-      );
-
-      if (response.data.msg === "success") {
-        navigate("/");
+  // If all validations pass, make API call to sign up
+  try {
+    const response = await axios.post(
+      "https://docgeniee.org/mid-doc/doc-genie/signup",
+      {
+        firstName,
+        lastName,
+        email,
+        password,
+        gst,
       }
+    );
 
-      if (!response.data.success) {
-        throw new Error(response.data.message);
-      } else {
-        StartToastifyInstance({
-          text: "SignUp failed",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #FFFF00, #FF0000)",
-          },
-        }).showToast();
-      }
-
-      // Handle successful sign up
-      console.log("User signed up successfully", response);
-    } catch (error) {
-      console.error("Error signing up:", error);
-      // Handle error here, e.g., display error message to user
+    if (response.data.msg === "success") {
+      navigate("/");
     }
+
+    if (!response.data.success) {
+      throw new Error(response.data.message);
+    } else {
+      StartToastifyInstance({
+        text: "SignUp failed",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #FFFF00, #FF0000)",
+        },
+      }).showToast();
+    }
+
+    // Handle successful sign up
+    console.log("User signed up successfully", response);
+  } catch (error) {
+    console.error("Error signing up:", error);
+    // Handle error here, e.g., display error message to user
+  }
   };
 
   return (
