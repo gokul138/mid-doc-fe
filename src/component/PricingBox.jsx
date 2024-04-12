@@ -8,32 +8,34 @@ function PricingBox() {
     {
       title: "Free",
       price: "₹ 0",
-     originalPrice:"₹5000",
+      originalPrice: "₹5000",
       planId: "FREE_PLAN_ID",
     },
     {
       title: "Basic",
       price: "₹ 149/day",
-     originalPrice:"₹5000",
+      originalPrice: "₹5000",
       planId: "BASIC_PLAN_ID",
     },
     {
       title: "Professional",
       price: "₹ 999/week",
-     originalPrice:"₹5000",
+      originalPrice: "₹5000",
       planId: "PROFESSIONAL_PLAN_ID",
     },
     {
       title: "Advanced",
       price: "₹ 3499/month",
-     originalPrice:"₹5000",
+      originalPrice: "₹5000",
       planId: "ADVANCED_PLAN_ID",
     },
   ];
 
   const handleGetStarted = async (planId) => {
     try {
-      const response = await axios.get(`https://docgeniee.org/mid-doc/doc-genie/checkout?planId=TEST_LIVE`);
+      const response = await axios.get(
+        `https://docgeniee.org/mid-doc/doc-genie/checkout?planId=TEST_LIVE`
+      );
       console.log("API call response:", response.data);
       // Handle response if needed
     } catch (error) {
@@ -47,7 +49,7 @@ function PricingBox() {
       {plans.map((plan, index) => (
         <div key={index} className="Pricing-box">
           <h4>{plan.title}</h4>
-          <h3 className="original-price">{plan.originalPrice}</h3>  
+          <h3 className="original-price">{plan.originalPrice}</h3>
           <div className="price-container">
             <h3>{plan.price}</h3>
           </div>
@@ -73,12 +75,13 @@ function PricingBox() {
               <FontAwesomeIcon icon={faCheckCircle} />
               <span> </span>And a Fifth One
             </p>
-            
           </div>
-          <button className="btn-getstarted" onClick={() => handleGetStarted(plan.planId)}>
+          <button
+            className="btn-getstarted"
+            onClick={() => handleGetStarted(plan.planId)}
+          >
             Get Started
           </button>
-          
         </div>
       ))}
     </>
