@@ -144,6 +144,7 @@ function SignUp() {
 
   return (
     <div className="login-container">
+       <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Sign Up</h2>
       <div className="new-user-container">
         <label htmlFor="firstName">First Name</label>

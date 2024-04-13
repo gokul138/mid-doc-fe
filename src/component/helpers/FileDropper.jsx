@@ -8,7 +8,8 @@ import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import "toastify-js/src/toastify.css";
 import StartToastifyInstance from "toastify-js";
-import "../../../src/filedropper.css"
+import "../../../src/filedropper.css";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
@@ -16,12 +17,11 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [type, setFileType] = useState("");
   const [response, setResponse] = useState("");
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     if (fileTypes) {
-      fileTypes === "docGeniee"
-        ? setFileType(".pdf")
-        : setFileType(".xlsx, .xls");
+      fileTypes === "docGeniee" ? setFileType(".pdf") : setFileType(".xlsx, .xls");
     }
   }, [fileTypes]);
 
@@ -30,8 +30,6 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       StartToastifyInstance({
         text: "Please select a file to upload",
         className: "info",
-        // gravity: "bottom", // top or bottom
-        // position: "right", // left, center or right
         style: {
           background: "linear-gradient(to right, #FFFF00, #FF0000)",
         },
@@ -46,24 +44,28 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
 
     try {
       const response = await axios.post(
-        "http://ec2-15-207-169-254.ap-south-1.compute.amazonaws.com:8081/upload",
+        "https://docgeniee.org/mid-doc/doc-genie/upload",
         formData
       );
       setFileResponse(response?.data?.files);
       setSession(response.data.sessionId);
 
-      if (response.status === 200) {
-        StartToastifyInstance({
-          text: "Uploaded sucessfully",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-          },
-        }).showToast();
+      if(response?.data?.isPrime){
+          if (response.status === 200) {
+            StartToastifyInstance({
+              text: "Uploaded sucessfully",
+              className: "info",
+              style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+              },
+            }).showToast();
+        }else {
+          throw new Error("Failed to upload file");
+        }
         // Optionally, you can reset the file state after successful upload
         // setFile([]);
-      } else {
-        throw new Error("Failed to upload file");
+      }else{
+        navigate('/pricing');
       }
     } catch (error) {
       console.error("Error uploading file:", error);
@@ -74,6 +76,15 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           background: "linear-gradient(to right, #FFA500, #FF0000)",
         },
       }).showToast();
+      // Check if the error response contains "Invalid session" with status code 401
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        // Navigate the user to "/"
+        navigate("/");
+      }
     }
   };
 
@@ -86,7 +97,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       var input = document.getElementById("file");
       input.value = "";
       setFile([]);
-      setFileResponse([])
+      setFileResponse([]);
     }
     setShowRemoveAlert(false);
   };
@@ -141,18 +152,12 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       reader.readAsArrayBuffer(file);
     });
   };
-  
 
   return (
     <div className="main-container">
       <div className="uploadFileBox">
-        <FontAwesomeIcon
-          icon={faArrowUpFromBracket}
-          style={{ marginTop: "5%" }}
-        />
-        <label htmlFor="file">
-          {"Drag & drop your file here Or browse file from device"}
-        </label>
+        <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ marginTop: "5%" }} />
+        <label htmlFor="file">{"Drag & drop your file here Or browse file from device"}</label>
         <input
           id="file"
           className="select-file"

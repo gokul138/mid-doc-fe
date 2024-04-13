@@ -1,12 +1,12 @@
-// MultiSelectComponent.js
-
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
 const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMessages }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [options, setOptions] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     if (fileResponse && fileResponse.length > 0) {
@@ -24,7 +24,6 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
   }, [fileResponse]);
 
   const handleSelectChange = async (selected) => {
-    console.log('selected', selected);
     setSelectedOptions(selected);
     if (selected.length > 0) {
       try {
@@ -47,10 +46,13 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         }
   
         const response = await axios.post(
-          `http://ec2-15-207-169-254.ap-south-1.compute.amazonaws.com:8081/select-and-preview-sheets?id=${sessionId}`,
+          `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
           payload
         );
-        setTableResponse(response.data.files);
+        if(!response?.data?.isPrime){
+          navigate('/pricing');
+        }
+        setTableResponse(response?.data?.files);
   
         // Update messages with the response
         const currentTime = new Date().toLocaleTimeString();
@@ -63,6 +65,15 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         setMessages(prevMessages => [...prevMessages, newMessage]);
       } catch (error) {
         console.error("Error processing payload:", error);
+        // Check if the error response contains "Invalid session" with status code 401
+        if (
+          error.response &&
+          error.response.data.msg === "Invalid session" &&
+          error.response.status === 401
+        ) {
+          // Navigate the user to "/"
+          navigate("/");
+        }
       }
     }
   };

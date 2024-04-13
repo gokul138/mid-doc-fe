@@ -2,34 +2,10 @@ import React from "react";
 import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 
-function PricingBox() {
-  const plans = [
-    {
-      title: "Free",
-      price: "₹ 0",
-      originalPrice: "₹5000",
-      planId: "FREE_PLAN_ID",
-    },
-    {
-      title: "Basic",
-      price: "₹ 149/day",
-      originalPrice: "₹5000",
-      planId: "BASIC_PLAN_ID",
-    },
-    {
-      title: "Professional",
-      price: "₹ 999/week",
-      originalPrice: "₹5000",
-      planId: "PROFESSIONAL_PLAN_ID",
-    },
-    {
-      title: "Advanced",
-      price: "₹ 3499/month",
-      originalPrice: "₹5000",
-      planId: "ADVANCED_PLAN_ID",
-    },
-  ];
+function PricingBox({ planList }) {
+  const navigate = useNavigate(); // Initialize navigate function
 
   const handleGetStarted = async (planId) => {
     try {
@@ -39,26 +15,37 @@ function PricingBox() {
         }
       }); 
       const url = response?.data?.sessionId; 
-        if (url) {
-          window.location.href = url;
-        }
+      if (url) {
+        window.location.href = url;
+      }
     } catch (error) {
       console.error("Error:", error);
+      // Check if the error response contains "Invalid session" with status code 401
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        // Navigate the user to "/"
+        navigate("/");
+      }
     }
   };
 
   return (
     <>
-      {plans.map((plan, index) => (
+      {planList.map((plan, index) => (
         <div key={index} className="Pricing-box">
           <h4>{plan.planName}</h4>
           <h3 className="original-price">{plan.originalPrice}</h3>
           <div className="price-container">
-            <h3>{`Price: ₹${plan?.price || 0}`}</h3>
+            <h3>{`Price: ${plan?.price || 0}`}</h3>
           </div>
           <div className="features">
-            <ul>
-              {plan.features.map((feature, index) => (
+            {/* Use inline styles to remove bullet points */}
+            <ul style={{ listStyleType: "none" }}>
+              {/* Map through plan.features if it exists */}
+              {plan.features && plan.features.map((feature, index) => (
                 <li key={index}>
                   <FontAwesomeIcon icon={faCheckCircle} />
                   <span> {feature}</span>
