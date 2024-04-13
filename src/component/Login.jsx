@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie"; 
-import { useUserContext } from './UserContext';
+import { useUserContext } from "./helpers/UserContext";
 
 function Login() {
   const [email, setEmail] = useState("");
