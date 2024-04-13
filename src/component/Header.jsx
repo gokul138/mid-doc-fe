@@ -3,7 +3,7 @@ import profile from "../img/profile.jpg";
 import Dropdown from "./helpers/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { useUserContext } from './UserContext';
+import { useUserContext } from "./helpers/UserContext";
 const Header = () => {
   const { userData } = useUserContext();
 
