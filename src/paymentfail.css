@@ -1,4 +1,4 @@
-/* .body-div {
+.body-div {
     font-family: Arial, sans-serif;
     background: #dcf0fa;
     margin: 0;
@@ -49,19 +49,19 @@
     }
   }
 
-  h1 {
+  .heading-tag {
     color: #333;
     margin-top: 20px;
     font-size: 24px;
   }
 
-  p {
+  .para-tags {
     color: #555;
     margin: 10px 0;
     font-size: 18px;
   }
 
-  button {
+  .button-tag {
     background-color: #ff6961;
     color: #fff;
     padding: 12px 24px;
@@ -72,19 +72,19 @@
     font-size: 16px;
   }
 
-  /* button:hover {
+  .button-tag:hover {
     background-color: #ff8c7e;
-  } */
+  }
 
   
-  /* @media only screen and (max-width: 600px) {
+   @media only screen and (max-width: 600px) {
     .container {
       padding: 20px;
     }
-    h1 {
+    .heading-tag {
       font-size: 20px;
     }
-    p {
+   .para-tags {
       font-size: 16px;
     }
-  } */
+  }

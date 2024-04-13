@@ -49,7 +49,7 @@ function PricingBox() {
 
   return (
     <>
-      {planList.map((plan, index) => (
+      {plans.map((plan, index) => (
         <div key={index} className="Pricing-box">
           <h4>{plan.planName}</h4>
           <h3 className="original-price">{plan.originalPrice}</h3>

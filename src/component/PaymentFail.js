@@ -11,12 +11,16 @@ const PaymentFail = () => {
 
   return (
     <div className="body-div">
-      <div class="container">
-        <div class="icon">&#10060;</div>
-        <h1>Payment Failed</h1>
-        <p>We're sorry, your payment could not be processed.</p>
-        <p>Please try again later.</p>
-        <button onClick={onSubmit}>Try Again</button>
+      <div className="container">
+        <div className="icon">&#10060;</div>
+        <h1 className="heading-tag">Payment Failed</h1>
+        <p className="para-tags">
+          We're sorry, your payment could not be processed.
+        </p>
+        <p className="para-tags">Please try again later.</p>
+        <button className="button-tag" onClick={onSubmit}>
+          Try Again
+        </button>
       </div>
     </div>
   );

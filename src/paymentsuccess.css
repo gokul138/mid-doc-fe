@@ -1,4 +1,4 @@
-/* .body-div {
+.body-div {
     background: #dcf0fa;
 }
 
@@ -50,7 +50,7 @@
 }
 
 /* // Paper Jagged Edge */
-/* .jagged-edge {
+.jagged-edge {
     position: relative;
     height: 20px;
     width: 100%;
@@ -174,4 +174,4 @@
     100% {
         -ms-transform: translateY(0%);
     }
-} */ 
+} 
