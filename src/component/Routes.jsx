@@ -8,10 +8,12 @@ import Forgotpassword from "./Forgotpassword";
 import SignUp from "./Signup";
 import PaymentFail from "./PaymentFail";
 import PaymentSuccess from "./PaymentSuccess";
+import { UserProvider } from "./helpers/UserContext";
 const Route00 = () => {
   return (
       <div>
         <BrowserRouter>
+        <UserProvider>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
@@ -22,6 +24,7 @@ const Route00 = () => {
             <Route path="/payment-failed" element={<PaymentFail />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
           </Routes>
+        </UserProvider>
         </BrowserRouter>
       </div>
   );

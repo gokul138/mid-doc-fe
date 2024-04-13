@@ -25,7 +25,7 @@ const Dropdown = () => {
       // Send the logout request with the token in the headers
       const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/logout");
       if(response?.msg === 'success'){
-        navigate("/")
+        navigate("/");
       }
 
       // Handle successful logout, such as redirecting to login page

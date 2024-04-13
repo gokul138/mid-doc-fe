@@ -5,11 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "js-cookie"; 
+import { useUserContext } from './UserContext';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState("");
+  // const [userData, setUserData] = useState("");
+  const { userData, setUserData } = useUserContext();
+
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

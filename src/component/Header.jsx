@@ -3,8 +3,10 @@ import profile from "../img/profile.jpg";
 import Dropdown from "./helpers/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-
+import { useUserContext } from './UserContext';
 const Header = () => {
+  const { userData } = useUserContext();
+
   return (
     <div className="header">
       <div className="header-content">
@@ -14,7 +16,7 @@ const Header = () => {
       <div className="profile-container">
         <FontAwesomeIcon icon={faUser} className="user-icon" />
         <div className="profilename">
-          Vaisakh
+          {userData?.name}
           <Dropdown />
         </div>
       </div>

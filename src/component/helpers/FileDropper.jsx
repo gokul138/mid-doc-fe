@@ -49,23 +49,21 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       );
       setFileResponse(response?.data?.files);
       setSession(response.data.sessionId);
-
       if(response?.data?.isPrime){
-          if (response.status === 200) {
-            StartToastifyInstance({
-              text: "Uploaded sucessfully",
-              className: "info",
-              style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-              },
-            }).showToast();
-        }else {
-          throw new Error("Failed to upload file");
-        }
+        navigate('/');
+      }
+      if (response.status === 200) {
+        StartToastifyInstance({
+          text: "Uploaded sucessfully",
+          className: "info",
+          style: {
+            background: "linear-gradient(to right, #00b09b, #96c93d)",
+          },
+        }).showToast();
         // Optionally, you can reset the file state after successful upload
         // setFile([]);
-      }else{
-        navigate('/pricing');
+      } else {
+        throw new Error("Failed to upload file");
       }
     } catch (error) {
       console.error("Error uploading file:", error);
