@@ -113,9 +113,9 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       });
 
       Promise.all(fileCheck).then(() => {
-        if (totalSheetCount > 4) {
+        if (totalSheetCount > 10) {
           StartToastifyInstance({
-            text: "Total number of sheets across files cannot exceed 4",
+            text: "Total number of sheets across files cannot exceed 10",
             className: "info",
             style: {
               background: "linear-gradient(to right, #FFA500, #FF0000)",

@@ -49,7 +49,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
           `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
           payload
         );
-        if(!response?.data?.isPrime){
+        if(response?.data?.isPrime){
           navigate('/pricing');
         }
         setTableResponse(response?.data?.files);
