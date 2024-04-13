@@ -8,26 +8,25 @@ function Pricing() {
   const [planList, setPlanList] = useState([]);
   const navigate = useNavigate(); // Initialize navigate function
 
-  useEffect(() => {
-    const fetchPlans = async () => {
-      try {
-        const response = await axiosInstance.get("/plans"); // Use the Axios instance
-        const { planList } = response.data;
-        setPlanList(planList);
-      } catch (error) {
-        console.error("Error fetching plans:", error);
-        // Check if the error response contains "Invalid session" with status code 401
-        if (
-          error.response &&
-          error.response.data.msg === "Invalid session" &&
-          error.response.status === 401
-        ) {
-          // Navigate the user to "/"
-          navigate("/");
-        }
+  const fetchPlans = async () => {
+    try {
+      const response = await axiosInstance.get("/plans"); // Use the Axios instance
+      const { planList } = response.data;
+      setPlanList(planList);
+    } catch (error) {
+      console.error("Error fetching plans:", error);
+      // Check if the error response contains "Invalid session" with status code 401
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        // Navigate the user to "/"
+        navigate("/");
       }
-    };
-
+    }
+  };
+  useEffect(() => {
     fetchPlans();
   }, []);
 
