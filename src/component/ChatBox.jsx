@@ -105,7 +105,37 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   };
 
   const processApiResponse = (responseData, currentTime) => {
-    // Process the response data here as before
+    let replyData;
+    if (responseData.type === "other") {
+      const text = Array.isArray(responseData.value)
+        ? responseData.value.map((item) => item.toString()).join(", ")
+        : responseData.value.toString();
+      replyData = {
+        sender: "User 2",
+        type: responseData.type,
+        table: responseData.type === "dataframe" ? responseData.value : [],
+        image: responseData.type === "plot" ? responseData.value : null,
+        text: text,
+        timestamp: currentTime,
+      };
+    } else if(responseData.type === "dataframe"){
+      const value = responseData.value;
+      replyData = {
+        sender: "User 2",
+        type: responseData.type,
+        table: value? value : [],
+        timestamp: currentTime,
+      };
+    }
+    else {
+      replyData = {
+        sender: "User 2",
+        type: responseData.type,
+        image: responseData.type === "plot" ? responseData.value : null,
+        timestamp: currentTime,
+      };
+    }
+    setMessages((prevMessages) => [...prevMessages, replyData]);
   };
 
   const handleKeyPress = (event) => {
@@ -130,18 +160,96 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
               sessionId={sessionId}
               fileResponse={fileResponse}
               setTableResponse={setTableResponse}
-              setMessages={setMessages}
+              setMessages={setMessages} // Pass setMessages to MultiSelectComponent
             />
             <div className="chatbox">
               <div className="messages-container" ref={messagesContainerRef}>
                 {messages?.map((message, index) => (
                   <div key={index} className="chat-bubble">
-                    {/* Render chat bubbles here */}
+                    <div className="initial">
+                      <FontAwesomeIcon
+                        icon={message.type === "user" ? faUser : faComputer}
+                      />
+                    </div>
+                    <div className={`message ${message.type}`}>
+                      <p className="message-text">{message.text}</p>
+                      {message.type === "plot" && (
+                        <div className="plot-container">
+                          {/* <img src={message.image} alt="Plot" /> */}
+                          <Base64Image base64String={message.image}/>
+                        </div>
+                      )}
+                      {message.type === "table" && (
+                        <div className="table-container">
+                          {message.table.map((file, fileIndex) => (
+                            <div key={fileIndex}>
+                              {/* <h3>{file.fileName}</h3> */}
+                              {file.sheetData.map((sheet, sheetIndex) => (
+                                <div key={sheetIndex}>
+                                  {/* <h4>{sheet.sheetName}</h4> */}
+                                  {sheet.data.length > 0 && (
+                                    <table className="scroll-table">
+                                      <thead>
+                                        <tr>
+                                          {Object.keys(sheet.data[0]).map(
+                                            (header, headerIndex) => (
+                                              <th key={headerIndex}>
+                                                {header}
+                                              </th>
+                                            )
+                                          )}
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {sheet.data.map((row, rowIndex) => (
+                                          <tr key={rowIndex}>
+                                            {Object.values(row).map(
+                                              (cell, cellIndex) => (
+                                                <td key={cellIndex}>{cell}</td>
+                                              )
+                                            )}
+                                          </tr>
+                                        ))}
+                                      </tbody>
+                                    </table>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      {message.type === "dataframe" && (
+                        <div className="table-container">
+                          {message.table.map((item, index) => (
+                            <tr key={index}>
+                              <td>{item.Item}</td>
+                            </tr>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 ))}
               </div>
               <form id="message-form" onSubmit={handleSubmit}>
-                {/* Render the message input form here */}
+                <textarea
+                  id="message-input"
+                  className="user-input"
+                  placeholder="Type your message..."
+                  ref={inputRef}
+                  onKeyDown={handleKeyPress}
+                />
+                <button type="submit" className="sendbtn">
+                  {/* <img
+              src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
+              alt=""
+            /> */}
+                  <FontAwesomeIcon
+                    className="send-icon"
+                    icon={faArrowUpRightFromSquare}
+                  />
+                </button>
               </form>
             </div>
           </div>
