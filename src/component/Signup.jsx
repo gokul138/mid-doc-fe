@@ -183,7 +183,7 @@ function SignUp() {
         <div className="relative-container-for-errmsg password-container-signup">
           <input
             className={`input-box ${errors.password && "error-border"}`}
-            type="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={handlePasswordChange}
             autoComplete="off"
