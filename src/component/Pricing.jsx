@@ -29,7 +29,7 @@ function Pricing() {
     };
 
     fetchPlans();
-  }, [navigate]); // Add navigate to dependency array
+  }, []);
 
   return (
     <div>
