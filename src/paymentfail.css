@@ -1,4 +1,4 @@
-.body-div {
+/* .body-div {
     font-family: Arial, sans-serif;
     background: #dcf0fa;
     margin: 0;
@@ -72,12 +72,12 @@
     font-size: 16px;
   }
 
-  button:hover {
+  /* button:hover {
     background-color: #ff8c7e;
-  }
+  } */
 
   
-  @media only screen and (max-width: 600px) {
+  /* @media only screen and (max-width: 600px) {
     .container {
       padding: 20px;
     }
@@ -87,4 +87,4 @@
     p {
       font-size: 16px;
     }
-  }
+  } */

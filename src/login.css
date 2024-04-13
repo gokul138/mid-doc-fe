@@ -62,7 +62,7 @@
     width: 100%;
     border: #BDBDBD solid 2px;
     border-radius: 10px;
-    margin-bottom: 10%;
+    /* margin-bottom: 10%; */
     padding: 2%;
     font-size: 16px;
 
@@ -114,41 +114,40 @@
     border: 2px solid #BDBDBD;
     box-shadow: none;
     /* margin-right: 5%; */
-
 }
 
 .password-input-container{
     position: relative;
     display: flex;
     flex-direction: column;
+    height: 12vh;
 
-    .inpt-box{
-        margin-bottom: 15%;
+    
+        
 
     }
     
 
 
-
-}
-
 .error-msg {
-    position: absolute;
-    top: 100%; /* Position it below the input */
-    left: 0;
+    /* position: absolute; */
+    top: 100%; /* Position it below the input 
+    left: 0;*/
   
   }
+
   .error-msg-password{
+    
     color: red;
-    position: absolute;
+    margin-bottom: 2%;
+    /* position: absolute; 
     bottom: calc(35% - 12vh); 
-    left: 0;
+    left: 0;*/
   }
   .error-msg-email{
     color: red;
-    position: absolute;
-    top:30%;
-    left: 0;
+    margin-top: 2%;
+    margin-bottom: 2%;
 
   }
 
