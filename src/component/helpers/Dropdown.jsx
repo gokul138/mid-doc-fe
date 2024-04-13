@@ -42,14 +42,14 @@ const Dropdown = () => {
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
-          <li>
+          {/* <li>
             <FontAwesomeIcon icon={faCog} />
             Settings
           </li>
           <li>
             <FontAwesomeIcon icon={faCrown} />
             Upgrade Plans
-          </li>
+          </li> */}
           <li onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Logout
