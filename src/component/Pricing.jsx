@@ -1,12 +1,12 @@
-// Pricing.jsx
-
 import React, { useState, useEffect } from "react";
 import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import PricingBox from "./PricingBox";
+import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../pricing.css";
 
 function Pricing() {
   const [planList, setPlanList] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -16,11 +16,20 @@ function Pricing() {
         setPlanList(planList);
       } catch (error) {
         console.error("Error fetching plans:", error);
+        // Check if the error response contains "Invalid session" with status code 401
+        if (
+          error.response &&
+          error.response.data.msg === "Invalid session" &&
+          error.response.status === 401
+        ) {
+          // Navigate the user to "/"
+          navigate("/");
+        }
       }
     };
 
     fetchPlans();
-  }, []);
+  }, [navigate]); // Add navigate to dependency array
 
   return (
     <div>
@@ -28,7 +37,6 @@ function Pricing() {
         <h4 className="pricing-header">PRICING</h4>
         <br />
         <h2 className="slct-pln">Select your Plan</h2>
-       
         <p>
           "From active listening to strategic implementation, we redefine
           systems for {<br />} enhanced efficiency, simplified processes, and
