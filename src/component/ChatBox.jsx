@@ -82,7 +82,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           payload
         );
 
-        if(!response?.data?.isPrime){
+        if(response?.data?.isPrime){
           navigate('/pricing');
         };
         
