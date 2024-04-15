@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { resetPassword, sendOTP, verifyOTP } from "./services/ForgotPasswordAPI"; // Import API functions
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
-function Forgotpassword() {
+const Forgotpassword = ()=> {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");

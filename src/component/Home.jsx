@@ -22,14 +22,12 @@ const Home = () => {
 
   const fetchUserData = async () => {
     try {
-      if (sessionId) {
         const getUser = await axios.get("https://docgeniee.org/mid-doc/doc-genie/user-info");
         console.log('/user-info', getUser);
         setUserData(getUser?.data);
         if (getUser?.data?.primeUser === false) {
           navigate("/pricing");
         }
-      }
     } catch (error) {
       console.error("Error fetching user data:", error);
       // Check if the error response contains "Invalid session" with status code 401

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Routes from './component/Routes';
-function App() {
+const App =()=> {
   
   return (
     <div className="App">
