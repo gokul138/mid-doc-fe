@@ -4,7 +4,7 @@ import PricingBox from "./PricingBox";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../pricing.css";
 
-function Pricing() {
+const Pricing = ()=> {
   const [planList, setPlanList] = useState([]);
   const navigate = useNavigate(); // Initialize navigate function
 
