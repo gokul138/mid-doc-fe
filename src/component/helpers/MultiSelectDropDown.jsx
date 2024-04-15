@@ -25,7 +25,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
 
   const handleSelectChange = async (selected) => {
     setSelectedOptions(selected);
-    if (selected.length > 0) {
+    if (selected.length > 0 && selected.length > selectedOptions.length) {
       try {
         const selectedSheet = selected[selected.length - 1].value; // Get the value of the last selected sheet
         
