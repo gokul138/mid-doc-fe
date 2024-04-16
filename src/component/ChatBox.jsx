@@ -176,7 +176,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                       {message.type === "plot" && (
                         <div className="plot-container">
                           {/* <img src={message.image} alt="Plot" /> */}
-                          <Base64Image base64String={message.image}/>
+                          <Base64Image base64String={message.image} />
                         </div>
                       )}
                       {message.type === "table" && (
@@ -221,11 +221,26 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                       )}
                       {message.type === "dataframe" && (
                         <div className="table-container">
-                          {message.table.map((item, index) => (
-                            <tr key={index}>
-                              <td>{item.Item}</td>
-                            </tr>
-                          ))}
+                          <table className="dataframe-table">
+                            <thead>
+                              <tr>
+                                {Object.keys(message.table[0]).map(
+                                  (header, index) => (
+                                    <th key={index}>{header}</th>
+                                  )
+                                )}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {message.table.map((row, rowIndex) => (
+                                <tr key={rowIndex}>
+                                  {Object.values(row).map((cell, cellIndex) => (
+                                    <td key={cellIndex}>{cell}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
                         </div>
                       )}
                     </div>
