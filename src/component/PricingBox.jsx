@@ -43,7 +43,7 @@ function PricingBox({ planList }) {
           <h4>{plan.planName}</h4>
           <h3 className="original-price">{plan.originalPrice}</h3>
           <div className="price-container">
-            <h3>{`Price: ${plan?.price || 0}`}</h3>
+            <h3>{` ${plan?.price || 0}`}</h3>
           </div>
           <div className="features">
             {/* Use inline styles to remove bullet points */}

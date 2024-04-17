@@ -1,11 +1,14 @@
 /* body {
     font-family: 'Poppins', sans-serif; 
   } */
-
+.show-overflow{
+    overflow: visible;
+}
 
 .pricing-box-container {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
+    /* flex-direction: row; */
     /* margin-top: 5%; */
     justify-content: space-around;
     height: 60vh;
@@ -63,7 +66,7 @@
 
     .price-container {
         background-color: #673AB7;
-        width: auto;
+        width: 50%;
     }
 
 
@@ -71,16 +74,19 @@
 
 .features {
     width: 80%;
-    margin-top: 15%;
-    margin-left: 25%;
+    margin-top: 6%;
+    /* margin-left: 25%; */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: flex-start;
+    /* white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; */
 }
 
-.features p {
-    margin-bottom: 5%;
+.features li {
+    margin-bottom: 3%;
     padding-bottom: 0;
 }
 
@@ -95,7 +101,7 @@
     /* height: 5vh; */
     /* margin-top: 6%; */ 
     position: absolute;
-    bottom: 15px; /* Adjusted bottom spacing */
+    bottom: 15px; 
     left: 50%;
     transform: translateX(-50%);
     background-color: #673AB7;
@@ -124,22 +130,9 @@
         margin-top: 10%;
     }
 
-    h3 {
-        margin-top: 5%;
-    }
-
 }
 
-.Pricing-box-professional {
-    h4 {
-        margin-top: 25%;
-    }
 
-    h3 {
-        margin-top: 5%;
-    }
-
-}
 
 .price-container {
     display: flex;
@@ -147,12 +140,66 @@
     justify-content: center;
     margin-top: 7%;
     height: 8%;
-    width: auto;
+    width: 70%;
     background-color: #F4F6FD;
     border-radius: 15px;
+
+   
+   
 }
 
 .original-price{
-    color: #F3D0D7;
+    color: #000;
     text-decoration: line-through;
+}
+
+@media screen and (max-width: 1100px) {
+    .Pricing-box {
+        width: 30%; 
+        margin-top: 5%; 
+        margin-right: 2%;
+        margin-left: 2%;
+    }
+    .Pricing-box:hover {
+        color: #fff;
+        background-color: #673AB7;
+        border: 1px solid white;
+         margin-top: 2%;
+         margin-right: 2%;
+         margin-left: 2%;
+        /* margin-left: 5%; */
+        width: 30%;
+        height: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    
+    
+        .btn-getstarted {
+            background-color: #fff;
+            font-weight: bold;
+            color: #673AB7;
+            border: none;
+            border-radius: 15px;
+            width: 60%;
+            height: 5vh;
+            margin-top: 10%;
+    
+        }
+    }
+}
+@media screen and (max-width: 600px){
+    .Pricing-box {
+        width: 50%;
+        margin-right: 12%;
+        margin-left: 12%;
+        
+    }
+
+    .Pricing-box:hover {
+        width: 50%;
+        margin-right: 12%;
+        margin-left: 12%;
+
+    }
+    
 }

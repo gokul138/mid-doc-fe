@@ -1,7 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import MultiSelectComponent from "./helpers/MultiSelectDropDown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComputer, faUser, faArrowUpRightFromSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faComputer,
+  faUser,
+  faPaperPlane,
+  faArrowUpRightFromSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
@@ -35,21 +40,21 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
             {
               data: [
                 {
-                  "Item": "Pencil",
-                  "OrderDate": "Wed, 06 Jan 2021 00:00:00 GMT",
-                  "Region": "East",
-                  "Rep": "Jones",
-                  "Total": 189.05,
+                  Item: "Pencil",
+                  OrderDate: "Wed, 06 Jan 2021 00:00:00 GMT",
+                  Region: "East",
+                  Rep: "Jones",
+                  Total: 189.05,
                   "Unit Cost": 1.99,
-                  "Units": 95
+                  Units: 95,
                 },
                 // Add more data here if needed
               ],
-              sheetName: "SalesOrders"
-            }
-          ]
-        }
-      ]
+              sheetName: "SalesOrders",
+            },
+          ],
+        },
+      ],
     };
     // setFileResponse(dummyFileResponse);
   }, []);
@@ -82,12 +87,12 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           payload
         );
 
-        if(response?.data?.isPrime){
-          navigate('/pricing');
-        };
-        
+        if (response?.data?.isPrime) {
+          navigate("/pricing");
+        }
+
         // Process API response
-        console.log('response', response.data);
+        console.log("response", response.data);
         processApiResponse(response.data, currentTime);
       } catch (error) {
         console.error("Error:", error);
@@ -118,16 +123,15 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         text: text,
         timestamp: currentTime,
       };
-    } else if(responseData.type === "dataframe"){
+    } else if (responseData.type === "dataframe") {
       const value = responseData.value;
       replyData = {
         sender: "User 2",
         type: responseData.type,
-        table: value? value : [],
+        table: value ? value : [],
         timestamp: currentTime,
       };
-    }
-    else {
+    } else {
       replyData = {
         sender: "User 2",
         type: responseData.type,
@@ -147,7 +151,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
 
   useEffect(() => {
     if (messagesContainerRef.current) {
-      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      messagesContainerRef.current.scrollTop =
+        messagesContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -247,25 +252,18 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   </div>
                 ))}
               </div>
-              <form id="message-form" onSubmit={handleSubmit}>
-                <textarea
-                  id="message-input"
-                  className="user-input"
-                  placeholder="Type your message..."
-                  ref={inputRef}
-                  onKeyDown={handleKeyPress}
-                />
-                <button type="submit" className="sendbtn">
-                  {/* <img
-              src="https://cdn.icon-icons.com/icons2/2783/PNG/512/send_message_chat_icon_177294.png"
-              alt=""
-            /> */}
-                  <FontAwesomeIcon
-                    className="send-icon"
-                    icon={faArrowUpRightFromSquare}
+              <div className="Chat-input">
+                <form id="message-form" onSubmit={handleSubmit}>
+                  <textarea
+                    id="message-input"
+                    className="user-input"
+                    placeholder="Type your message..."
+                    ref={inputRef}
+                    onKeyDown={handleKeyPress}
                   />
-                </button>
-              </form>
+                  <button type="submit" className="sendbtn" />
+                </form>
+              </div>
             </div>
           </div>
         )}
