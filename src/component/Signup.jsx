@@ -143,7 +143,7 @@ const SignUp =()=> {
   };
 
   return (
-    <div className="login-container">
+    <div className="signup-container">
        <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Sign Up</h2>
       <div className="new-user-container">
@@ -222,7 +222,7 @@ const SignUp =()=> {
           {errors.gst && <p className="err-msg">{errors.gst}</p>}
         </div>
       </div>
-      <button className="btn-sign-up" onClick={handleSubmit}>
+      <button className="signup-btn" onClick={handleSubmit}>
         Sign Up
       </button>
       <p className="login-existing-user">

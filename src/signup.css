@@ -3,7 +3,12 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  .login-logo {
+    margin: 0;
 }
+}
+
 
 .docgeniee-font {
   margin-top: 1%;
@@ -47,7 +52,7 @@ label{
 .new-user-container {
   position: relative;
   width: 35%;
-  margin-top: 2%;
+  /* margin-top: 2%; */
   display: flex;
   flex-direction: column;
 }
@@ -58,7 +63,7 @@ label{
   height: 5vh;
   border: #BDBDBD solid 2px;
   border-radius: 10px;
-  margin-bottom: 2%;
+  /* margin-bottom: 2%; */
   padding: 2%;
   font-size: 16px;
   
@@ -75,6 +80,7 @@ label{
 .signup-btn {
   width: 25%;
   height: 8vh;
+  margin-top: 2%;
   border-radius: 30px;
   color: #fff;
   font-size: large;
@@ -87,7 +93,7 @@ label{
   border: none;
   position: absolute;
   right:42%; 
-  top: 15%; 
+  top: 23%; 
 
   
 }
@@ -97,18 +103,19 @@ label{
 }
 
 
-.relative-container-for-errmsg{
+.relative-container-for-errmsg {
+  position: relative;
   display: flex;
+  height: 40px;
   flex-direction: row;
   width: 175%;
-
+  margin-bottom: 1%;
 }
 .err-msg {
   margin-left: 1%;
   width: 40%;
   display: block;
   top: 0%;
-  margin-top: 0.5rem;
   color: red;
   word-break: break-all; 
 }
@@ -116,9 +123,11 @@ label{
 .error-border {
   border-color: red !important;
 }
-.password-container-signup{
-  position: relative;
-  height: 10vh;
-  
-  
+
+@media screen and (min-width: 1300px) {
+  .err-msg {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+  }
 }

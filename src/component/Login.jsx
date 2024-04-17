@@ -137,6 +137,7 @@ const Login =()=> {
       <p className="login-existing-user">
         Don't have an account? <a href="/signup">Sign Up</a>
       </p>
+      {(<p className="error-msg">Invalid email or password. Please try again</p>)}
     </div>
   );
 }

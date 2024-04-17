@@ -1,10 +1,15 @@
 import React, { useState } from "react";
+import { useUserContext } from "./UserContext";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faCrown, faSignOutAlt, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faUser,faBars } from "@fortawesome/free-solid-svg-icons";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Dropdown = () => {
+  const { userData } = useUserContext();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -38,7 +43,7 @@ const Dropdown = () => {
   return (
     <div className="dropdown">
       <button className="dropdown-toggle" onClick={toggleDropdown}>
-        <FontAwesomeIcon icon={faAngleDown} />
+      <FontAwesomeIcon icon={faBars} className="user-icon"/>  
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
@@ -50,6 +55,7 @@ const Dropdown = () => {
             <FontAwesomeIcon icon={faCrown} />
             Upgrade Plans
           </li> */}
+          <li > {userData?.name}<FontAwesomeIcon icon={faUser} className="user-icon" /></li>
           <li onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Logout

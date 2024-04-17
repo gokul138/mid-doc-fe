@@ -62,7 +62,7 @@
     width: 100%;
     border: #BDBDBD solid 2px;
     border-radius: 10px;
-    /* margin-bottom: 10%; */
+    margin-bottom: 5%;
     padding: 2%;
     font-size: 16px;
 
@@ -130,9 +130,9 @@
 
 
 .error-msg {
-    /* position: absolute; */
-    top: 100%; /* Position it below the input 
-    left: 0;*/
+    color: red;
+      margin-top: 2%;
+
   
   }
 
@@ -159,7 +159,7 @@
 .password-toggle-btn{
   position: absolute;
    right: 5%;
-   top: 15%;
+   top: 20%;
   border: none; 
   background: none;
 
