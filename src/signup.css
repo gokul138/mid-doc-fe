@@ -16,6 +16,7 @@
 
 .create-acc-font {
   margin-top: 1%;
+  margin-bottom: 2%;
 }
 
 .Sign-up-google {
@@ -55,12 +56,13 @@ label{
   /* margin-top: 2%; */
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .input-box {
   position: relative;
-  width: 60%;
-  height: 5vh;
+  width: 97%;
+  height: 6vh;
   border: #BDBDBD solid 2px;
   border-radius: 10px;
   /* margin-bottom: 2%; */
@@ -78,7 +80,7 @@ label{
 }
 
 .signup-btn {
-  width: 25%;
+  width: 70%;
   height: 8vh;
   margin-top: 2%;
   border-radius: 30px;
@@ -92,7 +94,7 @@ label{
   background: none;
   border: none;
   position: absolute;
-  right:42%; 
+  right:8%; 
   top: 23%; 
 
   
@@ -106,28 +108,67 @@ label{
 .relative-container-for-errmsg {
   position: relative;
   display: flex;
-  height: 40px;
-  flex-direction: row;
-  width: 175%;
-  margin-bottom: 1%;
+  /* height: 40px; */
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 4%;
 }
 .err-msg {
-  margin-left: 1%;
-  width: 40%;
+  font-size: small;
+  /* font-weight: bold; */
+  margin-right: 3%;
+  width: 100%;
   display: block;
   top: 0%;
   color: red;
-  word-break: break-all; 
+  /* word-break: break-all;  */
 }
 
 .error-border {
   border-color: red !important;
 }
 
-@media screen and (min-width: 1300px) {
-  .err-msg {
-    white-space: normal;
-    overflow: visible;
-    text-overflow: initial;
+
+.name-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 4%;
+}
+
+.first-name-container{
+  display: flex;
+  /* position: relative; */
+  width: 50%;
+  flex-direction: column;
+}
+
+.last-name-container{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+
+  h4{
+    width: 120%;
   }
 }
+
+#firstName,#lastName{
+  width: 95%;
+}
+#confirm-password,#password{
+  width: 95%;
+}
+
+.rel{
+  position: relative;
+}
+
+
+@media screen and (max-width: 670px){
+
+  .first-name-container h4{
+    margin-top: 20%;
+  }
+}
+
