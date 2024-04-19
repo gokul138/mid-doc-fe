@@ -25,6 +25,12 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const [tableResponse, setTableResponse] = useState(null);
   const navigate = useNavigate(); // Initialize navigate function
 
+  function handleInput() {
+    const input = inputRef.current;
+    input.style.height = 'auto'; 
+    input.style.height = `${input.scrollHeight}px`; 
+  }
+
   const updateMessages = (newMessages) => {
     // Append the new messages to the existing messages state
     setMessages((prevMessages) => [...prevMessages, ...newMessages]);
@@ -257,9 +263,11 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   <textarea
                     id="message-input"
                     className="user-input"
+                    style={{ maxHeight: "200px", overflowY: "auto" }}
                     placeholder="Type your message..."
                     ref={inputRef}
                     onKeyDown={handleKeyPress}
+                    onChange={handleInput}
                   />
                   <button type="submit" className="sendbtn" />
                 </form>

@@ -45,9 +45,9 @@ const Home = () => {
   return (
     <>
       <Header />
-      <div>
+      <div >
         <SideBar setSession={setSession} setFileResponse={setFileResponse} />
-        {!sessionId&& (<Welcome />)}
+         {!sessionId&& (<Welcome />)}
         <ChatBox sessionId={sessionId} fileResponse={fileResponse} setFileResponse={setFileResponse} />
       </div>
     </>

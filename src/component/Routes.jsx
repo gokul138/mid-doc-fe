@@ -9,10 +9,11 @@ import SignUp from "./Signup";
 import PaymentFail from "./PaymentFail";
 import PaymentSuccess from "./PaymentSuccess";
 import { UserProvider } from "./helpers/UserContext";
+
 const Route00 = () => {
   return (
-      <div>
-        <BrowserRouter>
+    <div>
+      <BrowserRouter>
         <UserProvider>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -25,8 +26,8 @@ const Route00 = () => {
             <Route path="/payment-success" element={<PaymentSuccess />} />
           </Routes>
         </UserProvider>
-        </BrowserRouter>
-      </div>
+      </BrowserRouter>
+    </div>
   );
 };
 
