@@ -55,7 +55,7 @@ const Dropdown = () => {
             <FontAwesomeIcon icon={faCrown} />
             Upgrade Plans
           </li> */}
-          <li > {userData?.name}<FontAwesomeIcon icon={faUser} className="user-icon" /></li>
+          <li > <FontAwesomeIcon icon={faUser} className="user-icon" />{userData?.name}</li>
           <li onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Logout

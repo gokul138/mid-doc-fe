@@ -4,9 +4,9 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.hidden-overflow{
-    overflow: hidden;
-}
+/* .hidden-overflow{
+    overflow: hidden !important;
+} */
 
 body {
     /* overflow: hidden; */
@@ -15,8 +15,8 @@ body {
 
 .lftBox {
     position: absolute;
-    width: 25%;
-    height: 100%;
+    width: 20%;
+    height: 89%;
     top: 70px;
     background: #ececec73;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
@@ -136,7 +136,7 @@ body {
 .rghtBox {
     display: inline-block;
     position: absolute;
-    width: 80%;
+    width: 73%;
     height: 85%;
     left: 26%;
     top: 12%;
@@ -162,6 +162,13 @@ body {
     background-size: cover;
     width: 45px;
     height: 45px;
+}
+
+.subscription-days{
+    position: absolute;
+    font-size: medium;
+    top: 3%;
+    right: 15%;
 }
 
 .app-name {
@@ -203,12 +210,12 @@ body {
 
 .dropdown-menu {
     position: absolute;
-    width: 125%;
+    width: auto;
     z-index: 5;
     margin-top: 5%;
     top: 100%;
-    right: -38%;
-    background-color: #fff;
+    right: 1%;
+    background-color: #FFF;
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 5px;
@@ -253,13 +260,17 @@ body {
     margin-left: 4%;
 }
 
-.css-1fdsijx-ValueContainer {
-    height: 3vh;
+
+
+
+
+/* .css-1fdsijx-ValueContainer {
+    
     display: block !important;
-    /* overflow: visible !important; */
+    
     text-wrap: wrap;
     word-wrap: break-word;
-}
+} */
 
 
 .select-sheets .selection__control:hover {
@@ -360,7 +371,7 @@ body {
     min-height: 36px;
     position: absolute;
     bottom: 12%;
-    right: 17%;
+    right: 18%;
     background-color: transparent;
     cursor: pointer;
     align-items: center;
@@ -398,7 +409,7 @@ body {
     border-radius: 12px;
     font-size: 14px;
     resize: none;
-    width: 80%;
+    width: 79.5%;
     height: 75%;
     outline: 1px solid rgb(158, 158, 158);
     padding-top: 0.75%;
@@ -560,12 +571,12 @@ table {
 }
 
 .profile-container {
-    width: 8%;
+    width: 3%;
     height: auto;
     display: flex;
     flex-direction: row;
     position: absolute;
-    right: 5%;
+    right: 1%;
 }
 
 .plot-container{
@@ -588,8 +599,9 @@ table {
 }
 
 .user-icon {
+    
     font-size: 25px;
-    margin-top: 10%;
+    margin-top: 1%;
 }
 
 .css-13cymwt-control {
@@ -600,4 +612,8 @@ table {
 .Chat-input{
     position: relative;
     width: 100%;
+}
+
+.dropdown{
+    position: relative;
 }

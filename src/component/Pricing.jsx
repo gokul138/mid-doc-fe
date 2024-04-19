@@ -38,7 +38,7 @@ const Pricing = ()=> {
         <h2 className="slct-pln">Select your Plan</h2>
         <p>
           From active listening to strategic implementation, we redefine
-          systems for {<br />} enhanced efficiency, simplified processes, and
+          systems for enhanced efficiency, simplified processes, and
           informed decision-making.
         </p>
       </div>
