@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, onContinue }) => {
     <div className={`modal-overlay ${isOpen ? "open" : ""}`}>
       <div className="modal">
         <div className="modal-content">
-          <p>There is already a session. Do you want to continue?</p>
+          <p>There is already a session running. Do you want to continue?</p>
           <div className="modal-actions">
             <button className="yes" onClick={handleContinue}>
               Yes
