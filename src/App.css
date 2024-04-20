@@ -254,10 +254,15 @@ body {
 }
 
 .select-sheets {
+    z-index: 100;
     border: 2px solid #ccc;
     border-radius: 6px;
     width: 80%;
     margin-left: 4%;
+
+    select{
+       z-index: 101; 
+    }
 }
 
 

@@ -45,7 +45,7 @@
     .paper {
         background: #ffffff;
         font-family: 'Poppins', sans-serif;
-        height: 447px;
+        height: 350px;
         position: absolute;
         z-index: 2;
         margin: 0 12px;
@@ -59,19 +59,18 @@
         padding: 24px;
     }
 
-    // Paper Jagged Edge
     .jagged-edge {
-        position: relative;
-        height: 20px;
-        width: 100%;
-        margin-top: -1px;
-    }
+    position: relative;
+    height: 20px;
+    width: 100%;
+    margin-top: 25px;
+     }
 
     .jagged-edge:after {
+        
         content: "";
         display: block;
         position: absolute;
-        //bottom: 20px;
         left: 0;
         right: 0;
         height: 20px;
@@ -132,11 +131,11 @@
     }
 
     .order-number {
-        border-top: 1px solid #ccc;
-        border-bottom: 1px solid #ccc;
+        /* border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc; */
         line-height: 48px;
         font-size: 48px;
-        padding: 8px 0;
+        padding: 48px 0;
         margin-bottom: 24px;
     }
     
@@ -146,7 +145,7 @@
         color: #32a852;
     }
 
-    }
+    
     
     @keyframes print {
         0% {
@@ -206,8 +205,6 @@
                         Thank you for completing the payment! You will shortly receive an email of your payment.
                     </div>
                     <div class="order-details">
-                        <div class="order-number-label">Transaction ID</div>
-                        <div class="order-number">123456789</div>
                         <div class="complement">Thank You!</div>
                     </div>
                 </div>
