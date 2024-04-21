@@ -145,6 +145,8 @@ const Login = () => {
         <ConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={handleCloseConfirmModal}
+          message={"There is already a session running. Do you want to continue?"}
+          mail={email}
           handleSubmit={handleSubmit}
         />
       )}
