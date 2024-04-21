@@ -25,7 +25,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
 
   const handleSelectChange = async (selected) => {
     setSelectedOptions(selected);
-    if (selected.length > 0 && selected.length > selectedOptions.length) {
+    if (selected.length > 0 && selected.length > selectedOptions.length) {  
       try {
         const selectedSheet = selected[selected.length - 1].value; // Get the value of the last selected sheet
         
@@ -37,7 +37,6 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         const fileWithSheet = fileResponse.find((file) =>
           file.sheets.includes(selectedSheet)
         );
-
         if (fileWithSheet) {
           payload.files.push({
             fileName: fileWithSheet.fileName,
@@ -49,7 +48,8 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
           `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
           payload
         );
-        if(response?.data?.isPrime){
+        if(response?.data?.isPrime === false){
+          // we need to add tostify messages
           navigate('/pricing');
         }
         setTableResponse(response?.data?.files);

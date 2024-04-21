@@ -1,100 +1,99 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import Cookies from "js-cookie"; 
 import { useUserContext } from "./helpers/UserContext";
+import ConfirmModal from "./helpers/ConfirmModal";
 
-const Login =()=> {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [userData, setUserData] = useState("");
-  const { userData, setUserData } = useUserContext();
-
   const [errors, setErrors] = useState({ email: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showPassword, setShowPassword] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const { setUserData } = useUserContext();
+  const navigate = useNavigate();
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
-  const navigate = useNavigate();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
     setErrors({ ...errors, email: "" });
+    setIsInvalid(false);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     setErrors({ ...errors, password: "" });
+    setIsInvalid(false);
   };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
+  const handleOpenConfirmModal = () => {
+    setConfirmModalOpen(true);
+  };
+  
+  const handleCloseConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Perform client-side validation
-    const newErrors = {};
-  
-    // Validate email and password (uncomment if needed)
-    if (!email) {
-      newErrors.email = "Please enter your email.";
-    } else if (!emailRegex.test(email)) {
-      newErrors.email = "Please enter a valid email address.";
-    }
-    if (!password) {
-      newErrors.password = "Please enter your password.";
-    } else if (!passwordRegex.test(password)) {
-      newErrors.password =
-        "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
-      newErrors.password =
-        "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.";
-    }
-  
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    // Client-side validation
+    if (!email || !emailRegex.test(email)) {
+      setErrors({ ...errors, email: "Please enter a valid email address." });
       return;
     }
-  
-    try {
-      // Make API call to authenticate user
-      const response = await axios.post(
-        "https://docgeniee.org/mid-doc/doc-genie/login",
-        {
-          email,
-          password,
-        }
-      );
-      // Check if login was successful
-      if(response.status){
-        const getUser = await axios.get(
-          "https://docgeniee.org/mid-doc/doc-genie/user-info");
-          console.log('/user-info', getUser);
-          setUserData(getUser.data);
-          // setIsAuthenticated(true);
-          if (getUser.data.primeUser === true) {
-            navigate("/main");
-          } else {
-            navigate("/pricing");
-          }
-      }
-      setErrors({ email: "", password: "" });
-       // Clear any previous errors
-      // Redirect user to main page or perform any other action
-    } catch (error) {
+
+    if (!password || !passwordRegex.test(password)) {
       setErrors({
         ...errors,
-        email: "Invalid email or password. Please try again.",
+        password:
+          "Please enter a password with at least 5 characters, including uppercase, lowercase, and numbers.",
       });
+      return;
+    }
+
+    try {
+      // API call to authenticate user
+      const response = await axios.post(
+        "https://docgeniee.org/mid-doc/doc-genie/login",
+        { email, password }
+      );
+
+      if (response.status === 200) {
+        handleCloseConfirmModal();
+        const getUser = await axios.get(
+          "https://docgeniee.org/mid-doc/doc-genie/user-info"
+        );
+
+        setUserData(getUser.data);
+
+        if (getUser.data.primeUser) {
+          navigate("/main");
+        } else {
+          navigate("/pricing");
+        }
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 429) {
+        handleOpenConfirmModal();
+      
+      } else {
+        setIsInvalid(true);
+      }
     }
   };
-  
+
   return (
     <div className="login-container">
-       <div className="header-logo login-logo"></div>
+      <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Login to Your Account</h2>
       <div className="sign-up-container">
         <h4>Email</h4>
@@ -137,9 +136,18 @@ const Login =()=> {
       <p className="login-existing-user">
         Don't have an account? <a href="/signup">Sign Up</a>
       </p>
-      {(<p className="error-msg">Invalid email or password. Please try again</p>)}
+      {isInvalid && (
+        <p className="error-msg">
+          Invalid email or password. Please try again.
+        </p>
+      )}
+      <ConfirmModal
+        isOpen={isConfirmModalOpen}
+        onClose={handleCloseConfirmModal}
+        handleSubmit={handleSubmit}
+      />
     </div>
   );
-}
+};
 
 export default Login;

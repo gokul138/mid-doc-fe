@@ -1,15 +1,18 @@
 import React from 'react'
 import "../../modal.css"
+import axios from 'axios';
 
-const Modal = ({ isOpen, onClose, onContinue }) => {
+const ConfirmModal = ({ isOpen, onClose, email, handleSubmit}) => {
 
-    const handleContinue = () => {
-        // Continue logic here
+    const handleContinue = async() => {
+      const alreadyLogin = await axios.delete(
+        `https://docgeniee.org/mid-doc/doc-genie/delete-session?mail=${email}`
+      );
+      if (alreadyLogin === "success") {
+        handleSubmit(); // Retry login after deleting session
+      }
       };
     
-      onClose = () => {
-         // Continue logic here
-      };
   return (
     <div className={`modal-overlay ${isOpen ? "open" : ""}`}>
       <div className="modal">
@@ -29,4 +32,4 @@ const Modal = ({ isOpen, onClose, onContinue }) => {
   );
 }
 
-export default Modal
+export default ConfirmModal

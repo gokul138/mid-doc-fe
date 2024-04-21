@@ -19,6 +19,7 @@ const Dropdown = () => {
 
 
   const handleLogout = async () => {
+    setIsOpen(!isOpen);
     try {
       // Get the token from cookies
       // const token = document.cookie.split("; ").find(row => row.startsWith("token="))?.split("=")[1];
@@ -29,7 +30,7 @@ const Dropdown = () => {
 
       // Send the logout request with the token in the headers
       const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/logout");
-      if(response?.msg === 'success'){
+      if(response?.data?.msg === 'success' && response?.data?.statusCode===200){
         navigate("/");
       }
 
