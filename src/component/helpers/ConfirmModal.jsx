@@ -9,7 +9,7 @@ const ConfirmModal = ({ isOpen, onClose, mail, message, handleSubmit}) => {
         const alreadyLogin = await axios.delete(
         `https://docgeniee.org/mid-doc/doc-genie/delete-session?mail=${mail}`
       );
-      if (alreadyLogin === "success") {
+      if (alreadyLogin?.data === "success") {
         handleSubmit(); // Retry login after deleting session
       }
     }
