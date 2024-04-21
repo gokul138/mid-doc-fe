@@ -141,11 +141,13 @@ const Login = () => {
           Invalid email or password. Please try again.
         </p>
       )}
-      <ConfirmModal
-        isOpen={isConfirmModalOpen}
-        onClose={handleCloseConfirmModal}
-        handleSubmit={handleSubmit}
-      />
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={handleCloseConfirmModal}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </div>
   );
 };
