@@ -49,8 +49,9 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       );
       setFileResponse(response?.data?.files);
       setSession(response.data.sessionId);
-      if(response?.data?.isPrime){
-        navigate('/');
+      if(response?.data?.isPrime === false){
+          // we need to add tostify messages
+        navigate('/pricing');
       }
       if (response.status === 200) {
         StartToastifyInstance({

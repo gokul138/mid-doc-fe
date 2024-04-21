@@ -28,7 +28,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   function handleInput() {
     const input = inputRef.current;
     input.style.height = 'auto'; 
-    input.style.height = `${input.scrollHeight}px`; 
+    input.style.height = `${Math.min(input.scrollHeight, 200)}px`; 
   }
 
   const updateMessages = (newMessages) => {
@@ -93,7 +93,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           payload
         );
 
-        if (response?.data?.isPrime) {
+        if (response?.data?.isPrime === false) {
+          // we need to add tostify messages
           navigate("/pricing");
         }
 
@@ -263,7 +264,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   <textarea
                     id="message-input"
                     className="user-input"
-                    style={{ maxHeight: "200px", overflowY: "auto" }}
+                    style={{ maxHeight: "200px", minHeight: "40px", overflowY: "auto" }}
                     placeholder="Type your message..."
                     ref={inputRef}
                     onKeyDown={handleKeyPress}

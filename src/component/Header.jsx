@@ -13,7 +13,7 @@ const Header = () => {
         <div className="header-logo"></div>
         <span className="app-name">DataGeniee</span>
         <span className="subscription-days">
-          Your premium subscription ends in{" "}
+          Subscription expires in{userData?.primeValidity}
         </span>
       </div>
       <div className="profile-container">

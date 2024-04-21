@@ -9,7 +9,6 @@ import SignUp from "./Signup";
 import PaymentFail from "./PaymentFail";
 import PaymentSuccess from "./PaymentSuccess";
 import { UserProvider } from "./helpers/UserContext";
-import Modal from "./helpers/Modal";
 
 const Route00 = () => {
   return (
@@ -25,7 +24,6 @@ const Route00 = () => {
             <Route path="/main" element={<Home />} />
             <Route path="/payment-failed" element={<PaymentFail />} />
             <Route path="/payment-success" element={<PaymentSuccess />} />
-
           </Routes>
         </UserProvider>
       </BrowserRouter>
