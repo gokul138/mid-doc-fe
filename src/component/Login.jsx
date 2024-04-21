@@ -43,7 +43,7 @@ const Login = () => {
     setConfirmModalOpen(false);
   };
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event?.preventDefault();
 
     // Client-side validation
     if (!email || !emailRegex.test(email)) {
