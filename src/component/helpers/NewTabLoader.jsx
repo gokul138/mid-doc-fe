@@ -3,7 +3,7 @@ import "../../NewTabLoader.css"
 
 const NewTabLoader = () => {
   return (
-    <div className="loader">
+    <div className="loader-container">
       <div className="rectangle"></div>
       <div className="rectangle"></div>
       <div className="rectangle"></div>
