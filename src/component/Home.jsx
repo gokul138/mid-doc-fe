@@ -8,7 +8,7 @@ import axios from "axios";
 import { useUserContext } from "./helpers/UserContext";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({showLoader}) => {
   const { userData, setUserData } = useUserContext();
   const [sessionId, setSession] = useState("");
   const [fileResponse, setFileResponse] = useState([]);
@@ -18,7 +18,9 @@ const Home = () => {
 
   useEffect(() => {
     fetchUserData();
+    showLoader(true);
   }, []);
+
 
   const fetchUserData = async () => {
     try {

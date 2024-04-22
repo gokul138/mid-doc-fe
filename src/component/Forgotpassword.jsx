@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "../forgotpassword.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { resetPassword, sendOTP, verifyOTP } from "./services/ForgotPasswordAPI"; // Import API functions
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
-const Forgotpassword = ()=> {
+const Forgotpassword = ({showLoader})=> {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
@@ -23,6 +23,10 @@ const Forgotpassword = ()=> {
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
+
+  useEffect(() => {
+    showLoader(true);
+  }, []);
 
   const handleSendOTP = async (event) => {
     event.preventDefault();

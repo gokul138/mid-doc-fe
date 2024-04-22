@@ -25,58 +25,58 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
 
   const handleSelectChange = async (selected) => {
     setSelectedOptions(selected);
-    if (selected.length > 0 && selected.length > selectedOptions.length) {  
-      try {
-        const selectedSheet = selected[selected.length - 1].value; // Get the value of the last selected sheet
-        
-        const payload = {
-          id: sessionId,
-          files: [], // Clear files array before adding new sheet
-        };
+    
+    try {
+      const selectedSheets = selected.map(option => option.value); // Get values of all selected sheets
+    
+      const payload = {
+        id: sessionId,
+        files: [], // Clear files array before adding new sheet
+      };
   
-        const fileWithSheet = fileResponse.find((file) =>
-          file.sheets.includes(selectedSheet)
-        );
-        if (fileWithSheet) {
-          payload.files.push({
-            fileName: fileWithSheet.fileName,
-            sheets: [selectedSheet],
-          });
-        }
+      const fileWithSheet = fileResponse.find((file) =>
+        file.sheets.some(sheet => selectedSheets.includes(sheet))
+      );
+      if (fileWithSheet) {
+        payload.files.push({
+          fileName: fileWithSheet.fileName,
+          sheets: selectedSheets,
+        });
+      }
   
-        const response = await axios.post(
-          `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
-          payload
-        );
-        if(response?.data?.isPrime === false){
-          // we need to add tostify messages
-          navigate('/pricing');
-        }
-        setTableResponse(response?.data?.files);
+      const response = await axios.post(
+        `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
+        payload
+      );
   
-        // Update messages with the response
-        const currentTime = new Date().toLocaleTimeString();
-        const newMessage = {
-          sender: "User 2",
-          type: "table",
-          table: response.data.files,
-          timestamp: currentTime,
-        };
-        setMessages(prevMessages => [...prevMessages, newMessage]);
-      } catch (error) {
-        console.error("Error processing payload:", error);
-        // Check if the error response contains "Invalid session" with status code 401
-        if (
-          error.response &&
-          error.response.data.msg === "Invalid session" &&
-          error.response.status === 401
-        ) {
-          // Navigate the user to "/"
-          navigate("/");
-        }
+      if(response?.data?.isPrime === false){
+        // Redirect to pricing page if the user is not a prime user
+        navigate('/pricing');
+      }
+  
+      setTableResponse(response?.data?.files);
+  
+      const currentTime = new Date().toLocaleTimeString();
+      const newMessage = {
+        sender: "User 2",
+        type: "table",
+        table: response.data.files,
+        timestamp: currentTime,
+      };
+      setMessages(prevMessages => [...prevMessages, newMessage]);
+    } catch (error) {
+      console.error("Error processing payload:", error);
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        // Navigate the user to "/"
+        navigate("/");
       }
     }
   };
+  
   
 
   const customStyles = {
