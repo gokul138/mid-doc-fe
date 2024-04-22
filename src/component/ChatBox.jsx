@@ -22,6 +22,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const messagesContainerRef = useRef(null);
   const [inputHeight, setInputHeight] = useState("auto");
   const [messages, setMessages] = useState([]);
+  const [isApiDone, setApiDone] = useState(false);
   const [tableResponse, setTableResponse] = useState(null);
   const navigate = useNavigate(); // Initialize navigate function
 
@@ -67,6 +68,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setApiDone(true);
     const messageText = inputRef.current.value.trim();
     if (messageText !== "") {
       const currentTime = new Date().toLocaleTimeString();
@@ -101,8 +103,10 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         // Process API response
         console.log("response", response.data);
         processApiResponse(response.data, currentTime);
+        setApiDone(false);
       } catch (error) {
         console.error("Error:", error);
+        setApiDone(false);
         // Check if the error response contains "Invalid session" with status code 401
         if (
           error.response &&
@@ -260,7 +264,9 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                 ))}
               </div>
               <div className="Chat-input">
-                <form id="message-form" onSubmit={handleSubmit}>
+                <form id="message-form" 
+                onSubmit={handleSubmit}
+                >
                   <textarea
                     id="message-input"
                     className="user-input"
@@ -269,6 +275,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                     ref={inputRef}
                     onKeyDown={handleKeyPress}
                     onChange={handleInput}
+                    disabled={isApiDone}
                   />
                   <button type="submit" className="sendbtn" />
                 </form>
