@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import StartToastifyInstance from "toastify-js";
 
 const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMessages }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -56,14 +57,26 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
   
       setTableResponse(response?.data?.files);
   
-      const currentTime = new Date().toLocaleTimeString();
-      const newMessage = {
-        sender: "User 2",
-        type: "table",
-        table: response.data.files,
-        timestamp: currentTime,
-      };
-      setMessages(prevMessages => [...prevMessages, newMessage]);
+      if (response?.data?.files.length === 0) {
+        const message =response?.data?.messages;
+        StartToastifyInstance({
+          text: message,
+          className: "info",
+          style: {
+            background: "linear-gradient(to right, #FFFF00, #FF0000)",
+          },
+        }).showToast();
+      } else {
+        // Update messages with the response
+        const currentTime = new Date().toLocaleTimeString();
+        const newMessage = {
+          sender: "User 2",
+          type: "table",
+          table: response.data.files,
+          timestamp: currentTime,
+        };
+        setMessages(prevMessages => [...prevMessages, newMessage]);
+      }
     } catch (error) {
       console.error("Error processing payload:", error);
       if (
