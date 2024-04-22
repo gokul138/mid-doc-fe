@@ -4,9 +4,13 @@ import PricingBox from "./PricingBox";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../pricing.css";
 
-const Pricing = ()=> {
+const Pricing = ({showLoader})=> {
   const [planList, setPlanList] = useState([]);
   const navigate = useNavigate(); // Initialize navigate function
+
+  useEffect(() => {
+    showLoader(true);
+  }, []);
 
   const fetchPlans = async () => {
     try {

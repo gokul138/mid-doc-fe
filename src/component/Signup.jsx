@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../signup.css";
@@ -6,7 +6,7 @@ import StartToastifyInstance from "toastify-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
-const SignUp = () => {
+const SignUp = ({showLoader}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -27,6 +27,10 @@ const SignUp = () => {
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const navigate = useNavigate();
 
+  useEffect(() => {
+    showLoader(true);
+  }, []);
+  
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
     setErrors({ ...errors, firstName: "" });

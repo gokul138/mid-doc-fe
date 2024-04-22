@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 
-const Login = () => {
+const Login = ({showLoader}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -20,6 +20,9 @@ const Login = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
+  useEffect(() => {
+    showLoader(true);
+  }, []);
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
     setErrors({ ...errors, email: "" });
