@@ -10,6 +10,7 @@ import "toastify-js/src/toastify.css";
 import StartToastifyInstance from "toastify-js";
 import "../../../src/filedropper.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import InfoModal from "./InfoModal";
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
@@ -18,6 +19,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [response, setResponse] = useState("");
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const navigate = useNavigate(); // Initialize navigate function
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     if (fileTypes) {
@@ -30,6 +32,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       StartToastifyInstance({
         text: "Please select a file to upload",
         className: "info",
+        duration: 1500,
         style: {
           background: "linear-gradient(to right, #FFFF00, #FF0000)",
         },
@@ -67,6 +70,14 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         throw new Error("Failed to upload file");
       }
     } catch (error) {
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        handleOpenConfirmModal();
+        // navigate("/");
+      }
       console.error("Error uploading file:", error);
       StartToastifyInstance({
         text: "Failed to upload file",
@@ -76,14 +87,6 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         },
       }).showToast();
       // Check if the error response contains "Invalid session" with status code 401
-      if (
-        error.response &&
-        error.response.data.msg === "Invalid session" &&
-        error.response.status === 401
-      ) {
-        // Navigate the user to "/"
-        navigate("/");
-      }
     }
   };
 
@@ -138,7 +141,13 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       }).showToast();
     }
   };
-
+  const handleOpenConfirmModal = () => {
+    setConfirmModalOpen(true);
+  };
+  
+  const handleCloseConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
   const readExcelFile = (file) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -188,6 +197,13 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
         )}
       </div>
+      {isConfirmModalOpen && (
+        <InfoModal
+          isOpen={isConfirmModalOpen}
+          onClose={handleCloseConfirmModal}
+          message={"Invalid Session, Please Login again"}
+        />
+      )}
     </div>
   );
 };
