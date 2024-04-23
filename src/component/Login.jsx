@@ -6,8 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
+import NewTabLoader from "./helpers/NewTabLoader";
 
-const Login = ({showLoader}) => {
+const Login = () => {
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+      const timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, 1500);
+      // Clean up the timeout on component unmount or when the flag is set to false
+      return () => clearTimeout(timeout);
+    }, [showLoader]);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -20,9 +31,6 @@ const Login = ({showLoader}) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
 
-  useEffect(() => {
-    showLoader(true);
-  }, []);
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
     setErrors({ ...errors, email: "" });
@@ -95,6 +103,8 @@ const Login = ({showLoader}) => {
   };
 
   return (
+    <div>
+    {showLoader ? <NewTabLoader /> : (
     <div className="login-container">
       <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Login to Your Account</h2>
@@ -153,6 +163,8 @@ const Login = ({showLoader}) => {
           handleSubmit={handleSubmit}
         />
       )}
+    </div>
+    )}
     </div>
   );
 };

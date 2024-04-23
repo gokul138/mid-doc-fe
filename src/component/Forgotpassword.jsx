@@ -5,8 +5,20 @@ import { faUnlock } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { resetPassword, sendOTP, verifyOTP } from "./services/ForgotPasswordAPI"; // Import API functions
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import NewTabLoader from "./helpers/NewTabLoader";
 
-const Forgotpassword = ({showLoader})=> {
+const Forgotpassword = ()=> {
+
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+      const timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, 1500);
+      // Clean up the timeout on component unmount or when the flag is set to false
+      return () => clearTimeout(timeout);
+    }, [showLoader]);
+
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [error, setError] = useState("");
@@ -23,10 +35,6 @@ const Forgotpassword = ({showLoader})=> {
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
-
-  useEffect(() => {
-    showLoader(true);
-  }, []);
 
   const handleSendOTP = async (event) => {
     event.preventDefault();
@@ -132,7 +140,9 @@ const Forgotpassword = ({showLoader})=> {
   
 
   return (
-    <form>
+    <div>
+    {showLoader ? <NewTabLoader /> : 
+   ( <form>
       <div className="password-container">
         {!otpSent&&<div className="email-container">
         <FontAwesomeIcon icon={faUnlock} className="unlock-logo" />
@@ -209,7 +219,8 @@ const Forgotpassword = ({showLoader})=> {
           </>
         )}
       </div>
-    </form>
+    </form>)}
+    </div>
   );
 }
 

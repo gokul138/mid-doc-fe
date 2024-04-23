@@ -11,44 +11,22 @@ import { UserProvider } from "./helpers/UserContext";
 import NewTabLoader from "./helpers/NewTabLoader";
 
 const Route00 = () => {
-  const [showLoader, setShowLoader] = useState(true);
-
-  const showNewTabLoader = (show) => {
-    if (!showLoader) { // Only set showLoader if it's currently hidden
-      setShowLoader(show);
-    }
-  };
-  // Function to hide the loader after 2 seconds
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 1500);
-
-    
-    // Clean up the timeout on component unmount or when the flag is set to false
-    return () => clearTimeout(timeout);
-  }, [showNewTabLoader]);
-
-  
-
+  // console.log("APPLICATION RUNNING");
   return (
     <div>
-     
-
         <BrowserRouter>
           <UserProvider>
             <Routes>
-              <Route path="/" element={<Login showLoader={showNewTabLoader} />} />
-              <Route path="/signup" element={<SignUp showLoader={showNewTabLoader} />} />
-              <Route path="/forgot-password" element={<Forgotpassword showLoader={showNewTabLoader} />} />
-              <Route path="/pricing" element={<Pricing showLoader={showNewTabLoader} />} />
-              <Route path="/main" element={<Home showLoader={showNewTabLoader} />} />
-              <Route path="/payment-failed" element={<PaymentFail showLoader={showNewTabLoader} />} />
-              <Route path="/payment-success" element={<PaymentSuccess showLoader={showNewTabLoader} />} />
+              <Route path="/" element={<Login/>} />
+              <Route path="/signup" element={<SignUp/>} />
+              <Route path="/forgot-password" element={<Forgotpassword/>} />
+              <Route path="/pricing" element={<Pricing/>} />
+              <Route path="/main" element={<Home/>} />
+              <Route path="/payment-failed" element={<PaymentFail/>} />
+              <Route path="/payment-success" element={<PaymentSuccess/>} />
             </Routes>
           </UserProvider>
         </BrowserRouter>
-
     </div>
   );
 };
