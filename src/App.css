@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Ver+na, sans-serif;
 }
 /* .hidden-overflow{
     overflow: hidden !important;
@@ -12,6 +12,7 @@ body {
     /* overflow: hidden; */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 .lftBox {
     position: absolute;
@@ -498,7 +499,7 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     margin-bottom: 15px;
 }
 
@@ -522,6 +523,7 @@ table {
 .table{
     .message-text{
         width: 0;
+        margin-left: 0;
     }
 
 }
@@ -586,22 +588,20 @@ table {
 
 .plot-container{
     display: flex;
-    justify-content: center;
-    width: 100%;
+    /* justify-content: center; */
+    width: 75%;
 
     
     img{
-        object-fit: fill;
+        width: 80%;
+        height: 100%;
+        object-fit: contain;
     }
     
 
 }
 
-.plot{
-    .message-text{
-        width: 0;
-    }
-}
+
 
 .user-icon {
     
