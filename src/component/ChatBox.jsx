@@ -12,6 +12,8 @@ import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
 import { LoadingProvider } from "./helpers/LoadingContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import StartToastifyInstance from "toastify-js";
+import InfoModal from "./helpers/InfoModal";
 
 function Base64Image({ base64String }) {
   return <img src={`data:image/jpeg;base64,${base64String}`} alt="Base64" />;
@@ -21,10 +23,12 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const inputRef = useRef(null);
   const messagesContainerRef = useRef(null);
   const [inputHeight, setInputHeight] = useState("auto");
+  const [infoMessage, setInfoMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isApiDone, setApiDone] = useState(false);
   const [tableResponse, setTableResponse] = useState(null);
   const navigate = useNavigate(); // Initialize navigate function
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   function handleInput() {
     const input = inputRef.current;
@@ -66,6 +70,14 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
     // setFileResponse(dummyFileResponse);
   }, []);
 
+  const handleOpenConfirmModal = () => {
+    setConfirmModalOpen(true);
+  };
+  
+  const handleCloseConfirmModal = () => {
+    setConfirmModalOpen(false);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setApiDone(true);
@@ -97,7 +109,9 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
 
         if (response?.data?.isPrime === false) {
           // we need to add tostify messages
-          navigate("/pricing");
+          setInfoMessage('Subcription has ended, Redirecting to Subcription page');
+          handleOpenConfirmModal();
+          // navigate("/pricing");
         }
 
         // Process API response
@@ -113,8 +127,10 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           error.response.data.msg === "Invalid session" &&
           error.response.status === 401
         ) {
+          setInfoMessage('Invalid Session, Please Login again');
+          handleOpenConfirmModal();
           // Navigate the user to "/"
-          navigate("/");
+          // navigate("/");
         }
       }
     }
@@ -142,7 +158,16 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         table: value ? value : [],
         timestamp: currentTime,
       };
-    } else {
+    } else if (responseData.type === "Error") {
+      const value = responseData.value;
+      StartToastifyInstance({
+        text: value,
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #FFFF00, #FF0000)",
+        },
+      }).showToast();
+    }else {
       replyData = {
         sender: "User 2",
         type: responseData.type,
@@ -289,6 +314,13 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
             </div>
           </div>
         )}
+        {isConfirmModalOpen && (
+        <InfoModal
+          isOpen={isConfirmModalOpen}
+          onClose={handleCloseConfirmModal}
+          message={infoMessage}
+        />
+      )}
       </div>
       <Loader />
     </LoadingProvider>
