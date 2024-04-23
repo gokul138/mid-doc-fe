@@ -5,8 +5,21 @@ import "../signup.css";
 import StartToastifyInstance from "toastify-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import NewTabLoader from "./helpers/NewTabLoader";
 
-const SignUp = ({showLoader}) => {
+const SignUp = () => {
+
+  const [showLoader, setShowLoader] = useState(true);
+
+  useEffect(() => {
+      const timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, 1500);
+      // Clean up the timeout on component unmount or when the flag is set to false
+      return () => clearTimeout(timeout);
+    }, [showLoader]);
+
+    
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -26,10 +39,6 @@ const SignUp = ({showLoader}) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    showLoader(true);
-  }, []);
   
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -143,7 +152,9 @@ const SignUp = ({showLoader}) => {
   };
 
   return (
-    <div className="signup-container">
+    <div>
+    {showLoader ? <NewTabLoader /> : 
+    (<div className="signup-container">
       <div className="header-logo login-logo"></div>
       <h2 className="create-acc-font">Sign Up</h2>
       <div className="new-user-container">
@@ -246,6 +257,7 @@ const SignUp = ({showLoader}) => {
           Already have an account? <a href="/">Log In</a>
         </p>
       </div>
+    </div>)}
     </div>
   );
 };

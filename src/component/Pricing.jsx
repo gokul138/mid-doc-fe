@@ -3,14 +3,23 @@ import axiosInstance from "./axiosInstance"; // Import the Axios instance
 import PricingBox from "./PricingBox";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../pricing.css";
+import NewTabLoader from "./helpers/NewTabLoader";
 
-const Pricing = ({showLoader})=> {
-  const [planList, setPlanList] = useState([]);
-  const navigate = useNavigate(); // Initialize navigate function
+const Pricing = ()=> {
+
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    showLoader(true);
-  }, []);
+      const timeout = setTimeout(() => {
+        setShowLoader(false);
+      }, 1500);
+      // Clean up the timeout on component unmount or when the flag is set to false
+      return () => clearTimeout(timeout);
+    }, [showLoader]);
+
+
+  const [planList, setPlanList] = useState([]);
+  const navigate = useNavigate(); // Initialize navigate function
 
   const fetchPlans = async () => {
     try {
@@ -35,7 +44,9 @@ const Pricing = ({showLoader})=> {
   }, []);
 
   return (
-    <div className="show-overflow">
+    <div>
+    {showLoader ? <NewTabLoader /> : 
+   (<div className="show-overflow">
       <div className="pricing-top-div">
         <h4 className="pricing-header">PRICING</h4>
         <br />
@@ -49,7 +60,8 @@ const Pricing = ({showLoader})=> {
       <div className="pricing-box-container">
         <PricingBox planList={planList} />
       </div>
-    </div>
+    </div>)}
+  </div>
   );
 }
 
