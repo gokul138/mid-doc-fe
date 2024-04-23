@@ -10,10 +10,10 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
   const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
-    if (fileResponse && fileResponse.length > 0) {
-      const newOptions = fileResponse.map((file) => ({
-        label: file.fileName,
-        options: file.sheets.map((sheet) => ({
+    if (fileResponse && fileResponse?.length > 0) {
+      const newOptions = fileResponse?.map((file) => ({
+        label: file?.fileName,
+        options: file?.sheets?.map((sheet) => ({
           value: sheet,
           label: sheet,
         })),
@@ -28,18 +28,18 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
     setSelectedOptions(selected);
     
     try {
-      const selectedSheets = selected.map(option => option.value); // Get values of all selected sheets
+      const selectedSheets = selected?.map(option => option?.value); // Get values of all selected sheets
     
       const payload = {
         id: sessionId,
         files: [], // Clear files array before adding new sheet
       };
   
-      const fileWithSheet = fileResponse.find((file) =>
-        file.sheets.some(sheet => selectedSheets.includes(sheet))
+      const fileWithSheet = fileResponse?.find((file) =>
+        file?.sheets?.some(sheet => selectedSheets.includes(sheet))
       );
       if (fileWithSheet) {
-        payload.files.push({
+        payload?.files?.push({
           fileName: fileWithSheet.fileName,
           sheets: selectedSheets,
         });
@@ -72,7 +72,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         const newMessage = {
           sender: "User 2",
           type: "table",
-          table: response.data.files,
+          table: response?.data?.files,
           timestamp: currentTime,
         };
         setMessages(prevMessages => [...prevMessages, newMessage]);
