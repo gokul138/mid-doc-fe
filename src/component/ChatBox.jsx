@@ -158,8 +158,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         table: value ? value : [],
         timestamp: currentTime,
       };
-    } else if (responseData.type === "Error") {
-      const value = responseData.value;
+    } else if (responseData?.type === "Error") {
+      const value = responseData?.value;
       StartToastifyInstance({
         text: value,
         className: "info",
@@ -209,28 +209,28 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   <div key={index} className="chat-bubble">
                     <div className="initial">
                       <FontAwesomeIcon
-                        icon={message.type === "user" ? faUser : faComputer}
+                        icon={message?.type === "user" ? faUser : faComputer}
                       />
                     </div>
-                    <div className={`message ${message.type}`}>
-                    {message.type !== "dataframe" && message.type !== "plot" && (
-                      <p className="message-text">{message.text}</p>
+                    <div className={`message ${message?.type}`}>
+                    {message?.type !== "dataframe" && message?.type !== "plot" && (
+                      <p className="message-text">{message?.text}</p>
                     )}
-                      {message.type === "plot" && (
+                      {message?.type === "plot" && (
                         <div className="plot-container">
                           {/* <img src={message.image} alt="Plot" /> */}
-                          <Base64Image base64String={message.image} />
+                          <Base64Image base64String={message?.image} />
                         </div>
                       )}
-                      {message.type === "table" && (
+                      {message?.type === "table" && (
                         <div className="table-container">
-                          {message.table.map((file, fileIndex) => (
+                          {message?.table.map((file, fileIndex) => (
                             <div key={fileIndex}>
                               {/* <h3>{file.fileName}</h3> */}
-                              {file.sheetData.map((sheet, sheetIndex) => (
+                              {file?.sheetData?.map((sheet, sheetIndex) => (
                                 <div key={sheetIndex}>
                                   {/* <h4>{sheet.sheetName}</h4> */}
-                                  {sheet.data.length > 0 && (
+                                  {sheet?.data?.length > 0 && (
                                     <table className="scroll-table">
                                       <thead>
                                         <tr>
@@ -262,12 +262,12 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                           ))}
                         </div>
                       )}
-                      {message.type === "dataframe" && (
+                      {message?.type === "dataframe" && (
                         <div className="table-container">
                           <table className="dataframe-table">
                             <thead>
                               <tr>
-                                {Object.keys(message.table[0]).map(
+                                {Object.keys(message?.table[0]).map(
                                   (header, index) => (
                                     <th key={index}>{header}</th>
                                   )
@@ -275,7 +275,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                               </tr>
                             </thead>
                             <tbody>
-                              {message.table.map((row, rowIndex) => (
+                              {message?.table.map((row, rowIndex) => (
                                 <tr key={rowIndex}>
                                   {Object.values(row).map((cell, cellIndex) => (
                                     <td key={cellIndex}>{cell}</td>
