@@ -28,8 +28,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
 
   function handleInput() {
     const input = inputRef.current;
-    input.style.height = 'auto'; 
-    input.style.height = `${Math.min(input.scrollHeight, 200)}px`; 
+    input.style.height = "auto";
+    input.style.height = `${Math.min(input.scrollHeight, 200)}px`;
   }
 
   const updateMessages = (newMessages) => {
@@ -188,7 +188,9 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                       />
                     </div>
                     <div className={`message ${message.type}`}>
+                    {message.type !== "dataframe" && message.type !== "plot" && (
                       <p className="message-text">{message.text}</p>
+                    )}
                       {message.type === "plot" && (
                         <div className="plot-container">
                           {/* <img src={message.image} alt="Plot" /> */}
@@ -270,7 +272,11 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   <textarea
                     id="message-input"
                     className="user-input"
-                    style={{ maxHeight: "200px", minHeight: "40px", overflowY: "auto" }}
+                    style={{
+                      maxHeight: "200px",
+                      minHeight: "40px",
+                      overflowY: "auto",
+                    }}
                     placeholder="Type your message..."
                     ref={inputRef}
                     onKeyDown={handleKeyPress}
