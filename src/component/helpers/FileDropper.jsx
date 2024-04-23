@@ -122,7 +122,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
             text: "Total number of sheets across files cannot exceed 10",
             className: "info",
             style: {
-              background: "linear-gradient(to right, #FFA500, #FF0000)",
+              background: "linear-gradient(to right, #D32F2F, #D32F2F)",
             },
           }).showToast();
         } else {
@@ -136,7 +136,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         text: "Upload less than or equal to 4 files",
         className: "info",
         style: {
-          background: "linear-gradient(to right, #FFA500, #FF0000)",
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
     }

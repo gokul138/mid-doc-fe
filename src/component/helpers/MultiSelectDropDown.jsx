@@ -63,7 +63,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
           text: message,
           className: "info",
           style: {
-            background: "linear-gradient(to right, #FFFF00, #FF0000)",
+            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
           },
         }).showToast();
       } else {
