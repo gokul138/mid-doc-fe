@@ -34,7 +34,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         className: "info",
         duration: 1500,
         style: {
-          background: "linear-gradient(to right, #FFFF00, #FF0000)",
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
       return;
@@ -83,7 +83,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         text: "Failed to upload file",
         className: "info",
         style: {
-          background: "linear-gradient(to right, #FFA500, #FF0000)",
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
       // Check if the error response contains "Invalid session" with status code 401

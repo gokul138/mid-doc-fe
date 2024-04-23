@@ -164,7 +164,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         text: value,
         className: "info",
         style: {
-          background: "linear-gradient(to right, #FFFF00, #FF0000)",
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
     }else {
@@ -175,7 +175,9 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         timestamp: currentTime,
       };
     }
-    setMessages((prevMessages) => [...prevMessages, replyData]);
+    if(replyData!== undefined){
+      setMessages((prevMessages) => [...prevMessages, replyData]);
+    }
   };
 
   const handleKeyPress = (event) => {
