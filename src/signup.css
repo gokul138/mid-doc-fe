@@ -14,9 +14,9 @@
   margin-top: 1%;
 }
 
-.create-acc-font {
-  margin-top: 1%;
-  margin-bottom: 2%;
+.create-acc-fonts {
+ margin-top: 0;
+ margin-bottom: 1%;
 }
 
 .Sign-up-google {
@@ -56,7 +56,7 @@ label{
   /* margin-top: 2%; */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .input-box {
@@ -83,6 +83,7 @@ label{
   width: 70%;
   height: 8vh;
   margin-top: 2%;
+  margin-left: 15%;
   border-radius: 30px;
   color: #fff;
   font-size: large;
@@ -95,13 +96,14 @@ label{
   border: none;
   position: absolute;
   right:8%; 
-  top: 23%; 
+  top: 19%; 
 
   
 }
 
 .login-existing-user {
   margin-top: 1%;
+  margin-left: 25%;
 }
 
 
@@ -163,6 +165,46 @@ label{
 .rel{
   position: relative;
 }
+
+
+.terms-checkbox {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: flex;
+  /* align-items: center; */
+  
+}
+
+.terms-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.terms-checkbox input[type="checkbox"]:checked {
+  background-color: #673AB7;
+  border-color: #673AB7;
+}
+
+.terms-checkbox input[type="checkbox"]:checked::before {
+  content: '\2714';
+  font-size: 16px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+}
+
+.terms-checkbox label {
+  font-size: 14px;
+}
+
 
 
 @media screen and (max-width: 670px){
