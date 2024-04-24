@@ -7,6 +7,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 import NewTabLoader from "./helpers/NewTabLoader";
+import { Eye,EyeSlash } from "@phosphor-icons/react";
 
 const Login = () => {
   const [showLoader, setShowLoader] = useState(true);
@@ -129,13 +130,13 @@ const Login = () => {
             Forgot?
           </a>
           <button
-            className="password-toggle-btn"
+            className={"password-toggle-btn"}
             onClick={togglePasswordVisibility}
           >
             {showPassword ? (
-              <FontAwesomeIcon icon={faEyeSlash} />
+              <EyeSlash size={28} color="#bdbdbd"/>
             ) : (
-              <FontAwesomeIcon icon={faEye} />
+              <Eye size={28} color="#bdbdbd"/>
             )}
           </button>
         </div>
