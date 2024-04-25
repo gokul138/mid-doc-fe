@@ -56,7 +56,7 @@ label{
   /* margin-top: 2%; */
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+  align-items: center;
 }
 
 .input-box {
@@ -83,7 +83,7 @@ label{
   width: 70%;
   height: 8vh;
   margin-top: 2%;
-  margin-left: 15%;
+  /* margin-left: 15%; */
   border-radius: 30px;
   color: #fff;
   font-size: large;
@@ -103,7 +103,7 @@ label{
 
 .login-existing-user {
   margin-top: 1%;
-  margin-left: 25%;
+  /* margin-left: 25%; */
 }
 
 
