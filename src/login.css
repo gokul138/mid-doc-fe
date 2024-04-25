@@ -177,24 +177,5 @@
     height: 80px;
 }
 
-.eye-icon-visible{
-    background-image: url(../src/img/eye-visible-icon.png);
-    position: absolute;
-    width: 30px;
-   right: 5%;
-   top: 20%;
-  border: none; 
-    
 
-}
 
-.eye-icon-hidden{
-    background-image: url(./img/eye-icon.png);
-    position: absolute;
-   right: 5%;
-   top: 20%;
-   width: 30px;
-  border: none; 
-    /* background: none; */
-
-}
