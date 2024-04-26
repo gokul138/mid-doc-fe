@@ -49,6 +49,16 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         `doc-genie/select-and-preview-sheets?id=${sessionId}`,
         payload
       );
+      if(response?.data?.type === 'Error'){
+        const message =response?.data?.value;
+        StartToastifyInstance({
+          text: message,
+          className: "info",
+          style: {
+            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+          },
+        }).showToast();
+      }
   
       if(response?.data?.isPrime === false){
         // Redirect to pricing page if the user is not a prime user
