@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../signup.css";
 import StartToastifyInstance from "toastify-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NewTabLoader from "./helpers/NewTabLoader";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
+import axiosInstance from "./axiosInstance";
 
 const SignUp = () => {
   const [showLoader, setShowLoader] = useState(true);
@@ -115,7 +115,7 @@ const SignUp = () => {
 
     // If all validations pass, make API call to sign up
     try {
-      const response = await axios.post(
+      const response = await axiosInstance.post(
         "https://docgeniee.org/mid-doc/doc-genie/signup",
         {
           firstName,

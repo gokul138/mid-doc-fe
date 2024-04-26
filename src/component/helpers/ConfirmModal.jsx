@@ -1,14 +1,12 @@
 import React from 'react'
 import "../../modal.css"
-import axios from 'axios';
+import axiosInstance from '../axiosInstance';
 
 const ConfirmModal = ({ isOpen, onClose, mail, message, handleSubmit}) => {
 
     const handleContinue = async() => {
       if(mail){
-        const alreadyLogin = await axios.delete(
-        `https://docgeniee.org/mid-doc/doc-genie/delete-session?mail=${mail}`
-      );
+        const alreadyLogin = await axiosInstance.delete(`doc-genie/delete-session?mail=${mail}`);
       if (alreadyLogin?.data === "success") {
         handleSubmit(); // Retry login after deleting session
       }

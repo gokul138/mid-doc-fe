@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import bin from "../../img/bin.png";
 import * as XLSX from "xlsx";
 import RemoveFileAlert from "./RemoveFileAlert";
@@ -11,6 +10,7 @@ import StartToastifyInstance from "toastify-js";
 import "../../../src/filedropper.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import InfoModal from "./InfoModal";
+import axiosInstance from "../axiosInstance";
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
@@ -46,8 +46,8 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     }
 
     try {
-      const response = await axios.post(
-        "https://docgeniee.org/mid-doc/doc-genie/upload",
+      const response = await axiosInstance.post(
+        "doc-genie/upload",
         formData
       );
       setFileResponse(response?.data?.files);

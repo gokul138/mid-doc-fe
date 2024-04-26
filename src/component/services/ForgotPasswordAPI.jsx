@@ -4,7 +4,7 @@ import axiosInstance from '../axiosInstance';
 
 export const sendOTP = async (email) => {
   try {
-    const response = await axiosInstance.post('/send-otp', {
+    const response = await axiosInstance.post('doc-genie/send-otp', {
       email: email,
       category: 'PASSWORD',
     });
@@ -16,7 +16,7 @@ export const sendOTP = async (email) => {
 
 export const verifyOTP = async (email, otp) => {
   try {
-    const response = await axiosInstance.post('/verify-otp', {
+    const response = await axiosInstance.post('doc-genie/verify-otp', {
       email: email,
       category: 'PASSWORD',
       otp: otp,
@@ -29,7 +29,7 @@ export const verifyOTP = async (email, otp) => {
 
 export const resetPassword = async (email, password) => {
   try {
-    const response = await axiosInstance.post("/forgot-password", {
+    const response = await axiosInstance.post("doc-genie/forgot-password", {
       email,
       password,
     });

@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import "../../modal.css";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const InfoModal = ({ isOpen, onClose, message }) => {

@@ -7,13 +7,13 @@ import {
   faPaperPlane,
   faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
 import { LoadingProvider } from "./helpers/LoadingContext";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import StartToastifyInstance from "toastify-js";
 import InfoModal from "./helpers/InfoModal";
+import axiosInstance from "./axiosInstance";
 
 function Base64Image({ base64String }) {
   return <img src={`data:image/jpeg;base64,${base64String}`} alt="Base64" />;
@@ -73,7 +73,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const handleOpenConfirmModal = () => {
     setConfirmModalOpen(true);
   };
-  
+
   const handleCloseConfirmModal = () => {
     setConfirmModalOpen(false);
   };
@@ -102,14 +102,16 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         };
 
         // Make POST request to API
-        const response = await axios.post(
-          "https://docgeniee.org/mid-doc/doc-genie/interaction",
+        const response = await axiosInstance.post(
+          "doc-genie/interaction",
           payload
         );
 
         if (response?.data?.isPrime === false) {
           // we need to add tostify messages
-          setInfoMessage('Subcription has ended, Redirecting to Subcription page');
+          setInfoMessage(
+            "Subcription has ended, Redirecting to Subcription page"
+          );
           handleOpenConfirmModal();
           // navigate("/pricing");
         }
@@ -127,7 +129,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           error.response.data.msg === "Invalid session" &&
           error.response.status === 401
         ) {
-          setInfoMessage('Invalid Session, Please Login again');
+          setInfoMessage("Invalid Session, Please Login again");
           handleOpenConfirmModal();
           // Navigate the user to "/"
           // navigate("/");
@@ -167,7 +169,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
-    }else {
+    } else {
       replyData = {
         sender: "User 2",
         type: responseData.type,
@@ -175,7 +177,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         timestamp: currentTime,
       };
     }
-    if(replyData!== undefined){
+    if (replyData !== undefined) {
       setMessages((prevMessages) => [...prevMessages, replyData]);
     }
   };
@@ -215,9 +217,10 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                       />
                     </div>
                     <div className={`message ${message?.type}`}>
-                    {message?.type !== "dataframe" && message?.type !== "plot" && (
-                      <p className="message-text">{message?.text}</p>
-                    )}
+                      {message?.type !== "dataframe" &&
+                        message?.type !== "plot" && (
+                          <p className="message-text">{message?.text}</p>
+                        )}
                       {message?.type === "plot" && (
                         <div className="plot-container">
                           {/* <img src={message.image} alt="Plot" /> */}
@@ -293,9 +296,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                 ))}
               </div>
               <div className="Chat-input">
-                <form id="message-form" 
-                onSubmit={handleSubmit}
-                >
+                <form id="message-form" onSubmit={handleSubmit}>
                   <textarea
                     id="message-input"
                     className="user-input"
@@ -317,12 +318,12 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           </div>
         )}
         {isConfirmModalOpen && (
-        <InfoModal
-          isOpen={isConfirmModalOpen}
-          onClose={handleCloseConfirmModal}
-          message={infoMessage}
-        />
-      )}
+          <InfoModal
+            isOpen={isConfirmModalOpen}
+            onClose={handleCloseConfirmModal}
+            message={infoMessage}
+          />
+        )}
       </div>
       <Loader />
     </LoadingProvider>

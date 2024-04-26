@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import StartToastifyInstance from "toastify-js";
+import axiosInstance from "../axiosInstance";
 
 const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMessages }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -45,8 +45,8 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         });
       }
   
-      const response = await axios.post(
-        `https://docgeniee.org/mid-doc/doc-genie/select-and-preview-sheets?id=${sessionId}`,
+      const response = await axiosInstance.post(
+        `doc-genie/select-and-preview-sheets?id=${sessionId}`,
         payload
       );
   
