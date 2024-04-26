@@ -3,8 +3,8 @@ import { useUserContext } from "./UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog, faCrown, faSignOutAlt, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { faUser,faBars } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../axiosInstance";
 
 const Dropdown = () => {
   const { userData } = useUserContext();
@@ -27,7 +27,7 @@ const Dropdown = () => {
       // }
 
       // Send the logout request with the token in the headers
-      const response = await axios.post("https://docgeniee.org/mid-doc/doc-genie/logout");
+      const response = await axiosInstance.post("doc-genie/logout");
       if(response?.data?.msg === 'success'){
         navigate("/");
       }

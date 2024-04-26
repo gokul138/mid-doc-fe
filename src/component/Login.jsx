@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../login.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,18 +6,19 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 import NewTabLoader from "./helpers/NewTabLoader";
-import { Eye,EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeSlash } from "@phosphor-icons/react";
+import axiosInstance from "./axiosInstance";
 
 const Login = () => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-      const timeout = setTimeout(() => {
-        setShowLoader(false);
-      }, 1500);
-      // Clean up the timeout on component unmount or when the flag is set to false
-      return () => clearTimeout(timeout);
-    }, [showLoader]);
+    const timeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 1500);
+    // Clean up the timeout on component unmount or when the flag is set to false
+    return () => clearTimeout(timeout);
+  }, [showLoader]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +50,7 @@ const Login = () => {
   const handleOpenConfirmModal = () => {
     setConfirmModalOpen(true);
   };
-  
+
   const handleCloseConfirmModal = () => {
     setConfirmModalOpen(false);
   };
@@ -74,15 +74,15 @@ const Login = () => {
 
     try {
       // API call to authenticate user
-      const response = await axios.post(
-        "https://docgeniee.org/mid-doc/doc-genie/login",
-        { email, password }
-      );
+      const response = await axiosInstance.post("doc-genie/login", {
+        email,
+        password,
+      });
 
       if (response.status === 200) {
         handleCloseConfirmModal();
-        const getUser = await axios.get(
-          "https://docgeniee.org/mid-doc/doc-genie/user-info"
+        const getUser = await axiosInstance.get(
+          "doc-genie/user-info"
         );
 
         setUserData(getUser.data);
@@ -96,7 +96,6 @@ const Login = () => {
     } catch (error) {
       if (error.response && error.response.status === 429) {
         handleOpenConfirmModal();
-      
       } else {
         setIsInvalid(true);
       }
@@ -105,67 +104,71 @@ const Login = () => {
 
   return (
     <div>
-    {showLoader ? <NewTabLoader /> : (
-    <div className="login-container">
-      <div className="header-logo login-logo"></div>
-      <h2 className="create-acc-font">Login to Your Account</h2>
-      <div className="sign-up-container">
-        <h4>Email</h4>
-        <input
-          className={`inpt-box ${errors.email && "error-border"}`}
-          type="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
-        {errors.email && <p className="error-msg-email">{errors.email}</p>}
-        <h4 className="password-header">Password</h4>
-        <div className="password-input-container">
-          <input
-            className={`inpt-box ${errors.password && "error-border"}`}
-            type={showPassword ? "text" : "password"}
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <a className="forgot-password-login" href="/forgot-password">
-            Forgot?
-          </a>
-          <button
-            className={"password-toggle-btn"}
-            onClick={togglePasswordVisibility}
-          >
-            {showPassword ? (
-              <EyeSlash size={28} color="#bdbdbd"/>
-            ) : (
-              <Eye size={28} color="#bdbdbd"/>
+      {showLoader ? (
+        <NewTabLoader />
+      ) : (
+        <div className="login-container">
+          <div className="header-logo login-logo"></div>
+          <h2 className="create-acc-font">Login to Your Account</h2>
+          <div className="sign-up-container">
+            <h4>Email</h4>
+            <input
+              className={`inpt-box ${errors.email && "error-border"}`}
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
+            {errors.email && <p className="error-msg-email">{errors.email}</p>}
+            <h4 className="password-header">Password</h4>
+            <div className="password-input-container">
+              <input
+                className={`inpt-box ${errors.password && "error-border"}`}
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <a className="forgot-password-login" href="/forgot-password">
+                Forgot?
+              </a>
+              <button
+                className={"password-toggle-btn"}
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <EyeSlash size={28} color="#bdbdbd" />
+                ) : (
+                  <Eye size={28} color="#bdbdbd" />
+                )}
+              </button>
+            </div>
+            {errors.password && (
+              <p className="error-msg-password">{errors.password}</p>
             )}
+          </div>
+          <button className="btn-sign-up" onClick={handleSubmit}>
+            Sign In
           </button>
+          <p className="login-existing-user">
+            Don't have an account? <a href="/signup">Sign Up</a>
+          </p>
+          {isInvalid && (
+            <p className="error-msg">
+              Invalid email or password. Please try again.
+            </p>
+          )}
+          {isConfirmModalOpen && (
+            <ConfirmModal
+              isOpen={isConfirmModalOpen}
+              onClose={handleCloseConfirmModal}
+              message={
+                "There is already a session running. Do you want to continue?"
+              }
+              mail={email}
+              handleSubmit={handleSubmit}
+            />
+          )}
         </div>
-        {errors.password && (
-          <p className="error-msg-password">{errors.password}</p>
-        )}
-      </div>
-      <button className="btn-sign-up" onClick={handleSubmit}>
-        Sign In
-      </button>
-      <p className="login-existing-user">
-        Don't have an account? <a href="/signup">Sign Up</a>
-      </p>
-      {isInvalid && (
-        <p className="error-msg">
-          Invalid email or password. Please try again.
-        </p>
       )}
-      {isConfirmModalOpen && (
-        <ConfirmModal
-          isOpen={isConfirmModalOpen}
-          onClose={handleCloseConfirmModal}
-          message={"There is already a session running. Do you want to continue?"}
-          mail={email}
-          handleSubmit={handleSubmit}
-        />
-      )}
-    </div>
-    )}
     </div>
   );
 };

@@ -4,10 +4,10 @@ import SideBar from "./SideBar";
 import ChatBox from "./ChatBox";
 import Welcome from "./Welcome";
 import Loader from "./helpers/Loader";
-import axios from "axios";
 import { useUserContext } from "./helpers/UserContext";
 import { useNavigate } from "react-router-dom";
 import NewTabLoader from "./helpers/NewTabLoader";
+import axiosInstance from "./axiosInstance";
 
 const Home = () => {
 
@@ -30,7 +30,7 @@ const Home = () => {
 
   const fetchUserData = async () => {
     try {
-        const getUser = await axios.get("https://docgeniee.org/mid-doc/doc-genie/user-info");
+        const getUser = await axiosInstance.get("doc-genie/user-info");
         console.log('/user-info', getUser);
         setUserData(getUser?.data);
         if (getUser?.data?.primeUser === false) {

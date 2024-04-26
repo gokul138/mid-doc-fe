@@ -9,7 +9,7 @@ function PricingBox({ planList }) {
 
   const handleGetStarted = async (planId) => {
     try {
-      const response = await axiosInstance.get(`/checkout?planId=${planId}`, {
+      const response = await axiosInstance.get(`doc-genie/checkout?planId=${planId}`, {
         headers: {
           'Content-Type': 'application/json'
         }
