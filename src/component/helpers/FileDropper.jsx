@@ -11,11 +11,13 @@ import "../../../src/filedropper.css";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import InfoModal from "./InfoModal";
 import axiosInstance from "../axiosInstance";
+import UploadLoader from "./UploadLoader";
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
   const [fileName, setFileName] = useState([]);
   const [type, setFileType] = useState("");
+  const [loader, setLoader] = useState(false);
   const [response, setResponse] = useState("");
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const navigate = useNavigate(); // Initialize navigate function
@@ -23,11 +25,14 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
 
   useEffect(() => {
     if (fileTypes) {
-      fileTypes === "docGeniee" ? setFileType(".pdf") : setFileType(".xlsx, .xls");
+      fileTypes === "docGeniee"
+        ? setFileType(".pdf")
+        : setFileType(".xlsx, .xls");
     }
   }, [fileTypes]);
 
   const handleUpload = async () => {
+    setLoader(true);
     if (!file) {
       StartToastifyInstance({
         text: "Please select a file to upload",
@@ -46,17 +51,15 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     }
 
     try {
-      const response = await axiosInstance.post(
-        "doc-genie/upload",
-        formData
-      );
+      const response = await axiosInstance.post("doc-genie/upload", formData);
       setFileResponse(response?.data?.files);
       setSession(response.data.sessionId);
-      if(response?.data?.isPrime === false){
-          // we need to add tostify messages
-        navigate('/pricing');
+      if (response?.data?.isPrime === false) {
+        // we need to add tostify messages
+        navigate("/pricing");
       }
-      if (response.status === 200) {
+      if (response.status === 200 && response?.data?.message === "SUCCESS") {
+        setLoader(false);
         StartToastifyInstance({
           text: "Uploaded sucessfully",
           className: "info",
@@ -66,6 +69,14 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         }).showToast();
         // Optionally, you can reset the file state after successful upload
         // setFile([]);
+      } else if (response?.data?.type === "Error") {
+        StartToastifyInstance({
+          text: "Failed to upload file",
+          className: "info",
+          style: {
+            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+          },
+        }).showToast();
       } else {
         throw new Error("Failed to upload file");
       }
@@ -144,7 +155,6 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const handleOpenConfirmModal = () => {
     setConfirmModalOpen(true);
   };
-  
   const handleCloseConfirmModal = () => {
     setConfirmModalOpen(false);
   };
@@ -164,23 +174,34 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   return (
     <div className="main-container">
       <div className="uploadFileBox">
-        <FontAwesomeIcon icon={faArrowUpFromBracket} style={{ marginTop: "5%" }} />
-        <label htmlFor="file">{"Drag & drop your file here Or browse file from device"}</label>
-        <input
-          id="file"
-          className="select-file"
-          name="fileUploader"
-          type="file"
-          accept={type}
-          multiple
-          onChange={handleFileChange}
-          style={{ display: "none" }}
-        />
-        {file.map((f, index) => (
-          <p className="display-name" key={index}>
-            {f.name}
-          </p>
-        ))}
+        {loader ? (
+          <UploadLoader />
+        ) : (
+          <>
+            <FontAwesomeIcon
+              icon={faArrowUpFromBracket}
+              style={{ marginTop: "5%" }}
+            />
+            <label htmlFor="file">
+              {"Drag & drop your file here Or browse file from device"}
+            </label>
+            <input
+              id="file"
+              className="select-file"
+              name="fileUploader"
+              type="file"
+              accept={type}
+              multiple
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
+            {file.map((f, index) => (
+              <p className="display-name" key={index}>
+                {f.name}
+              </p>
+            ))}
+          </>
+        )}
       </div>
       <div className="button-container">
         {file.length > 0 && (

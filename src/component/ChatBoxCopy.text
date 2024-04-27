@@ -9,8 +9,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
+import ChatLoader from "./helpers/ChatLoader"; // Import the ChatLoader component
 import { LoadingProvider } from "./helpers/LoadingContext";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom"; 
 import StartToastifyInstance from "toastify-js";
 import InfoModal from "./helpers/InfoModal";
 import axiosInstance from "./axiosInstance";
@@ -27,7 +28,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const [messages, setMessages] = useState([]);
   const [isApiDone, setApiDone] = useState(false);
   const [tableResponse, setTableResponse] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   function handleInput() {
@@ -37,12 +38,10 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   }
 
   const updateMessages = (newMessages) => {
-    // Append the new messages to the existing messages state
     setMessages((prevMessages) => [...prevMessages, ...newMessages]);
   };
 
   useEffect(() => {
-    // Dummy file response data
     const dummyFileResponse = {
       files: [
         {
@@ -59,7 +58,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                   "Unit Cost": 1.99,
                   Units: 95,
                 },
-                // Add more data here if needed
               ],
               sheetName: "SalesOrders",
             },
@@ -67,7 +65,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         },
       ],
     };
-    // setFileResponse(dummyFileResponse);
   }, []);
 
   const handleOpenConfirmModal = () => {
@@ -95,35 +92,29 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
       setInputHeight("auto");
 
       try {
-        // Construct payload with session ID and message query
         const payload = {
           id: sessionId,
           query: messageText,
         };
 
-        // Make POST request to API
         const response = await axiosInstance.post(
           "doc-genie/interaction",
           payload
         );
 
         if (response?.data?.isPrime === false) {
-          // we need to add tostify messages
           setInfoMessage(
             "Subcription has ended, Redirecting to Subcription page"
           );
           handleOpenConfirmModal();
-          // navigate("/pricing");
         }
 
-        // Process API response
         console.log("response", response.data);
         processApiResponse(response.data, currentTime);
         setApiDone(false);
       } catch (error) {
         console.error("Error:", error);
         setApiDone(false);
-        // Check if the error response contains "Invalid session" with status code 401
         if (
           error.response &&
           error.response.data.msg === "Invalid session" &&
@@ -131,8 +122,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         ) {
           setInfoMessage("Invalid Session, Please Login again");
           handleOpenConfirmModal();
-          // Navigate the user to "/"
-          // navigate("/");
         }
       }
     }
@@ -157,7 +146,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
       replyData = {
         sender: "User 2",
         type: responseData.type,
-        table: value ? value : [],
+        table: [],
         timestamp: currentTime,
       };
     } else if (responseData?.type === "Error") {
@@ -205,7 +194,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
               sessionId={sessionId}
               fileResponse={fileResponse}
               setTableResponse={setTableResponse}
-              setMessages={setMessages} // Pass setMessages to MultiSelectComponent
+              setMessages={setMessages} 
             />
             <div className="chatbox">
               <div className="messages-container" ref={messagesContainerRef}>
@@ -223,7 +212,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                         )}
                       {message?.type === "plot" && (
                         <div className="plot-container">
-                          {/* <img src={message.image} alt="Plot" /> */}
                           <Base64Image base64String={message?.image} />
                         </div>
                       )}
@@ -231,10 +219,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                         <div className="table-container">
                           {message?.table.map((file, fileIndex) => (
                             <div key={fileIndex}>
-                              {/* <h3>{file.fileName}</h3> */}
                               {file?.sheetData?.map((sheet, sheetIndex) => (
                                 <div key={sheetIndex}>
-                                  {/* <h4>{sheet.sheetName}</h4> */}
                                   {sheet?.data?.length > 0 && (
                                     <table className="scroll-table">
                                       <thead>
@@ -317,6 +303,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
             </div>
           </div>
         )}
+        {/* Conditionally render the ChatLoader component */}
+        {isApiDone && <ChatLoader />}
         {isConfirmModalOpen && (
           <InfoModal
             isOpen={isConfirmModalOpen}
@@ -325,6 +313,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
           />
         )}
       </div>
+      {/* Render Loader component outside the chatbox div */}
       <Loader />
     </LoadingProvider>
   );
