@@ -26,7 +26,6 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
 
   const handleSelectChange = async (selected) => {
     setSelectedOptions(selected);
-    
     try {
       const selectedSheets = selected?.map(option => option?.value); // Get values of all selected sheets
     
@@ -35,15 +34,13 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         files: [], // Clear files array before adding new sheet
       };
   
-      const fileWithSheet = fileResponse?.find((file) =>
-        file?.sheets?.some(sheet => selectedSheets.includes(sheet))
-      );
-      if (fileWithSheet) {
-        payload?.files?.push({
-          fileName: fileWithSheet.fileName,
-          sheets: selectedSheets,
+      fileResponse.forEach(file => {
+        const sheetsForFile = selectedSheets.filter(sheet => file?.sheets?.includes(sheet));
+        payload.files.push({
+          fileName: file.fileName,
+          sheets: sheetsForFile,
         });
-      }
+      });
   
       const response = await axiosInstance.post(
         `doc-genie/select-and-preview-sheets?id=${sessionId}`,
@@ -99,6 +96,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
       }
     }
   };
+  
   
   
 
