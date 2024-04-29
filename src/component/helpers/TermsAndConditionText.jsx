@@ -2,7 +2,7 @@ import React from 'react'
 
 export const TermsAndConditionText = () => {
   return (
-    <div>
+    <div className='terms-conditions-text'>
         <p>
             Terms of use Thank you for using Finsight Analytics - Data Geniee!
             These Terms of Use apply to your use of Data geniee, , and Finsight

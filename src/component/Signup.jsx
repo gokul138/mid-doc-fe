@@ -177,9 +177,7 @@ const SignUp = () => {
         <NewTabLoader />
       ) : (
         <div className="signup-container">
-        {isTermsOpen&&(
-          <TermsAndConditionsModal isOpen={isTermsOpen} onClose={closeTermsModal} acceptTermsAndCondition={acceptTermsAndCondition} />
-        )}
+        
           <div className="header-logo login-logo"></div>
           <h2 className="create-acc-fonts">Sign Up</h2>
           <div className="new-user-container">
@@ -300,6 +298,9 @@ const SignUp = () => {
               Already have an account? <a href="/">Log In</a>
             </p>
           </div>
+          {isTermsOpen&&(
+            <TermsAndConditionsModal isOpen={isTermsOpen} onClose={closeTermsModal} acceptTermsAndCondition={acceptTermsAndCondition} />
+          )}
         </div>
       )}
     </div>
