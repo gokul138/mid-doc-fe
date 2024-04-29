@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../modal.css";
+import "../../termsandconditions.css";
 import axiosInstance from "../axiosInstance";
 import { TermsAndConditionText } from "./TermsAndConditionText";
 
@@ -30,8 +30,8 @@ const TermsAndConditionsModal = ({ isOpen, onClose, acceptTermsAndCondition }) =
 
   return (
     <div className={`modal-overlay ${isOpen ? "open" : ""}`}>
-      <div className="modal" onScroll={handleScroll}>
-        <div className="modal-content">
+      <div className="terms-modal" onScroll={handleScroll}>
+        <div className="terms-modal-content">
           <h2>Terms and Conditions</h2>
           <TermsAndConditionText/>
           <div className="modal-actions">
