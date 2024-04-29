@@ -70,6 +70,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         // Optionally, you can reset the file state after successful upload
         // setFile([]);
       } else if (response?.data?.type === "Error") {
+        setLoader(false);
         StartToastifyInstance({
           text: "Failed to upload file",
           className: "info",

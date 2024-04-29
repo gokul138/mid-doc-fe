@@ -7,9 +7,12 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NewTabLoader from "./helpers/NewTabLoader";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
+import TermsAndConditionsModal from "./helpers/TermsAndCondition";
 
 const SignUp = () => {
   const [showLoader, setShowLoader] = useState(true);
+  const [isTermsOpen, setTermsOpen] = useState(false);
+  const [isTermsAccepted, setTermsAndCondition] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -150,12 +153,33 @@ const SignUp = () => {
     }
   };
 
+  const handleTermsCheckboxChange = (event) =>{
+    const value = event?.target?.value;
+    console.log('Value', value);
+    if(value === 'on'){
+      setTermsOpen(true);
+    }
+  }
+  const closeTermsModal = () =>{
+    setTermsOpen(false);
+  }
+  const acceptTermsAndCondition = (value) =>{
+    if(value){
+      setTermsAndCondition(true);
+    }else{
+      setTermsAndCondition(false);
+    }
+  }
+
   return (
     <div>
       {showLoader ? (
         <NewTabLoader />
       ) : (
         <div className="signup-container">
+        {isTermsOpen&&(
+          <TermsAndConditionsModal isOpen={isTermsOpen} onClose={closeTermsModal} acceptTermsAndCondition={acceptTermsAndCondition} />
+        )}
           <div className="header-logo login-logo"></div>
           <h2 className="create-acc-fonts">Sign Up</h2>
           <div className="new-user-container">
@@ -260,8 +284,8 @@ const SignUp = () => {
                 type="checkbox"
                 id="termsCheckbox"
                 required
-                // onChange={handleTermsCheckboxChange}
-                // checked={termsChecked}
+                onChange={handleTermsCheckboxChange}
+                checked={isTermsAccepted}
               />
               <label htmlFor="termsCheckbox">
               By clicking on Sign Up, I accept the terms and conditions
