@@ -199,7 +199,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   return (
     <LoadingProvider>
       <div className="rghtBox">
-        {true && (
+        {sessionId && (
           <div>
             <MultiSelectComponent
               sessionId={sessionId}
