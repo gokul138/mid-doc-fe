@@ -47,6 +47,7 @@ body {
 
 .uploadFileBox {
     text-align: center;
+    position: relative;
     width: 90%;
     height: 80%;
     border-radius: 10px;
@@ -59,10 +60,20 @@ body {
 
 .uploadFileBox label {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     font-size: 16px;
     font-weight: bold;
     margin: 5%;
     cursor: pointer;
+}
+
+.upload-icon{
+    margin-top: 10%;
+    position: absolute;
+    top: 13%;
+    left: 49%;
 }
 
 .display-name {
@@ -408,6 +419,11 @@ body {
     width: 100%;
     height: 90%;
     flex-direction: column;
+
+    span{
+        padding: 1%;
+        margin-left: 3%;
+    }
 }
 
 .user-input {

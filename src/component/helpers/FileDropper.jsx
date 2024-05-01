@@ -180,8 +180,9 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         ) : (
           <>
             <FontAwesomeIcon
+              className="upload-icon"
               icon={faArrowUpFromBracket}
-              style={{ marginTop: "5%" }}
+              style={{ marginTop: "10%" }}
             />
             <label htmlFor="file">
               {"Drag & drop your file here Or browse file from device"}
