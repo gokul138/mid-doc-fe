@@ -277,7 +277,7 @@ const SignUp = () => {
               />
               {errors.gst && <p className="err-msg">{errors.gst}</p>}
             </div>
-            <div className="terms-checkbox">
+            {/* <div className="terms-checkbox">
               <input
                 type="checkbox"
                 id="termsCheckbox"
@@ -289,7 +289,7 @@ const SignUp = () => {
               By clicking on Sign Up, I accept the terms and conditions
               </label>
               
-            </div>
+            </div> */}
 
             <button className="signup-btn" onClick={handleSubmit}>
               Sign Up
@@ -298,9 +298,9 @@ const SignUp = () => {
               Already have an account? <a href="/">Log In</a>
             </p>
           </div>
-          {isTermsOpen&&(
+          {/* {isTermsOpen&&(
             <TermsAndConditionsModal isOpen={isTermsOpen} onClose={closeTermsModal} acceptTermsAndCondition={acceptTermsAndCondition} />
-          )}
+          )} */}
         </div>
       )}
     </div>
