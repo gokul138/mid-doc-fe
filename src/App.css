@@ -644,3 +644,10 @@ table {
 .dropdown{
     position: relative;
 }
+
+.table-container button {
+    background-color: transparent;
+    border: none;
+    margin-top: 1%;
+    cursor: pointer;
+}

@@ -45,14 +45,17 @@
 
 .accept-button,
 .close-button {
+  width: 125px;
   padding: 10px 20px;
-  border-radius: 20px; 
+  border-radius: 20px ; 
   cursor: pointer;
+  
 }
 
 .accept-button {
   background-color: #673AB7; 
   color: white;
+ 
 }
 
 .accept-button.disabled {

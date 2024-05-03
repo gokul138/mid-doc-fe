@@ -185,7 +185,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
               style={{ marginTop: "10%" }}
             />
             <label htmlFor="file">
-              {"Drag & drop your file here Or browse file from device"}
+              {"Browse files from device"}
             </label>
             <input
               id="file"

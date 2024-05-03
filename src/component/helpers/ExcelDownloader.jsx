@@ -1,5 +1,6 @@
 import React from "react";
 import * as XLSX from "xlsx";
+import { FileArrowDown } from "@phosphor-icons/react";
 
 const downloadExcel = (data) => {
     if(data?.type === 'dataframe'){
@@ -46,7 +47,7 @@ function s2ab(s) {
 
 const ExcelDownloader = ({ data }) => {
   return (
-    <button onClick={() => downloadExcel(data)}>Download Excel</button>
+    <button  onClick={() => downloadExcel(data)}><FileArrowDown size={30} /></button>
   );
 };
 
