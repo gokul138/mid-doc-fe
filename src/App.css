@@ -77,8 +77,10 @@ body {
 }
 
 .display-name {
+    position: absolute;
     font-size: 12px;
     line-height: 16px;
+     bottom: 12%;
 }
 
 .select-file {
@@ -423,6 +425,8 @@ body {
     span{
         padding: 1%;
         margin-left: 3%;
+        color: #76ABAE;
+        font-size: 12px;
     }
 }
 
@@ -443,7 +447,8 @@ body {
 .messages-container {
     flex-grow: 1;
     overflow-y: auto;
-    /* padding: 5%; */
+    overflow-x: hidden;
+    padding-right: 5%;
     width: 95%;
     margin-bottom: 2%;
     margin-right: 15%;
