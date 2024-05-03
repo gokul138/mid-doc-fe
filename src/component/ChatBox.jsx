@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate from react
 import StartToastifyInstance from "toastify-js";
 import InfoModal from "./helpers/InfoModal";
 import axiosInstance from "./axiosInstance";
+import ExcelDownloader from "./helpers/ExcelDownloader";
 
 function Base64Image({ base64String }) {
   return <img src={`data:image/jpeg;base64,${base64String}`} alt="Base64" />;
@@ -292,6 +293,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                                 ))}
                               </tbody>
                             </table>
+                            <ExcelDownloader data={message}/>
                           </div>
                         )}
                     </div>
