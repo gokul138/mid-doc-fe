@@ -100,7 +100,7 @@ const handleSubmit = async (event) => {
     // Display loader for user 1's message
     const loaderMessage = {
       sender: "User 2",
-      type: "loader",
+      type: "chatLoader",
       timestamp: currentTime,
     };
     setMessages((prevMessages) => [...prevMessages, loaderMessage]);
@@ -233,7 +233,7 @@ const handleSubmit = async (event) => {
                       />
                     </div>
                     <div className={`message ${message?.type}`}>
-                      {message?.type === "loader" ? (
+                      {message?.type === "chatLoader" ? (
                         <ChatLoader /> // Render loader if the message type is "loader"
                       ) : (
                         <>
