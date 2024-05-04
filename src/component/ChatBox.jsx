@@ -15,6 +15,7 @@ import StartToastifyInstance from "toastify-js";
 import InfoModal from "./helpers/InfoModal";
 import axiosInstance from "./axiosInstance";
 import ExcelDownloader from "./helpers/ExcelDownloader";
+import ChatLoader from "./helpers/ChatLoader";
 
 function Base64Image({ base64String }) {
   return <img src={`data:image/jpeg;base64,${base64String}`} alt="Base64" />;
@@ -79,65 +80,78 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
     setConfirmModalOpen(false);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setApiDone(true);
-    const messageText = inputRef.current.value.trim();
-    if (messageText !== "") {
-      const currentTime = new Date().toLocaleTimeString();
-      const newMessage = {
-        sender: "User 1",
-        type: "user",
-        text: messageText,
-        timestamp: currentTime,
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  setApiDone(true);
+  const messageText = inputRef.current.value.trim();
+  if (messageText !== "") {
+    const currentTime = new Date().toLocaleTimeString();
+
+    const newMessage = {
+      sender: "User 1",
+      type: "user",
+      text: messageText,
+      timestamp: currentTime,
+    };
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    inputRef.current.value = "";
+    setInputHeight("auto");
+
+    // Display loader for user 1's message
+    const loaderMessage = {
+      sender: "User 2",
+      type: "loader",
+      timestamp: currentTime,
+    };
+    setMessages((prevMessages) => [...prevMessages, loaderMessage]);
+
+    try {
+      // Construct payload with session ID and message query
+      const payload = {
+        id: sessionId,
+        query: messageText,
       };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-      inputRef.current.value = "";
-      setInputHeight("auto");
 
-      try {
-        // Construct payload with session ID and message query
-        const payload = {
-          id: sessionId,
-          query: messageText,
-        };
+      // Make POST request to API
+      const response = await axiosInstance.post(
+        "doc-genie/interaction",
+        payload
+      );
 
-        // Make POST request to API
-        const response = await axiosInstance.post(
-          "doc-genie/interaction",
-          payload
+      if (response?.data?.isPrime === false) {
+        setInfoMessage(
+          "Subscription has ended, Redirecting to Subscription page"
         );
+        handleOpenConfirmModal();
+      }
 
-        if (response?.data?.isPrime === false) {
-          // we need to add tostify messages
-          setInfoMessage(
-            "Subcription has ended, Redirecting to Subcription page"
-          );
-          handleOpenConfirmModal();
-          // navigate("/pricing");
-        }
+      // Remove the loader message from the messages array
+      setMessages((prevMessages) => {
+        const updatedMessages = [...prevMessages];
+        updatedMessages.pop(); // Remove the last element
+        return updatedMessages;
+      });
 
-        // Process API response
-        console.log("response", response.data);
-        processApiResponse(response.data, currentTime);
-        setApiDone(false);
-      } catch (error) {
-        console.error("Error:", error);
-        setApiDone(false);
-        // Check if the error response contains "Invalid session" with status code 401
-        if (
-          error.response &&
-          error.response.data.msg === "Invalid session" &&
-          error.response.status === 401
-        ) {
-          setInfoMessage("Invalid Session, Please Login again");
-          handleOpenConfirmModal();
-          // Navigate the user to "/"
-          // navigate("/");
-        }
+      // Process API response
+      console.log("response", response.data);
+      processApiResponse(response.data, currentTime);
+      setApiDone(false);
+    } catch (error) {
+      console.error("Error:", error);
+      setApiDone(false);
+      if (
+        error.response &&
+        error.response.data.msg === "Invalid session" &&
+        error.response.status === 401
+      ) {
+        setInfoMessage("Invalid Session, Please Login again");
+        handleOpenConfirmModal();
       }
     }
-  };
+  }
+};
+
+  
 
   const processApiResponse = (responseData, currentTime) => {
     let replyData;
@@ -195,6 +209,7 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
+  console.log('messages', messages);
   }, [messages]);
 
   return (
@@ -218,88 +233,94 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                       />
                     </div>
                     <div className={`message ${message?.type}`}>
-                      {message?.type !== "dataframe" &&
-                        message?.type !== "plot" && (
-                          <p className="message-text">{message?.text}</p>
-                        )}
-                      {message?.type === "plot" && (
-                        <div className="plot-container">
-                          {/* <img src={message.image} alt="Plot" /> */}
-                          <Base64Image base64String={message?.image} />
-                        </div>
-                      )}
-                      {message?.type === "table" && (
-                        <div className="table-container">
-                          {message?.table.map((file, fileIndex) => (
-                            <div key={fileIndex}>
-                              {/* <h3>{file.fileName}</h3> */}
-                              {file?.sheetData?.map((sheet, sheetIndex) => (
-                                <div key={sheetIndex}>
-                                  {/* <h4>{sheet.sheetName}</h4> */}
-                                  {sheet?.data?.length > 0 && (
-                                    <table className="scroll-table">
-                                      <thead>
-                                        <tr>
-                                          {Object.keys(sheet.data[0]).map(
-                                            (header, headerIndex) => (
-                                              <th key={headerIndex}>
-                                                {header}
-                                              </th>
-                                            )
-                                          )}
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {sheet.data.map((row, rowIndex) => (
-                                          <tr key={rowIndex}>
-                                            {Object.values(row).map(
-                                              (cell, cellIndex) => (
-                                                <td key={cellIndex}>{cell}</td>
-                                              )
-                                            )}
-                                          </tr>
-                                        ))}
-                                      </tbody>
-                                    </table>
-                                  )}
+                      {message?.type === "loader" ? (
+                        <ChatLoader /> // Render loader if the message type is "loader"
+                      ) : (
+                        <>
+                          {message?.type !== "dataframe" &&
+                            message?.type !== "plot" && (
+                              <p className="message-text">{message?.text}</p>
+                            )}
+                          {message?.type === "plot" && (
+                            <div className="plot-container">
+                              <Base64Image base64String={message?.image} />
+                            </div>
+                          )}
+                          {message?.type === "table" && (
+                            <div className="table-container">
+                              {message?.table.map((file, fileIndex) => (
+                                <div key={fileIndex}>
+                                  {file?.sheetData?.map((sheet, sheetIndex) => (
+                                    <div key={sheetIndex}>
+                                      {sheet?.data?.length > 0 && (
+                                        <table className="scroll-table">
+                                          <thead>
+                                            <tr>
+                                              {Object.keys(sheet.data[0]).map(
+                                                (header, headerIndex) => (
+                                                  <th key={headerIndex}>
+                                                    {header}
+                                                  </th>
+                                                )
+                                              )}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                            {sheet.data.map((row, rowIndex) => (
+                                              <tr key={rowIndex}>
+                                                {Object.values(row).map(
+                                                  (cell, cellIndex) => (
+                                                    <td key={cellIndex}>
+                                                      {cell}
+                                                    </td>
+                                                  )
+                                                )}
+                                              </tr>
+                                            ))}
+                                          </tbody>
+                                        </table>
+                                      )}
+                                    </div>
+                                  ))}
                                 </div>
                               ))}
                             </div>
-                          ))}
-                        </div>
+                          )}
+                          {message?.table?.length > 0 &&
+                            message?.type === "dataframe" && (
+                              <div className="table-container">
+                                <table className="dataframe-table">
+                                  <thead>
+                                    <tr>
+                                      {Object.keys(message?.table[0]).map(
+                                        (header, index) => (
+                                          <th key={index}>{header}</th>
+                                        )
+                                      )}
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {message?.table.map((row, rowIndex) => (
+                                      <tr key={rowIndex}>
+                                        {Object.values(row).map(
+                                          (cell, cellIndex) => (
+                                            <td key={cellIndex}>{cell}</td>
+                                          )
+                                        )}
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                                <ExcelDownloader data={message} />
+                              </div>
+                            )}
+                        </>
                       )}
-                      {message?.table?.length > 0 &&
-                        message?.type === "dataframe" && (
-                          <div className="table-container">
-                            <table className="dataframe-table">
-                              <thead>
-                                <tr>
-                                  {Object.keys(message?.table[0]).map(
-                                    (header, index) => (
-                                      <th key={index}>{header}</th>
-                                    )
-                                  )}
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {message?.table.map((row, rowIndex) => (
-                                  <tr key={rowIndex}>
-                                    {Object.values(row).map(
-                                      (cell, cellIndex) => (
-                                        <td key={cellIndex}>{cell}</td>
-                                      )
-                                    )}
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                            <ExcelDownloader data={message}/>
-                          </div>
-                        )}
                     </div>
                   </div>
                 ))}
               </div>
+
               <div className="Chat-input">
                 <form id="message-form" onSubmit={handleSubmit}>
                   <textarea
