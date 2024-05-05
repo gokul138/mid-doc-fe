@@ -149,6 +149,13 @@ const SignUp = () => {
       console.log("User signed up successfully", response);
     } catch (error) {
       console.error("Error signing up:", error);
+      StartToastifyInstance({
+        text: error?.response?.data?.msg,
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+        },
+      }).showToast();
       // Handle error here, e.g., display error message to user
     }
   };
