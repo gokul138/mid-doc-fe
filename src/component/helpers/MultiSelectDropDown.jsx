@@ -19,6 +19,7 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
         })),
       }));
       setOptions(newOptions);
+      setSelectedOptions([]);
     } else {
       setSelectedOptions([]);
     }
