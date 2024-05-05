@@ -11,7 +11,6 @@ import { UserProvider } from "./helpers/UserContext";
 import NewTabLoader from "./helpers/NewTabLoader";
 
 const Route00 = () => {
-  // console.log("APPLICATION RUNNING");
   return (
     <div>
         <BrowserRouter>

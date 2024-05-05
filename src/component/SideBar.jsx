@@ -3,11 +3,9 @@ import UploadFile from "./helpers/FileDropper";
 
 const SideBar = ({setSession, setFileResponse}) => {
   const [selectedMode, setSelectedMode] = useState("dataGeniee");
-  console.log("selectedMode", selectedMode);
 
   const handleRadio = (event) => {
     setSelectedMode(event.target.value);
-    console.log("Selected Mode:", event.target.value);
   };
 
   return (
