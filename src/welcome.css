@@ -1,0 +1,36 @@
+.welcomepage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 14%;
+    margin-top: 10%;
+    flex-direction: column;
+}
+
+.welcome-text {
+    font-size: 30px;
+}
+
+.welcome-logo {
+    height: 150px;
+    width: 150px;
+    background-image: url('./img/logo.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.icons-container {
+    width: 75%;
+    margin-left: 13%;
+}
+
+.excel-icon,
+.file-icon,
+.computer-icon,
+.folder-open-icon {
+    width: 60px;
+    height: 60px;
+    color: #2082c4;
+    margin: 4%;
+    opacity: 25%;
+}

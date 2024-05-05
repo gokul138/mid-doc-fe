@@ -1,0 +1,216 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .login-logo {
+    margin: 0;
+}
+}
+
+
+.docgeniee-font {
+  margin-top: 1%;
+}
+
+.create-acc-fonts {
+ margin-top: 0;
+ margin-bottom: 1%;
+}
+
+.Sign-up-google {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 2%;
+  width: 25%;
+  height: 8vh;
+  border-radius: 30px;
+  border: #BDBDBD solid 2px;
+  background-color: #fff;
+  font-weight: bold;
+}
+
+/* .google-logo {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png");
+  width: 7%;
+  height: 4vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-right: 2%;
+} */
+
+.sign-up-email {
+  margin-top: 3%;
+  color: #9E9E9E;
+}
+
+label{
+  font-weight: bold;
+}
+.new-user-container {
+  position: relative;
+  width: 35%;
+  /* margin-top: 2%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-box {
+  position: relative;
+  width: 97%;
+  height: 6vh;
+  border: #BDBDBD solid 2px;
+  border-radius: 10px;
+  /* margin-bottom: 2%; */
+  padding: 2%;
+  font-size: 16px;
+  
+}
+
+.forgot-password {
+  position: absolute;
+  text-decoration: underline;
+  font-weight: lighter;
+  right: 0;
+  cursor: pointer;
+}
+
+.signup-btn {
+  width: 70%;
+  height: 8vh;
+  margin-top: 2%;
+  /* margin-left: 15%; */
+  border-radius: 30px;
+  color: #fff;
+  font-size: large;
+  font-weight: bold;
+  background-color: #673AB7;
+  border: none;
+}
+.password-toggle-btn-signup {
+  background: none;
+  border: none;
+  position: absolute;
+  right:8%; 
+  top: 19%; 
+
+  
+}
+
+.login-existing-user {
+  margin-top: 1%;
+  /* margin-left: 25%; */
+}
+
+
+.relative-container-for-errmsg {
+  position: relative;
+  display: flex;
+  /* height: 40px; */
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 4%;
+}
+.err-msg {
+  font-size: small;
+  /* font-weight: bold; */
+  margin-right: 3%;
+  width: 100%;
+  display: block;
+  top: 0%;
+  color: red;
+  /* word-break: break-all;  */
+}
+
+.error-border {
+  border-color: red !important;
+}
+
+
+.name-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 4%;
+}
+
+.first-name-container{
+  display: flex;
+  /* position: relative; */
+  width: 50%;
+  flex-direction: column;
+}
+
+.last-name-container{
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+
+  h4{
+    width: 120%;
+  }
+}
+
+#firstName,#lastName{
+  width: 95%;
+}
+#confirm-password,#password{
+  width: 95%;
+}
+
+.rel{
+  position: relative;
+}
+
+
+.terms-checkbox {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  display: flex;
+  /* align-items: center; */
+  
+}
+
+.terms-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.terms-checkbox input[type="checkbox"]:checked {
+  background-color: #673AB7;
+  border-color: #673AB7;
+}
+
+.terms-checkbox input[type="checkbox"]:checked::before {
+  content: '\2714';
+  font-size: 16px;
+  color: #fff;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+}
+
+.terms-checkbox label {
+  font-size: 14px;
+}
+
+
+
+@media screen and (max-width: 670px){
+
+  .first-name-container h4{
+    margin-top: 20%;
+  }
+}
+

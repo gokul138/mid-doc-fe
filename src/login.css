@@ -1,0 +1,181 @@
+.login-container {
+    /* background-color: black; */
+    display: flex;
+    /* width: 100%;
+    height: 100%; */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.docgeniee-font {
+    margin-top: 1%;
+}
+
+.create-acc-font {
+    margin-top: 3%;
+}
+
+.Sign-up-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    margin-top: 2%;
+    width: 25%;
+    height: 8vh;
+    border-radius: 30px;
+    border: #BDBDBD solid 2px;
+    background-color: #fff;
+    font-weight: bold;
+
+}
+
+.google-logo {
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png");
+    width: 7%;
+    height: 4vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-right: 2%;
+}
+
+.sign-up-email {
+    margin-top: 3%;
+    color: #9E9E9E;
+}
+
+.sign-up-container {
+    position: relative;
+    width: 25%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+
+    h4 {
+        margin-bottom: 1%;
+    }
+}
+
+.inpt-box {
+    height: 8vh;
+    width: 100%;
+    border: #BDBDBD solid 2px;
+    border-radius: 10px;
+    margin-bottom: 5%;
+    padding: 2%;
+    font-size: 16px;
+
+
+   
+}
+
+.error-border {
+    border-color: red !important ;
+}
+
+
+
+
+.forgot-password-login{
+    position: absolute; 
+     right: 1%;
+    /* bottom: 25%; */
+    bottom: calc(40% - 4vh); 
+    /* padding-top:0;
+    margin-left: 80%;
+    margin-top: 0%; */ 
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.btn-sign-up {
+    width: 25%;
+    height: 8vh;
+    border-radius: 30px;
+    color: #fff;
+    font-size: large;
+    font-weight: bold;
+    background-color: #673AB7;
+    border: none;
+
+}
+
+.login-existing-user {
+    margin-top: 1%;
+}
+
+
+.first-name {
+    width: 100%;
+    height: 6vh;
+    text-align: center;
+    font-size: 150%;
+    border: 2px solid #BDBDBD;
+    box-shadow: none;
+    /* margin-right: 5%; */
+}
+
+.password-input-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 12vh;
+
+    
+        
+
+    }
+    
+
+
+.error-msg {
+    color: red;
+      margin-top: 2%;
+
+  
+  }
+
+  .error-msg-password{
+    
+    color: red;
+    margin-bottom: 2%;
+    /* position: absolute; 
+    bottom: calc(35% - 12vh); 
+    left: 0;*/
+  }
+  .error-msg-email{
+    color: red;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+  }
+
+.password-header{
+    display: flex;
+    flex-direction: row;
+}
+
+.password-toggle-btn{
+  position: absolute;
+   right: 5%;
+   top: 18%;
+  border: none; 
+  background: none;
+
+
+}
+
+.fa-eye-slash,.fa-eye {
+    height: 3vh !important;
+    color: #BDBDBD;
+}
+
+.login-logo{
+    margin-top: 2%;
+    width: 80px;
+    height: 80px;
+}
+
+
+
