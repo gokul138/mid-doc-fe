@@ -24,6 +24,8 @@ const SignUp = () => {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -80,6 +82,7 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsError(false);
 
     // Perform client-side validation
     const newErrors = {};
@@ -136,26 +139,28 @@ const SignUp = () => {
       if (!response.data.success) {
         throw new Error(response.data.message);
       } else {
-        StartToastifyInstance({
-          text: "SignUp failed",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-          },
-        }).showToast();
+        // StartToastifyInstance({
+        //   text: "SignUp failed",
+        //   className: "info",
+        //   style: {
+        //     background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+        //   },
+        // }).showToast();
       }
 
       // Handle successful sign up
       console.log("User signed up successfully", response);
     } catch (error) {
       console.error("Error signing up:", error);
-      StartToastifyInstance({
-        text: error?.response?.data?.msg,
-        className: "info",
-        style: {
-          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-        },
-      }).showToast();
+      setIsError(true);
+      setErrorMessage(error?.response?.data?.msg);
+      // StartToastifyInstance({
+      //   text: error?.response?.data?.msg,
+      //   className: "info",
+      //   style: {
+      //     background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+      //   },
+      // }).showToast();
       // Handle error here, e.g., display error message to user
     }
   };
@@ -304,6 +309,11 @@ const SignUp = () => {
             <button className="signup-btn" onClick={handleSubmit}>
               Sign Up
             </button>
+            {isError && (
+            <p className="error-msg">
+              {errorMessage}
+            </p>
+          )}
             <p className="login-existing-user">
               Already have an account? <a href="/">Log In</a>
             </p>
