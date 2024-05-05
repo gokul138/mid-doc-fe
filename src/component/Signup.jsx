@@ -119,7 +119,7 @@ const SignUp = () => {
     // If all validations pass, make API call to sign up
     try {
       const response = await axiosInstance.post(
-        "https://docgeniee.org/mid-doc/doc-genie/signup",
+        "/doc-genie/signup",
         {
           firstName,
           lastName,
