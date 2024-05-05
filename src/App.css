@@ -192,8 +192,8 @@ body {
 .header-content {
     flex-direction: row;
     display: flex;
-    width: 11vw;
-    justify-content: space-between;
+    width: 18vw;
+    /* justify-content: space-between; */
 }
 
 .profileImage {
