@@ -149,7 +149,6 @@ const SignUp = () => {
       }
 
       // Handle successful sign up
-      console.log("User signed up successfully", response);
     } catch (error) {
       console.error("Error signing up:", error);
       setIsError(true);
@@ -167,7 +166,6 @@ const SignUp = () => {
 
   const handleTermsCheckboxChange = (event) =>{
     const value = event?.target?.value;
-    console.log('Value', value);
     if(!isTermsAccepted){
       setTermsOpen(true);
     } else{
@@ -178,7 +176,6 @@ const SignUp = () => {
     setTermsOpen(false);
   }
   const acceptTermsAndCondition = (value) =>{
-    console.log('vaddsds', value);
     if(value){
       setTermsAndCondition(true);
     }else{

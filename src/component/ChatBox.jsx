@@ -133,7 +133,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
         });
   
         // Process API response
-        console.log("response", response.data);
         processApiResponse(response.data, currentTime);
       } catch (error) {
         console.error("Error:", error);
@@ -210,7 +209,6 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }
-  console.log('messages', messages);
   }, [messages]);
 
   return (

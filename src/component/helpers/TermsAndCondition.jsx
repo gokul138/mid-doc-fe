@@ -20,7 +20,6 @@ const TermsAndConditionsModal = ({ isOpen, onClose, acceptTermsAndCondition }) =
   };
 
   const handleScroll = (e) => {
-    console.log('SDssdssfdsd', e.target.clientHeight);
     const scrollHeight = e.target.scrollHeight - e.target.scrollTop;
     const totalHeight = e.target.clientHeight;
     const tolerance = 2; // Define your tolerance range here

@@ -5,7 +5,6 @@ import { FileArrowDown } from "@phosphor-icons/react";
 const downloadExcel = (data) => {
     if(data?.type === 'dataframe'){
         const tableData = data?.table;
-        console.log('index', tableData);
         // Create a new workbook
         const workbook = XLSX.utils.book_new();
       

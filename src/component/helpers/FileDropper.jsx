@@ -140,7 +140,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         } else {
           const fileNames = fileList.map((file) => file.name);
           setFile(fileList);
-          setFileResponse(fileList); // Assuming setFileResponse is a function to handle file response
+          setFileResponse([]);
         }
       });
     } else {

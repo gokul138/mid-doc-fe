@@ -36,7 +36,6 @@ const Home = () => {
   const { userData, setUserData } = useUserContext();
   const [sessionId, setSession] = useState("");
   const [fileResponse, setFileResponse] = useState([]);
-  console.log('sessionId', sessionId);
 
   const navigate = useNavigate();
 
@@ -47,7 +46,6 @@ const Home = () => {
   const fetchUserData = async () => {
     try {
         const getUser = await axiosInstance.get("doc-genie/user-info");
-        console.log('/user-info', getUser);
         setUserData(getUser?.data);
         if (getUser?.data?.primeUser === false) {
           setInfoMessage(

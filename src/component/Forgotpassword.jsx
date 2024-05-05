@@ -40,7 +40,6 @@ const Forgotpassword = ()=> {
     event.preventDefault();
     try {
       const response = await sendOTP(email);
-      console.log('responseforOTP', response);
       // Check response data if needed
       if(response === 'success'){
         setNotification("OTP sent successfully. Please check your email.");
@@ -110,7 +109,6 @@ const Forgotpassword = ()=> {
         setNotification("Password reset successfully.");
         navigate("/"); // Navigate to main page
       }
-      console.log('responseforReset', response);
     } catch (error) {
       setError("Failed to reset password. Please try again.");
     }
@@ -120,7 +118,6 @@ const Forgotpassword = ()=> {
     event.preventDefault();
     try {
       const response = await verifyOTP(email, otp.join(""));
-      console.log('responseVarifyOTP', response);
       if(response === 'success'){
         setShowOtp(false);
         setShowPasswordFields(true);
