@@ -20,9 +20,14 @@ const TermsAndConditionsModal = ({ isOpen, onClose, acceptTermsAndCondition }) =
   };
 
   const handleScroll = (e) => {
-    const atBottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+    console.log('SDssdssfdsd', e.target.clientHeight);
+    const scrollHeight = e.target.scrollHeight - e.target.scrollTop;
+    const totalHeight = e.target.clientHeight;
+    const tolerance = 2; // Define your tolerance range here
+    const atBottom = Math.abs(scrollHeight - totalHeight) <= tolerance;
     setScrolledToEnd(atBottom);
   };
+  
 
   if (!isOpen) {
     return null; // Don't render if not open
