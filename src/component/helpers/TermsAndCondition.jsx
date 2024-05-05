@@ -15,7 +15,7 @@ const TermsAndConditionsModal = ({ isOpen, onClose, acceptTermsAndCondition }) =
   };
 
   const handleClose = () => {
-    acceptTermsAndCondition(false);
+    // acceptTermsAndCondition(false);
     onClose(); // Close the modal
   };
 

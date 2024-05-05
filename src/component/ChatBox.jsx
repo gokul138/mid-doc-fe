@@ -80,76 +80,77 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
     setConfirmModalOpen(false);
   };
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  setApiDone(true);
-  const messageText = inputRef.current.value.trim();
-  if (messageText !== "") {
-    const currentTime = new Date().toLocaleTimeString();
-
-    const newMessage = {
-      sender: "User 1",
-      type: "user",
-      text: messageText,
-      timestamp: currentTime,
-    };
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
-    inputRef.current.value = "";
-    setInputHeight("auto");
-
-    // Display loader for user 1's message
-    const loaderMessage = {
-      sender: "User 2",
-      type: "chatLoader",
-      timestamp: currentTime,
-    };
-    setMessages((prevMessages) => [...prevMessages, loaderMessage]);
-
-    try {
-      // Construct payload with session ID and message query
-      const payload = {
-        id: sessionId,
-        query: messageText,
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const messageText = inputRef.current.value.trim(); // Get the trimmed message text
+    if (messageText !== "") { // Check if the message text is not empty
+      setApiDone(true); // Set to true only if there is a message text
+  
+      const currentTime = new Date().toLocaleTimeString();
+      const newMessage = {
+        sender: "User 1",
+        type: "user",
+        text: messageText,
+        timestamp: currentTime,
       };
-
-      // Make POST request to API
-      const response = await axiosInstance.post(
-        "doc-genie/interaction",
-        payload
-      );
-
-      if (response?.data?.isPrime === false) {
-        setInfoMessage(
-          "Subscription has ended, Redirecting to Subscription page"
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      inputRef.current.value = "";
+      setInputHeight("auto");
+  
+      // Display loader for user 1's message
+      const loaderMessage = {
+        sender: "User 2",
+        type: "chatLoader",
+        timestamp: currentTime,
+      };
+      setMessages((prevMessages) => [...prevMessages, loaderMessage]);
+  
+      try {
+        // Construct payload with session ID and message query
+        const payload = {
+          id: sessionId,
+          query: messageText,
+        };
+  
+        // Make POST request to API
+        const response = await axiosInstance.post(
+          "doc-genie/interaction",
+          payload
         );
-        handleOpenConfirmModal();
-      }
-
-      // Remove the loader message from the messages array
-      setMessages((prevMessages) => {
-        const updatedMessages = [...prevMessages];
-        updatedMessages.pop(); // Remove the last element
-        return updatedMessages;
-      });
-
-      // Process API response
-      console.log("response", response.data);
-      processApiResponse(response.data, currentTime);
-      setApiDone(false);
-    } catch (error) {
-      console.error("Error:", error);
-      setApiDone(false);
-      if (
-        error.response &&
-        error.response.data.msg === "Invalid session" &&
-        error.response.status === 401
-      ) {
-        setInfoMessage("Invalid Session, Please Login again");
-        handleOpenConfirmModal();
+  
+        if (response?.data?.isPrime === false) {
+          setInfoMessage(
+            "Subscription has ended, Redirecting to Subscription page"
+          );
+          handleOpenConfirmModal();
+        }
+  
+        // Remove the loader message from the messages array
+        setMessages((prevMessages) => {
+          const updatedMessages = [...prevMessages];
+          updatedMessages.pop(); // Remove the last element
+          return updatedMessages;
+        });
+  
+        // Process API response
+        console.log("response", response.data);
+        processApiResponse(response.data, currentTime);
+      } catch (error) {
+        console.error("Error:", error);
+        if (
+          error.response &&
+          error.response.data.msg === "Invalid session" &&
+          error.response.status === 401
+        ) {
+          setInfoMessage("Invalid Session, Please Login again");
+          handleOpenConfirmModal();
+        }
+      } finally {
+        setApiDone(false); // Always set to false when the operation is complete
       }
     }
-  }
-};
+  };
+  
 
   
 
@@ -331,7 +332,7 @@ const handleSubmit = async (event) => {
                       minHeight: "40px",
                       overflowY: "auto",
                     }}
-                    placeholder="Type your message..."
+                    placeholder="Query it..."
                     ref={inputRef}
                     onKeyDown={handleKeyPress}
                     onChange={handleInput}
