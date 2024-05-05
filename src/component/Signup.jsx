@@ -156,14 +156,17 @@ const SignUp = () => {
   const handleTermsCheckboxChange = (event) =>{
     const value = event?.target?.value;
     console.log('Value', value);
-    if(value === 'on'){
+    if(!isTermsAccepted){
       setTermsOpen(true);
+    } else{
+      setTermsAndCondition(!isTermsAccepted);
     }
   }
   const closeTermsModal = () =>{
     setTermsOpen(false);
   }
   const acceptTermsAndCondition = (value) =>{
+    console.log('vaddsds', value);
     if(value){
       setTermsAndCondition(true);
     }else{

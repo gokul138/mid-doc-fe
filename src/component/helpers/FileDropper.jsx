@@ -27,7 +27,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     if (fileTypes) {
       fileTypes === "docGeniee"
         ? setFileType(".pdf")
-        : setFileType(".xlsx, .xls");
+        : setFileType(".xlsx, .xls, .xlsb");
     }
   }, [fileTypes]);
 
