@@ -9,10 +9,12 @@ import { useNavigate } from "react-router-dom";
 import NewTabLoader from "./helpers/NewTabLoader";
 import axiosInstance from "./axiosInstance";
 import InfoModal from "./helpers/InfoModal";
+import GuidelinesModal from "./helpers/GuidlinesModal";
 
 const Home = () => {
 
   const [showLoader, setShowLoader] = useState(true);
+  const [openGuidelines, setOpenGuidelines] = useState(true);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
   const [infoMessage, setInfoMessage] = useState("");
 
@@ -66,6 +68,10 @@ const Home = () => {
       }
     }
   };
+
+  const closeModal = () =>{
+    setOpenGuidelines(false);
+  }
   
 
   return (
@@ -85,6 +91,7 @@ const Home = () => {
             message={infoMessage}
           />
         )}
+      <GuidelinesModal isOpen={openGuidelines} onClose={closeModal}/>
         </>
       )}
     </div>
