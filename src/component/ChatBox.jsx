@@ -327,8 +327,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
                     className="user-input"
                     style={{
                       maxHeight: "200px",
-                      minHeight: "40px",
                       overflowY: "auto",
+                      marginTop:"10px"
                     }}
                     placeholder="Query it..."
                     ref={inputRef}
