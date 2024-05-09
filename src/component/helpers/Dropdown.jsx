@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useUserContext } from "./UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog, faCrown, faSignOutAlt, faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons";
-import { faUser,faBars } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCog,
+  faCrown,
+  faSignOutAlt,
+  faHeadphonesSimple,
+} from "@fortawesome/free-solid-svg-icons";
+import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import SuportModal from "./SupportModal";
@@ -17,7 +22,6 @@ const Dropdown = () => {
   };
   const navigate = useNavigate();
 
-
   const handleLogout = async () => {
     setIsOpen(!isOpen);
     try {
@@ -30,7 +34,7 @@ const Dropdown = () => {
 
       // Send the logout request with the token in the headers
       const response = await axiosInstance.post("doc-genie/logout");
-      if(response?.data?.msg === 'success'){
+      if (response?.data?.msg === "success") {
         navigate("/");
       }
 
@@ -43,7 +47,7 @@ const Dropdown = () => {
   const handlePlans = async () => {
     setIsOpen(!isOpen);
     try {
-        navigate("/pricing");
+      navigate("/pricing");
       // Handle successful logout, such as redirecting to login page
     } catch (error) {
       console.error("Error occurred during logout:", error);
@@ -54,30 +58,33 @@ const Dropdown = () => {
     setIsOpen(!isOpen);
     setIsModalOpen(true);
   };
-  const modalClose = () =>{
+  const modalClose = () => {
     setIsModalOpen(false);
-  }
-  
-  
+  };
+
   return (
     <div className="dropdown">
       <button className="dropdown-toggle" onClick={toggleDropdown}>
-      <FontAwesomeIcon icon={faBars} className="user-icon"/>  
+        <FontAwesomeIcon icon={faBars} className="user-icon" />
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
+          <li>
+            <FontAwesomeIcon icon={faUser} className="user-icon" />
+            {userData?.name}
+          </li>
           <li onClick={handlePlans}>
-            <FontAwesomeIcon icon={faCrown} className="user-icon"/>
+            <FontAwesomeIcon icon={faCrown} className="user-icon" />
             Plans
-          </li> 
-          <li > <FontAwesomeIcon icon={faUser} className="user-icon" />{userData?.name}</li>
+          </li>
+
+          <li onClick={handleSupportOpen}>
+            <FontAwesomeIcon icon={faHeadphonesSimple} />
+            Support
+          </li>
           <li onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Logout
-          </li>
-          <li onClick={handleSupportOpen}>
-            <FontAwesomeIcon icon={faHeadphonesSimple}/>
-            Support
           </li>
         </ul>
       )}
