@@ -19,13 +19,13 @@ const SuportModal = ({
 
   return (
     <div className="modal-overlay">
-      <div className="terms-modal">
+      <div className="contact-modal">
         <div className="terms-header">
           <h2>Contact Support</h2>
         </div>
         <div className="terms-content">
-          <b>For any support or suggestions, please feel free to contact our team at <a href={`mailto:${email}?subject=${encodeURIComponent(subject)}`}>{email}</a>      
-</b>        
+          For any support or suggestions, please feel free to contact our team at <span ><b>support@finsightanalytics.org</b></span>      
+        
         </div>
         <div className="terms-modal-actions">
           <button className="close-button" onClick={handleClose}>

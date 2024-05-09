@@ -33,6 +33,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   }, [fileTypes]);
 
   const handleUpload = async () => {
+    setLoaderType('upload');
     setLoader(true);
     if (!file) {
       StartToastifyInstance({

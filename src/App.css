@@ -182,7 +182,7 @@ body {
     position: absolute;
     font-size: medium;
     top: 3%;
-    right: 15%;
+    right: 5%;
 }
 
 .app-name {
@@ -389,7 +389,7 @@ body {
     width: 30px;
     min-height: 36px;
     position: absolute;
-    bottom: 12%;
+    bottom: 15%;
     right: 18%;
     background-color: transparent;
     cursor: pointer;
@@ -431,17 +431,18 @@ body {
 }
 
 .user-input {
-    /* position: relative; */
-    border-radius: 12px;
-    font-size: 14px;
-    resize: none;
-    width: 79.5%;
-    height: 75%;
-    outline: 1px solid rgb(158, 158, 158);
-    padding-top: 0.75%;
-    padding-left: 1.5%;
-    padding-right: 5%;
-    margin-left: 4%;
+       /* position: relative; */
+       border-radius: 12px;
+       font-size: 14px;
+       resize: none;
+       width: 79.5%;
+       height: 75%;
+       outline: 1px solid rgb(158, 158, 158);
+       padding-top: 1.5%;
+       padding-left: 1.5%;
+       padding-right: 5%;
+       margin-left: 4%;
+       font-family: sans-serif;
 
     
 
@@ -646,6 +647,7 @@ table {
 
 .dropdown{
     position: relative;
+    z-index: 25;
 }
 
 .table-container button {
@@ -659,4 +661,15 @@ table {
     /* font-weight: bold; */
     font-size: larger;
 
+}
+
+.contact-modal{
+ width: 56%;
+  height: 40%; 
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; 
 }
