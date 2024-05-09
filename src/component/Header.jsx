@@ -11,7 +11,7 @@ const Header = () => {
     <div className="header">
       <div className="header-content">
         <div className="header-logo"></div>
-        <span className="app-name">Finsight DataGeniee</span>
+        <span className="app-name">Finsight<span className="seperator">{" "}|{" "}</span> DataGeniee</span>
         <span className="subscription-days">
           Subscription expires in {userData?.primeValidity}
         </span>

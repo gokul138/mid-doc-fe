@@ -442,6 +442,9 @@ body {
     padding-left: 1.5%;
     padding-right: 5%;
     margin-left: 4%;
+
+    
+
 }
 
 .messages-container {
@@ -650,4 +653,10 @@ table {
     border: none;
     margin-top: 1%;
     cursor: pointer;
+}
+
+.seperator{
+    /* font-weight: bold; */
+    font-size: larger;
+
 }
