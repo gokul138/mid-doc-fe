@@ -4,8 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faComputer,
   faUser,
-  faPaperPlane,
-  faArrowUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
