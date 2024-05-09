@@ -183,8 +183,15 @@ const SignUp = () => {
     }
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
+
+
   return (
-    <div>
+    <div onKeyDown={handleKeyPress} tabIndex="0">
       {showLoader ? (
         <NewTabLoader />
       ) : (

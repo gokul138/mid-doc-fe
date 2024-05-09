@@ -18,6 +18,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [fileName, setFileName] = useState([]);
   const [type, setFileType] = useState("");
   const [loader, setLoader] = useState(false);
+  const [preType, setLoaderType] = useState('upload');
   const [response, setResponse] = useState("");
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const navigate = useNavigate(); // Initialize navigate function
@@ -27,11 +28,12 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     if (fileTypes) {
       fileTypes === "docGeniee"
         ? setFileType(".pdf")
-        : setFileType(".xlsx, .xls, .xlsb");
+        : setFileType(".xlsx, .xls");
     }
   }, [fileTypes]);
 
   const handleUpload = async () => {
+    setLoaderType('upload');
     setLoader(true);
     if (!file) {
       StartToastifyInstance({
@@ -117,17 +119,36 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   };
 
   const handleFileChange = (event) => {
+    setLoader(true);
+    setLoaderType('select');
     const files = event.target.files;
     const fileList = Array.from(files);
-
+  
+    // Check if any uploaded file has an unsupported extension
+    const unsupportedFiles = fileList.filter((file) => {
+      const extension = file.name.split('.').pop().toLowerCase();
+      return !type.includes(`.${extension}`);
+    });
+  
+    if (unsupportedFiles.length > 0) {
+      StartToastifyInstance({
+        text: "Unsupported file type. Please upload files with the accepted extensions.",
+        className: "info",
+        style: {
+          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+        },
+      }).showToast();
+      return;
+    }
+  
     if (fileList.length <= 4) {
       let totalSheetCount = 0;
-
+  
       const fileCheck = fileList.map(async (file) => {
         const sheetCount = await readExcelFile(file);
         totalSheetCount += sheetCount;
       });
-
+  
       Promise.all(fileCheck).then(() => {
         if (totalSheetCount > 10) {
           StartToastifyInstance({
@@ -139,6 +160,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           }).showToast();
         } else {
           const fileNames = fileList.map((file) => file.name);
+          setLoader(false);
           setFile(fileList);
           setFileResponse([]);
         }
@@ -176,7 +198,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
     <div className="main-container">
       <div className="uploadFileBox">
         {loader ? (
-          <UploadLoader />
+          <UploadLoader type={preType} />
         ) : (
           <>
             <FontAwesomeIcon

@@ -99,31 +99,6 @@ const MultiSelectComponent = ({ sessionId, fileResponse, setTableResponse, setMe
     }
   };
   
-  
-  
-
-  const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      border: "2px solid #ccc",
-      borderRadius: "6px",
-      boxShadow: state.isFocused
-        ? "0 0 0 2px rgba(66, 153, 225, 0.5)"
-        : null,
-      "&:hover": {
-        borderColor: "#66afe9",
-      },
-    }),
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isSelected ? "#66afe9" : "white",
-      color: state.isSelected ? "white" : "black",
-      "&:hover": {
-        backgroundColor: "#66afe9",
-        color: "white",
-      },
-    }),
-  };
 
   return (
     <div className="select-sheets">
