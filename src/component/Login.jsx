@@ -25,9 +25,16 @@ const Login = () => {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
-  const { setUserData } = useUserContext();
+  const { userData, setUserData } = useUserContext();
   const navigate = useNavigate();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+
+  // useEffect(() => {
+  //   if (userData) {
+  //     // User data already exists, redirect to main page
+  //     navigate("/main");
+  //   }
+  // }, [userData, navigate]);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
@@ -37,7 +44,6 @@ const Login = () => {
     setErrors({ ...errors, email: "" });
     setIsInvalid(false);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     setErrors({ ...errors, password: "" });
