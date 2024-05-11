@@ -92,6 +92,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
         handleOpenConfirmModal();
         // navigate("/");
       }
+      setLoader(false);
       console.error("Error uploading file:", error);
       StartToastifyInstance({
         text: "Failed to upload file",
@@ -100,6 +101,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
+      
       // Check if the error response contains "Invalid session" with status code 401
     }
   };
@@ -138,6 +140,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
+      setLoader(false);
       return;
     }
   
@@ -158,6 +161,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
               background: "linear-gradient(to right, #D32F2F, #D32F2F)",
             },
           }).showToast();
+          setLoader(false);
         } else {
           const fileNames = fileList.map((file) => file.name);
           setLoader(false);
@@ -173,6 +177,7 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           background: "linear-gradient(to right, #D32F2F, #D32F2F)",
         },
       }).showToast();
+      setLoader(false);
     }
   };
   const handleOpenConfirmModal = () => {
