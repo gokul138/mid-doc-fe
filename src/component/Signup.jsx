@@ -133,7 +133,7 @@ const SignUp = () => {
       );
 
       if (response.data.msg === "success") {
-        navigate("/");
+        navigate("/confirm-mail", { state: email });
       }
 
       if (!response.data.success) {

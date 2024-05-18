@@ -15,11 +15,9 @@ import UploadLoader from "./UploadLoader";
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
-  const [fileName, setFileName] = useState([]);
   const [type, setFileType] = useState("");
   const [loader, setLoader] = useState(false);
   const [preType, setLoaderType] = useState('upload');
-  const [response, setResponse] = useState("");
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const navigate = useNavigate(); // Initialize navigate function
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);

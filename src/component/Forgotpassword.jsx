@@ -117,7 +117,7 @@ const Forgotpassword = ()=> {
   const handleVerifyOTP = async (event) => {
     event.preventDefault();
     try {
-      const response = await verifyOTP(email, otp.join(""));
+      const response = await verifyOTP(email, otp.join(""), 'PASSWORD');
       if(response === 'success'){
         setShowOtp(false);
         setShowPasswordFields(true);

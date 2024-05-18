@@ -14,11 +14,11 @@ export const sendOTP = async (email) => {
   }
 };
 
-export const verifyOTP = async (email, otp) => {
+export const verifyOTP = async (email, otp, type) => {
   try {
     const response = await axiosInstance.post('doc-genie/verify-otp', {
       email: email,
-      category: 'PASSWORD',
+      category: type,
       otp: otp,
     });
     return response.data;

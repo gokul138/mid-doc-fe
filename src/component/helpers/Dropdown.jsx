@@ -11,11 +11,14 @@ import { faUser, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import SuportModal from "./SupportModal";
+import { useLocation } from "react-router-dom";
 
 const Dropdown = () => {
   const { userData } = useUserContext();
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
+  let isPricing = location.pathname !== '/pricing/';
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -69,19 +72,24 @@ const Dropdown = () => {
       </button>
       {isOpen && (
         <ul className="dropdown-menu">
-          <li>
+        {isPricing && (
+         <li>
             <FontAwesomeIcon icon={faUser} className="user-icon" />
             {userData?.name}
           </li>
+        )}
+        {isPricing && (
           <li onClick={handlePlans}>
             <FontAwesomeIcon icon={faCrown} className="user-icon" />
             Plans
           </li>
-
+        )}
+        {isPricing && (
           <li onClick={handleSupportOpen}>
             <FontAwesomeIcon icon={faHeadphonesSimple} />
             Support
           </li>
+        )}
           <li onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Logout

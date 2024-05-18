@@ -9,6 +9,7 @@ import PaymentFail from "./PaymentFail";
 import PaymentSuccess from "./PaymentSuccess";
 import { UserProvider } from "./helpers/UserContext";
 import NewTabLoader from "./helpers/NewTabLoader";
+import ConfirmMail from "./ConfirmMail";
 
 const Route00 = () => {
   return (
@@ -19,6 +20,7 @@ const Route00 = () => {
               <Route path="/" element={<Login/>} />
               <Route path="/signup" element={<SignUp/>} />
               <Route path="/forgot-password" element={<Forgotpassword/>} />
+              <Route path="/confirm-mail" element={<ConfirmMail/>} />
               <Route path="/pricing" element={<Pricing/>} />
               <Route path="/main" element={<Home/>} />
               <Route path="/payment-failed" element={<PaymentFail/>} />
