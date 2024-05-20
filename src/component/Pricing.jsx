@@ -48,7 +48,7 @@ const Pricing = ()=> {
     <div>
     {showLoader ? <NewTabLoader /> : 
    (<div className="show-overflow">
-      <Header />
+      <Header interactionType={""} />
       <div className="pricing-top-div">
         <h4 className="pricing-header">PRICING</h4>
         <br />

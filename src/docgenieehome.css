@@ -1,0 +1,5 @@
+.sidebarAndChatContainer{
+    display: flex;
+    flex-direction: row;
+
+}

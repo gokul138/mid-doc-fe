@@ -1,7 +1,10 @@
 .button-loader{
+position: absolute;
+top: 14%;
+left: 43%;
 width: 30px;
 padding: 8px;
-margin-left: 96px;
+/* margin-left: 96px; */
 aspect-ratio: 1;
 border-radius: 50%;
 background: #e6e2eb;

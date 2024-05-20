@@ -9,7 +9,7 @@ import  '../buttonLoader.css'
 
 const ConfirmMail = () => {
   const [showLoader, setShowLoader] = useState(false);
-  const [email, setEmail] = useState("gokul@gmail.com");
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [notification, setNotification] = useState("");
   const [buttonName, setButtonName] = useState('Submit');

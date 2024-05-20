@@ -213,8 +213,13 @@ label{
 
 @media screen and (max-width: 670px){
 
-  .first-name-container h4{
-    margin-top: 20%;
+  .new-user-container{
+    width: 75%;
   }
-}
+
+  .signup-btn{
+      height: 4vh;
+  }
+  }
+
 
