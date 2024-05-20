@@ -39,7 +39,7 @@ const Forgotpassword = ()=> {
   const handleSendOTP = async (event) => {
     event.preventDefault();
     try {
-      const response = await sendOTP(email);
+      const response = await sendOTP(email, 'PASSWORD');
       // Check response data if needed
       if(response === 'success'){
         setNotification("OTP sent successfully. Please check your email.");

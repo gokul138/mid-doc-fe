@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock, faUserCheck } from "@fortawesome/free-solid-svg-icons";
 import NewTabLoader from "./helpers/NewTabLoader";
 import { useLocation, useNavigate } from "react-router-dom";
-import { verifyOTP } from "./services/ForgotPasswordAPI";
+import { sendOTP, verifyOTP } from "./services/ForgotPasswordAPI";
 import UploadLoader from "./helpers/UploadLoader";
 import  '../buttonLoader.css'
 
 const ConfirmMail = () => {
   const [showLoader, setShowLoader] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("gokul@gmail.com");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [notification, setNotification] = useState("");
   const [buttonName, setButtonName] = useState('Submit');
@@ -19,24 +19,40 @@ const ConfirmMail = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     setShowLoader(false);
-  //   }, 1500);
-  //   return () => clearTimeout(timeout);
-  // }, []);
+  const handleSendOTP = async (event) => {
+    try {
+      const response = await sendOTP(email, 'EMAIL');
+      // Check response data if needed
+      console.log('response', response);
+      if(response === 'success'){
+        setError("OTP sent successfully. Please check your email.");
+      }else if(response === 'invalid'){
+        setError("This email doesn't exist, please try again.");
+      }
+    } catch (error) {
+      setError("Failed to send OTP. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    handleSendOTP();
+    const timeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 1500);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     if (location.state) {
       setEmail(location.state.userMail);
     }else{
       console.log('NO mail');
-      // navigate('/');
+      navigate('/');
     }
   }, [location.state, navigate]);
 
   useEffect(() => {
-    if (buttonName === 'Varified') {
+    if (buttonName === 'Verified') {
       const timeout = setTimeout(() => {
         navigate('/');
       }, 2000);
@@ -84,7 +100,7 @@ const ConfirmMail = () => {
       const response = await verifyOTP(email, otp.join(""), "EMAIL");
       if (response === "success") {
         // alert("OTP VERIFIED");
-        setButtonName('Varified');
+        setButtonName('Verified');
         setbuttonLoader(false);
 
       }
