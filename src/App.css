@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Ver+na, sans-serif !important;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verna, sans-serif !important;
 }
 /* .hidden-overflow{
     overflow: hidden !important;
@@ -17,15 +17,16 @@ body {
 .lftBox {
     position: absolute;
     width: 20%;
-    height: 89%;
-    top: 70px;
+    height: 99%;
+    top: 5px;
     background: #ececec73;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.06);
-    border-radius: 10px;
+    /* border-radius: 10px; */
     padding: 15px;
 }
 
 .interactionMode {
+    padding-top: 8vh;
     margin-bottom: 20px;
     margin-left: 15%;
 }
@@ -79,6 +80,7 @@ body {
 .display-name {
     position: absolute;
     font-size: 12px;
+    word-break: break-word;
     line-height: 16px;
      bottom: 12%;
 }
@@ -159,6 +161,8 @@ body {
 }
 
 .header {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 9vh;
     background: #FFFFFF;
@@ -181,7 +185,7 @@ body {
 .subscription-days{
     position: absolute;
     font-size: medium;
-    top: 3%;
+    top: 33%;
     right: 5%;
 }
 
@@ -673,3 +677,90 @@ table {
   flex-direction: column;
   overflow: hidden; 
 }
+
+.user-verified-logo{
+    position: absolute;
+    color:#673ab7;
+    top: 78%;
+    right: 36%;
+
+}
+
+
+
+
+@media screen and (max-width: 768px){
+    .remove-button,.submit-button{
+        width: 100vw;
+        font-size: 7px;
+
+    }
+
+    .app-name{
+        font-size: x-small;
+    }
+
+    .interactionMode{
+        font-size: smaller;
+        /* padding-top: 7vh; */
+    }
+
+    .welcome-text{
+        font-size: medium !important;
+    }
+
+    .subscription-days{
+        font-size: x-small;
+        right: 9%;
+    }
+
+    .profile-container {
+     right: 5%;
+    }
+
+    .uploadFileBox label{
+        font-size: xx-small;
+    }
+
+    .user-verified-logo{
+        font-size: small;
+        top: 83%;
+        right: 34%;
+    }
+
+    .otp-box{
+        height: 35% !important;
+
+    }
+
+    .btn-reset{
+        width: 20% !important;
+        /* height: 3vh !important; */
+    }
+    .button-loader{
+        width: 15px !important;
+
+    }
+
+    .unlock-logo{
+        
+        width: 45px!important;
+    }
+
+    .selectFileLoader{
+        width: 39px!important;
+         height: 12px!important;
+    }
+
+    .welcome-logo{
+        height: 75px !important;
+        width: 75px !important;}
+        
+
+    
+    
+
+    
+    
+}
+    

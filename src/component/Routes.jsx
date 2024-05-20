@@ -10,6 +10,8 @@ import PaymentSuccess from "./PaymentSuccess";
 import { UserProvider } from "./helpers/UserContext";
 import NewTabLoader from "./helpers/NewTabLoader";
 import ConfirmMail from "./ConfirmMail";
+import SelectInteraction from "./SelectInteraction";
+import DocgenieeHome from "./DocgenieeHome";
 
 const Route00 = () => {
   return (
@@ -25,6 +27,8 @@ const Route00 = () => {
               <Route path="/main" element={<Home/>} />
               <Route path="/payment-failed" element={<PaymentFail/>} />
               <Route path="/payment-success" element={<PaymentSuccess/>} />
+              <Route path="/home" element={<SelectInteraction/>} />
+              <Route path="/docgeniee" element={<DocgenieeHome/>} />
             </Routes>
           </UserProvider>
         </BrowserRouter>
