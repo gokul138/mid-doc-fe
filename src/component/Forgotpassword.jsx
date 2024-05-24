@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "../forgotpassword.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUnlock } from "@fortawesome/free-solid-svg-icons";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { Eye, EyeSlash, } from "@phosphor-icons/react";
 import { resetPassword, sendOTP, verifyOTP } from "./services/ForgotPasswordAPI"; // Import API functions
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import NewTabLoader from "./helpers/NewTabLoader";
@@ -39,7 +39,7 @@ const Forgotpassword = ()=> {
   const handleSendOTP = async (event) => {
     event.preventDefault();
     try {
-      const response = await sendOTP(email);
+      const response = await sendOTP(email, 'PASSWORD');
       // Check response data if needed
       if(response === 'success'){
         setNotification("OTP sent successfully. Please check your email.");
@@ -117,7 +117,7 @@ const Forgotpassword = ()=> {
   const handleVerifyOTP = async (event) => {
     event.preventDefault();
     try {
-      const response = await verifyOTP(email, otp.join(""));
+      const response = await verifyOTP(email, otp.join(""), 'PASSWORD');
       if(response === 'success'){
         setShowOtp(false);
         setShowPasswordFields(true);
@@ -182,7 +182,7 @@ const Forgotpassword = ()=> {
             </button>
           </div>
         )}
-        {showPasswordFields && (
+        {true && (
           <>
             <h3 className="password-heading">Enter new password</h3>
             <div className="new-password-input-container">
@@ -198,9 +198,9 @@ const Forgotpassword = ()=> {
             onClick={(event) => togglePasswordVisibility(event)}
           >
             {showPassword ? (
-              <FontAwesomeIcon icon={faEyeSlash} />
+              <EyeSlash size={28} color="#bdbdbd" />
             ) : (
-              <FontAwesomeIcon icon={faEye} />
+              <Eye size={28} color="#bdbdbd" />
             )}
           </button></div>
             <input
