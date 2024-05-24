@@ -182,7 +182,7 @@ const Forgotpassword = ()=> {
             </button>
           </div>
         )}
-        {true && (
+        {showPasswordFields && (
           <>
             <h3 className="password-heading">Enter new password</h3>
             <div className="new-password-input-container">
