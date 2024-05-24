@@ -4,6 +4,7 @@ import PricingBox from "./PricingBox";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import "../pricing.css";
 import NewTabLoader from "./helpers/NewTabLoader";
+import Header from "./Header";
 
 const Pricing = ()=> {
 
@@ -35,7 +36,7 @@ const Pricing = ()=> {
         error.response.status === 401
       ) {
         // Navigate the user to "/"
-        navigate("/");
+        // navigate("/");
       }
     }
   };
@@ -47,6 +48,7 @@ const Pricing = ()=> {
     <div>
     {showLoader ? <NewTabLoader /> : 
    (<div className="show-overflow">
+      <Header interactionType={""} />
       <div className="pricing-top-div">
         <h4 className="pricing-header">PRICING</h4>
         <br />

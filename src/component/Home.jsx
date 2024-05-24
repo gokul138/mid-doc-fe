@@ -73,10 +73,10 @@ const Home = () => {
   
 
   return (
-    <div>
+    <div >
     {showLoader ? <NewTabLoader /> : 
      (<>
-     <Header />
+     <Header interactionType={"| Datageniee"} />
       <div>
           <SideBar setSession={setSession} setFileResponse={setFileResponse} />
           {!sessionId && (<Welcome />)}
