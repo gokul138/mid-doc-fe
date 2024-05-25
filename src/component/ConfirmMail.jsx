@@ -24,11 +24,11 @@ const ConfirmMail = () => {
       setEmail(location.state.userMail);
     } else {
       console.log('NO mail');
-      // navigate('/');
+      navigate('/');
     }
   }, [location.state, navigate]);
 
-  const handleSendOTP = async (event) => {
+  const handleSendOTP = async () => {
     try {
       const response = await sendOTP(email, 'EMAIL');
       // Check response data if needed
@@ -44,7 +44,9 @@ const ConfirmMail = () => {
   };
   useEffect(() => {
     console.log('EMAIL rendwer', email);
-    handleSendOTP();
+    if(email){
+      handleSendOTP();
+    }
   }, [email]);
 
   useEffect(() => {
