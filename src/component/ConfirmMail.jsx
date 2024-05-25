@@ -24,7 +24,7 @@ const ConfirmMail = () => {
       setEmail(location.state.userMail);
     } else {
       console.log('NO mail');
-      navigate('/');
+      // navigate('/');
     }
   }, [location.state, navigate]);
 
@@ -42,9 +42,12 @@ const ConfirmMail = () => {
       setError("Failed to send OTP. Please try again.");
     }
   };
+  useEffect(() => {
+    console.log('EMAIL rendwer', email);
+    handleSendOTP();
+  }, [email]);
 
   useEffect(() => {
-    handleSendOTP();
     const timeout = setTimeout(() => {
       setShowLoader(false);
     }, 1500);
