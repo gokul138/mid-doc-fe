@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useUserContext } from "./UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -20,10 +20,17 @@ const Dropdown = () => {
   const location = useLocation();
   let isPricing = location.pathname !== '/pricing/';
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(!userData?.verifiedUser){
+      navigate("/confirm-mail");
+    }
+  }, []);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  const navigate = useNavigate();
 
   const handleLogout = async () => {
     setIsOpen(!isOpen);
