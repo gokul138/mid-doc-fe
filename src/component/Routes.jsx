@@ -27,8 +27,8 @@ const Route00 = () => {
               <Route path="/main" element={<Home/>} />
               <Route path="/payment-failed" element={<PaymentFail/>} />
               <Route path="/payment-success" element={<PaymentSuccess/>} />
-              <Route path="/home" element={<SelectInteraction/>} />
-              <Route path="/docgeniee" element={<DocgenieeHome/>} />
+              {/* <Route path="/home" element={<SelectInteraction/>} /> */}
+              {/* <Route path="/docgeniee" element={<DocgenieeHome/>} /> */}
             </Routes>
           </UserProvider>
         </BrowserRouter>
