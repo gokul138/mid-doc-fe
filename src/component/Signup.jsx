@@ -128,7 +128,7 @@ const SignUp = () => {
       );
 
       if (response.data.msg === "success") {
-        navigate("/confirm-mail", { state: email });
+        navigate("/confirm-mail", { state: { userMail: email } });
       }
 
       if (!response.data.success) {
