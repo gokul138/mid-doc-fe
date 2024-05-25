@@ -61,7 +61,7 @@ const ConfirmMail = () => {
     }
   }, [ buttonName ,navigate]);
 
-  const atIndex = email.indexOf('@');
+  const atIndex = email?.indexOf('@');
   const maskedEmail =
     email.substring(0, 3) +
     email.substring(3, atIndex).replace(/./g, "*") +
