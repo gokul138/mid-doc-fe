@@ -93,7 +93,7 @@ console.log('userData to show:', userData);
 
         setUserData(getUser.data);
         if(!getUser?.data?.verifiedUser){
-          navigate("/confirm-mail");
+          navigate("/confirm-mail", { state: { userMail: email } });
         }
         if (getUser.data.primeUser) {
           navigate("/main");
