@@ -18,6 +18,15 @@ const ConfirmMail = () => {
   const inputRefs = useRef(Array(6).fill(null));
   const navigate = useNavigate();
   const location = useLocation();
+  
+  useEffect(() => {
+    if (location.state && location.state.userMail) {
+      setEmail(location.state.userMail);
+    } else {
+      console.log('NO mail');
+      navigate('/');
+    }
+  }, [location.state, navigate]);
 
   const handleSendOTP = async (event) => {
     try {
@@ -43,15 +52,6 @@ const ConfirmMail = () => {
   }, []);
 
   useEffect(() => {
-    if (location.state) {
-      setEmail(location.state.userMail);
-    }else{
-      console.log('NO mail');
-      navigate('/');
-    }
-  }, [location.state, navigate]);
-
-  useEffect(() => {
     if (buttonName === 'Verified') {
       const timeout = setTimeout(() => {
         navigate('/');
@@ -63,9 +63,9 @@ const ConfirmMail = () => {
 
   const atIndex = email?.indexOf('@');
   const maskedEmail =
-    email.substring(0, 3) +
-    email.substring(3, atIndex).replace(/./g, "*") +
-    email.substring(atIndex);
+    email?.substring(0, 3) +
+    email?.substring(3, atIndex).replace(/./g, "*") +
+    email?.substring(atIndex);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
