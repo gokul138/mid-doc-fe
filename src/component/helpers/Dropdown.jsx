@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useUserContext } from "./UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,12 +18,13 @@ const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
-  let isPricing = location.pathname !== '/pricing/';
+  let isPricing = location.pathname !== '/pricing';
+
+  const navigate = useNavigate();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  const navigate = useNavigate();
 
   const handleLogout = async () => {
     setIsOpen(!isOpen);

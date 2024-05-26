@@ -13,6 +13,10 @@ import GuidelinesModal from "./helpers/GuidlinesModal";
 
 const Home = () => {
 
+  const { userData, setUserData } = useUserContext();
+  const [sessionId, setSession] = useState("");
+  const [fileResponse, setFileResponse] = useState([]);
+  const navigate = useNavigate();
   const [showLoader, setShowLoader] = useState(true);
   const [openGuidelines, setOpenGuidelines] = useState(true);
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -33,39 +37,36 @@ const Home = () => {
       setConfirmModalOpen(false);
     };
   
-  const { userData, setUserData } = useUserContext();
-  const [sessionId, setSession] = useState("");
-  const [fileResponse, setFileResponse] = useState([]);
-
-  const navigate = useNavigate();
+    const fetchUserData = async () => {
+      try {
+          const getUser = await axiosInstance.get("doc-genie/user-info");
+          setUserData(getUser?.data);
+          if (getUser?.data?.primeUser === false) {
+            setInfoMessage(
+              "Subcription has ended, Redirecting to Subcription page"
+            );
+            handleOpenConfirmModal();
+            // navigate("/pricing");
+          }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // Check if the error response contains "Invalid session" with status code 401
+        if (
+          error.response &&
+          error.response.status === 401
+        ) {
+          // Navigate the user to "/"
+          navigate("/");
+        }
+      }
+    };
 
   useEffect(() => {
     fetchUserData();
-  }, []);
-
-  const fetchUserData = async () => {
-    try {
-        const getUser = await axiosInstance.get("doc-genie/user-info");
-        setUserData(getUser?.data);
-        if (getUser?.data?.primeUser === false) {
-          setInfoMessage(
-            "Subcription has ended, Redirecting to Subcription page"
-          );
-          handleOpenConfirmModal();
-          // navigate("/pricing");
-        }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      // Check if the error response contains "Invalid session" with status code 401
-      if (
-        error.response &&
-        error.response.status === 401
-      ) {
-        // Navigate the user to "/"
-        navigate("/");
-      }
+    if (!userData?.verifiedUser) {
+      navigate("/confirm-mail");
     }
-  };
+  }, []);
 
   const closeModal = () =>{
     setOpenGuidelines(false);

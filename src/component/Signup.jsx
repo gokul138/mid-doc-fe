@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../signup.css";
-import StartToastifyInstance from "toastify-js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NewTabLoader from "./helpers/NewTabLoader";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
@@ -13,15 +10,6 @@ const SignUp = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [isTermsOpen, setTermsOpen] = useState(false);
   const [isTermsAccepted, setTermsAndCondition] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 1500);
-    // Clean up the timeout on component unmount or when the flag is set to false
-    return () => clearTimeout(timeout);
-  }, [showLoader]);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -39,7 +27,14 @@ const SignUp = () => {
     confirmPassword: "",
     gst: "",
   });
-
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 1500);
+    // Clean up the timeout on component unmount or when the flag is set to false
+    return () => clearTimeout(timeout);
+  }, [showLoader]);
+  
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const navigate = useNavigate();
@@ -133,7 +128,7 @@ const SignUp = () => {
       );
 
       if (response.data.msg === "success") {
-        navigate("/confirm-mail", { state: email });
+        navigate("/confirm-mail", { state: { userMail: email } });
       }
 
       if (!response.data.success) {
