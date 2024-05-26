@@ -16,22 +16,22 @@ import DocgenieeHome from "./DocgenieeHome";
 const Route00 = () => {
   return (
     <div>
-        <BrowserRouter>
-          <UserProvider>
-            <Routes>
-              <Route path="/" element={<Login/>} />
-              <Route path="/signup" element={<SignUp/>} />
-              <Route path="/forgot-password" element={<Forgotpassword/>} />
-              <Route path="/confirm-mail" element={<ConfirmMail/>} />
-              <Route path="/pricing" element={<Pricing/>} />
-              <Route path="/main" element={<Home/>} />
-              <Route path="/payment-failed" element={<PaymentFail/>} />
-              <Route path="/payment-success" element={<PaymentSuccess/>} />
-              {/* <Route path="/home" element={<SelectInteraction/>} /> */}
-              {/* <Route path="/docgeniee" element={<DocgenieeHome/>} /> */}
-            </Routes>
-          </UserProvider>
-        </BrowserRouter>
+      <BrowserRouter>
+        <UserProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<Forgotpassword />} />
+            <Route path="/confirm-mail" element={<ConfirmMail />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/main" element={<Home />} />
+            <Route path="/payment-failed" element={<PaymentFail />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/home" element={<SelectInteraction />} />
+            <Route path="/docgeniee" element={<DocgenieeHome />} />
+          </Routes>
+        </UserProvider>
+      </BrowserRouter>
     </div>
   );
 };

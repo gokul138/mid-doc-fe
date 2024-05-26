@@ -6,7 +6,7 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 import NewTabLoader from "./helpers/NewTabLoader";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeSlash, } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
 
 const Login = () => {
