@@ -22,12 +22,6 @@ const Dropdown = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if(!userData?.verifiedUser){
-      navigate("/confirm-mail");
-    }
-  }, []);
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };

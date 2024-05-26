@@ -92,10 +92,10 @@ console.log('userData to show:', userData);
         );
 
         setUserData(getUser.data);
+
         if(!getUser?.data?.verifiedUser){
           navigate("/confirm-mail", { state: { userMail: email } });
-        }
-        if (getUser.data.primeUser) {
+        } else if (getUser.data.primeUser) {
           navigate("/main");
         } else {
           navigate("/pricing");
