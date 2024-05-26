@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate from react
 import "../pricing.css";
 import NewTabLoader from "./helpers/NewTabLoader";
 import Header from "./Header";
+import { useUserContext } from "./helpers/UserContext";
 
 const Pricing = ()=> {
 
   const [showLoader, setShowLoader] = useState(true);
+  const { userData, setUserData } = useUserContext();
 
   useEffect(() => {
       const timeout = setTimeout(() => {
@@ -40,8 +42,25 @@ const Pricing = ()=> {
       }
     }
   };
+  const fetchUserData = async () => {
+    try {
+        const getUser = await axiosInstance.get("doc-genie/user-info");
+        setUserData(getUser?.data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      // Check if the error response contains "Invalid session" with status code 401
+      if (
+        error.response &&
+        error.response.status === 401
+      ) {
+        // Navigate the user to "/"
+        navigate("/");
+      }
+    }
+  };
   useEffect(() => {
     fetchPlans();
+    fetchUserData();
   }, []);
 
   return (
