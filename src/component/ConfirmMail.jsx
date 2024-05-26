@@ -128,7 +128,7 @@ const ConfirmMail = () => {
           <div className="password-container">
             <div className="email-container">
               <FontAwesomeIcon icon={faUnlock} className="unlock-logo" />
-              <h3 className="password-heading">Confirm your email</h3>
+              <h3 className="password-heading">Please confirm your email for using this application</h3>
               <input
                 className="email-input"
                 type="email"

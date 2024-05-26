@@ -18,7 +18,7 @@ const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
-  let isPricing = location.pathname !== '/pricing/';
+  let isPricing = location.pathname !== '/pricing';
 
   const navigate = useNavigate();
 
