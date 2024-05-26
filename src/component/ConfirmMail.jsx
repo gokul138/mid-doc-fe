@@ -9,6 +9,7 @@ import  '../buttonLoader.css'
 
 const ConfirmMail = () => {
   const [showLoader, setShowLoader] = useState(false);
+  const [isOtpRequest, setOtpRequest] = useState(false);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [notification, setNotification] = useState("");
@@ -28,7 +29,8 @@ const ConfirmMail = () => {
     }
   }, [location.state, navigate]);
 
-  const handleSendOTP = async () => {
+  const handleSendOTP = async (event) => {
+    event?.preventDefault();
     try {
       const response = await sendOTP(email, 'EMAIL');
       // Check response data if needed
@@ -41,7 +43,9 @@ const ConfirmMail = () => {
     } catch (error) {
       setError("Failed to send OTP. Please try again.");
     }
+    setOtpRequest(false);
   };
+
   useEffect(() => {
     console.log('EMAIL rendwer', email);
     if(email){
@@ -111,6 +115,7 @@ const ConfirmMail = () => {
       }
       if (response === "expired") {
         setError("OTP expired. Please request a new one.");
+        setOtpRequest(true);
         setbuttonLoader(false);
       }
     } catch (error) {
@@ -161,10 +166,15 @@ const ConfirmMail = () => {
                   />
                 ))}
               </div>
+              {isOtpRequest ?
+                <button className="btn-reset" onClick={handleSendOTP}>
+                Request OTP
+              </button> :
               <button className="btn-reset" onClick={handleVerifyMail}>
                 {buttonLoader ? <div className="button-loader"></div> 
                 : buttonName}
               </button>
+              }
               {error && <p className="error-msg">{error}</p>}
             </div>
           </div>
