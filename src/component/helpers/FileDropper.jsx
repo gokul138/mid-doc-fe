@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
-import bin from "../../img/bin.png";
 import * as XLSX from "xlsx";
 import RemoveFileAlert from "./RemoveFileAlert";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowUpFromBracket } from "@fortawesome/free-solid-svg-icons";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faArrowUpFromBracket, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "toastify-js/src/toastify.css";
-import StartToastifyInstance from "toastify-js";
+import Toastify from "toastify-js";
 import "../../../src/filedropper.css";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 import InfoModal from "./InfoModal";
 import axiosInstance from "../axiosInstance";
 import UploadLoader from "./UploadLoader";
@@ -19,179 +17,124 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [loader, setLoader] = useState(false);
   const [preType, setLoaderType] = useState('upload');
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
-  const navigate = useNavigate(); // Initialize navigate function
+  const navigate = useNavigate();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   useEffect(() => {
-    if (fileTypes) {
-      fileTypes === "docGeniee"
-        ? setFileType(".pdf")
-        : setFileType(".xlsx, .xls, .xlsm, .csv");
-    }
+    setFileType(fileTypes === "docGeniee" ? ".pdf" : ".xlsx, .xls, .xlsm, .xlsb, .csv");
   }, [fileTypes]);
+
+  const showToast = (message, type) => {
+    Toastify({
+      text: message,
+      className: "info",
+      style: {
+        background: type === "success" 
+          ? "linear-gradient(to right, #00b09b, #96c93d)" 
+          : "linear-gradient(to right, #D32F2F, #D32F2F)",
+      },
+    }).showToast();
+  };
 
   const handleUpload = async () => {
     setLoaderType('upload');
     setLoader(true);
-    if (!file) {
-      StartToastifyInstance({
-        text: "Please select a file to upload",
-        className: "info",
-        duration: 1500,
-        style: {
-          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-        },
-      }).showToast();
+    if (!file.length) {
+      showToast("Please select a file to upload", "error");
+      setLoader(false);
       return;
     }
 
     const formData = new FormData();
-    for (let i = 0; i < file.length; i++) {
-      formData.append("file", file[i]);
-    }
+    file.forEach(f => formData.append("file", f));
 
     try {
       const response = await axiosInstance.post("doc-genie/upload", formData);
       setFileResponse(response?.data?.files);
       setSession(response.data.sessionId);
+      setLoader(false);
+
       if (response?.data?.isPrime === false) {
-        // we need to add tostify messages
         navigate("/pricing");
       }
+
       if (response.status === 200 && response?.data?.message === "SUCCESS") {
-        setLoader(false);
-        StartToastifyInstance({
-          text: "Uploaded sucessfully",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #00b09b, #96c93d)",
-          },
-        }).showToast();
-        // Optionally, you can reset the file state after successful upload
-        // setFile([]);
-      } else if (response?.data?.type === "Error") {
-        setLoader(false);
-        StartToastifyInstance({
-          text: "Failed to upload file",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-          },
-        }).showToast();
+        showToast("Uploaded successfully", "success");
       } else {
-        throw new Error("Failed to upload file");
+        showToast("Failed to upload file", "error");
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.data.msg === "Invalid session" &&
-        error.response.status === 401
-      ) {
-        handleOpenConfirmModal();
-        // navigate("/");
-      }
       setLoader(false);
       console.error("Error uploading file:", error);
-      StartToastifyInstance({
-        text: "Failed to upload file",
-        className: "info",
-        style: {
-          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-        },
-      }).showToast();
-      
-      // Check if the error response contains "Invalid session" with status code 401
+      showToast("Failed to upload file", "error");
+      if (error.response?.status === 401 && error.response.data.msg === "Invalid session") {
+        handleOpenConfirmModal();
+      }
     }
   };
 
-  const removeFile = () => {
-    setShowRemoveAlert(true);
-  };
+  const removeFile = () => setShowRemoveAlert(true);
 
   const confirmRemoveFile = (remove) => {
     if (remove) {
-      var input = document.getElementById("file");
-      input.value = "";
+      document.getElementById("file").value = "";
       setFile([]);
       setFileResponse([]);
     }
     setShowRemoveAlert(false);
   };
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     setLoader(true);
     setLoaderType('select');
-    const files = event.target.files;
-    const fileList = Array.from(files);
-  
-    // Check if any uploaded file has an unsupported extension
-    const unsupportedFiles = fileList.filter((file) => {
+    const files = Array.from(event.target.files);
+
+    const hasUnsupportedFiles = files.some(file => {
       const extension = file.name.split('.').pop().toLowerCase();
       return !type.includes(`.${extension}`);
     });
-  
-    if (unsupportedFiles.length > 0) {
-      StartToastifyInstance({
-        text: "Unsupported file type. Please upload files with the accepted extensions.",
-        className: "info",
-        style: {
-          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-        },
-      }).showToast();
+
+    if (hasUnsupportedFiles) {
+      showToast("Unsupported file type. Please upload files with the accepted extensions.", "error");
       setLoader(false);
       return;
     }
-  
-    if (fileList.length <= 4) {
-      let totalSheetCount = 0;
-  
-      const fileCheck = fileList.map(async (file) => {
-        const sheetCount = await readExcelFile(file);
-        totalSheetCount += sheetCount;
-      });
-  
-      Promise.all(fileCheck).then(() => {
-        if (totalSheetCount > 10) {
-          StartToastifyInstance({
-            text: "Total number of sheets across files cannot exceed 10",
-            className: "info",
-            style: {
-              background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-            },
-          }).showToast();
-          setLoader(false);
-        } else {
-          const fileNames = fileList.map((file) => file.name);
-          setLoader(false);
-          setFile(fileList);
-          setFileResponse([]);
-        }
-      });
+
+    if (files.length > 4) {
+      showToast("Upload less than or equal to 4 files", "error");
+      setLoader(false);
+      return;
+    }
+
+    const xlsbFiles = files.filter(file => file.name.split('.').pop().toLowerCase() === 'xlsb');
+    const otherFiles = files.filter(file => file.name.split('.').pop().toLowerCase() !== 'xlsb');
+
+    let totalSheetCount = 0;
+
+    for (const file of otherFiles) {
+      totalSheetCount += await readExcelFile(file);
+    }
+
+    if (totalSheetCount > 10) {
+      showToast("Total number of sheets across files cannot exceed 10", "error");
+      setLoader(false);
     } else {
-      StartToastifyInstance({
-        text: "Upload less than or equal to 4 files",
-        className: "info",
-        style: {
-          background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-        },
-      }).showToast();
+      setFile([...xlsbFiles, ...otherFiles]);
+      setFileResponse([]);
       setLoader(false);
     }
   };
-  const handleOpenConfirmModal = () => {
-    setConfirmModalOpen(true);
-  };
-  const handleCloseConfirmModal = () => {
-    setConfirmModalOpen(false);
-  };
+
+  const handleOpenConfirmModal = () => setConfirmModalOpen(true);
+  const handleCloseConfirmModal = () => setConfirmModalOpen(false);
+
   const readExcelFile = (file) => {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = (event) => {
         const data = new Uint8Array(event.target.result);
         const workbook = XLSX.read(data, { type: "array" });
-        const sheetCount = workbook.SheetNames.length;
-        resolve(sheetCount);
+        resolve(workbook.SheetNames.length);
       };
       reader.readAsArrayBuffer(file);
     });
@@ -204,14 +147,8 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
           <UploadLoader type={preType} />
         ) : (
           <>
-            <FontAwesomeIcon
-              className="upload-icon"
-              icon={faArrowUpFromBracket}
-              style={{ marginTop: "10%" }}
-            />
-            <label htmlFor="file">
-              {"Browse files from device"}
-            </label>
+            <FontAwesomeIcon className="upload-icon" icon={faArrowUpFromBracket} style={{ marginTop: "10%" }} />
+            <label htmlFor="file">Browse files from device</label>
             <input
               id="file"
               className="select-file"
@@ -232,18 +169,16 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       </div>
       <div className="button-container">
         {file.length > 0 && (
-          <button className="submit-button" onClick={handleUpload}>
-            Upload
-          </button>
+          <>
+            <button className="submit-button" onClick={handleUpload}>
+              Upload
+            </button>
+            <button className="remove-button" onClick={removeFile}>
+              Remove
+            </button>
+          </>
         )}
-        {file.length > 0 && (
-          <button className="remove-button" onClick={removeFile}>
-            Remove
-          </button>
-        )}
-        {showRemoveAlert && (
-          <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />
-        )}
+        {showRemoveAlert && <RemoveFileAlert onConfirmRemove={confirmRemoveFile} />}
       </div>
       {isConfirmModalOpen && (
         <InfoModal
