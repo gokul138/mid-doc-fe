@@ -32,7 +32,6 @@ const SideBar = ({ setSession, setFileResponse }) => {
           Chatgeniee
         </a>
         <br />
-        <br />
         <a className="links" href="/docgeniee">
           Docgeniee
         </a>
