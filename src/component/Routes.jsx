@@ -12,6 +12,7 @@ import NewTabLoader from "./helpers/NewTabLoader";
 import ConfirmMail from "./ConfirmMail";
 import SelectInteraction from "./SelectInteraction";
 import DocgenieeHome from "./DocgenieeHome";
+import Chatgeniee from "./Chatgeniee";
 
 const Route00 = () => {
   return (
@@ -29,6 +30,7 @@ const Route00 = () => {
             <Route path="/payment-success" element={<PaymentSuccess />} />
             <Route path="/home" element={<SelectInteraction />} />
             <Route path="/docgeniee" element={<DocgenieeHome />} />
+            <Route path="/chatgeniee" element={<Chatgeniee />} />
           </Routes>
         </UserProvider>
       </BrowserRouter>

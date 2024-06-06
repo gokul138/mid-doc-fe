@@ -64,7 +64,7 @@ const Home = () => {
   useEffect(() => {
     fetchUserData();
     if (!userData?.verifiedUser) {
-      navigate("/confirm-mail");
+      // navigate("/confirm-mail");
     }
   }, []);
 
