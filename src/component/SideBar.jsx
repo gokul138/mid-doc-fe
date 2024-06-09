@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import UploadFile from "./helpers/FileDropper";
 import { CaretDoubleRight, CaretDoubleLeft } from "@phosphor-icons/react";
 
-const SideBar = ({ setSession, setFileResponse }) => {
+const SideBar = ({setSession, setFileResponse}) => {
   const [selectedMode, setSelectedMode] = useState("dataGeniee");
   const [isOverlayExpanded, setIsOverlayExpanded] = useState(false);
   const [isIconRight, setIsIconRight] = useState(true);
@@ -15,7 +15,7 @@ const SideBar = ({ setSession, setFileResponse }) => {
     setIsOverlayExpanded(!isOverlayExpanded);
     setIsIconRight(!isIconRight);
   };
-
+  
   return (
     <div className="lftBox">
       <div className={`overlay ${isOverlayExpanded ? "expanded" : ""}`}>
@@ -29,7 +29,7 @@ const SideBar = ({ setSession, setFileResponse }) => {
         <p>Choose your interaction mode:</p>
         <br />
         <a className="links" href="/datageniee">
-          Chatgeniee
+          Datageniee
         </a>
         <br />
         <a className="links" href="/docgeniee">

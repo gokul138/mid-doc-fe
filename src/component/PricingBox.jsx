@@ -17,7 +17,7 @@ function PricingBox({ planList }) {
       const url = response?.data?.sessionId; 
       const primeUser = response?.data?.isPrime;
       if(primeUser){
-      navigate('/datageniee');
+      navigate('/home');
       }
       if (url) {
         window.location.href = url;

@@ -69,9 +69,9 @@ const DocgenieeHome = () => {
       ) : (
         <>
           <Header interactionType={"| Docgeniee"} />
-          <div className="sidebarAndChatContainer">
+          <div>
             <SideBar setSession={setSession} setFileResponse={setFileResponse} />
-            {!sessionId && <Welcome />}
+            {!sessionId && <Welcome interactionType={"Docgeniee"}/>}
             <ChatBox
               sessionId={sessionId}
               fileResponse={fileResponse}

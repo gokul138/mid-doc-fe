@@ -8,14 +8,14 @@ import {
   faFolderOpen,
 } from "@fortawesome/free-solid-svg-icons";
 
-const Welcome = () => {
+const Welcome = ({interactionType}) => {
   return (
     <>
       <div className="welcomepage">
         <div className="welcome-logo">
           {/* <img src="src/img/logo.png"></img> */}
         </div>
-        <h1 className="welcome-text">Welcome to DataGeniee!</h1>
+        <h1 className="welcome-text">Welcome to {interactionType}!</h1>
         <div className="icons-container">
           <FontAwesomeIcon icon={faFile} className="file-icon" />
           <FontAwesomeIcon icon={faFileExcel} className="excel-icon" />

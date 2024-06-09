@@ -38,7 +38,7 @@ const Pricing = ()=> {
         error.response.status === 401
       ) {
         // Navigate the user to "/"
-        // navigate("/");
+        navigate("/");
       }
     }
   };
