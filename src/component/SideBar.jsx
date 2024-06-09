@@ -28,7 +28,7 @@ const SideBar = ({ setSession, setFileResponse }) => {
         </div>
         <p>Choose your interaction mode:</p>
         <br />
-        <a className="links" href="/main">
+        <a className="links" href="/datageniee">
           Chatgeniee
         </a>
         <br />
@@ -63,7 +63,6 @@ const SideBar = ({ setSession, setFileResponse }) => {
       </div>
       <div className="uploadFile">
         <br />
-        {selectedMode === "dataGeniee" || selectedMode === "docGeniee" ? (
           <>
             <UploadFile
               fileTypes={selectedMode}
@@ -71,7 +70,6 @@ const SideBar = ({ setSession, setFileResponse }) => {
               setFileResponse={setFileResponse}
             />
           </>
-        ) : null}
       </div>
     </div>
   );

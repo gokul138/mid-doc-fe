@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import InfoModal from "./InfoModal";
 import axiosInstance from "../axiosInstance";
 import UploadLoader from "./UploadLoader";
+import { useLocation } from "react-router-dom";
 
 const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [file, setFile] = useState([]);
@@ -19,10 +20,12 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
   const [showRemoveAlert, setShowRemoveAlert] = useState(false);
   const navigate = useNavigate();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const location = useLocation();
+  let isDocgeniee = location.pathname === '/docgeniee';
 
   useEffect(() => {
-    setFileType(fileTypes === "docGeniee" ? ".pdf" : ".xlsx, .xls, .xlsm, .xlsb, .csv");
-  }, [fileTypes]);
+    setFileType(isDocgeniee ? ".pdf" : ".xlsx, .xls, .xlsm, .xlsb, .csv");
+  }, [isDocgeniee]);
 
   const showToast = (message, type) => {
     Toastify({
@@ -106,20 +109,27 @@ const UploadFile = ({ fileTypes, setSession, setFileResponse }) => {
       return;
     }
 
-    const xlsbFiles = files.filter(file => file.name.split('.').pop().toLowerCase() === 'xlsb');
-    const otherFiles = files.filter(file => file.name.split('.').pop().toLowerCase() !== 'xlsb');
+    if (!isDocgeniee) {
+      const xlsbFiles = files.filter(file => file.name.split('.').pop().toLowerCase() === 'xlsb');
+      const otherFiles = files.filter(file => file.name.split('.').pop().toLowerCase() !== 'xlsb');
 
-    let totalSheetCount = 0;
+      let totalSheetCount = 0;
 
-    for (const file of otherFiles) {
-      totalSheetCount += await readExcelFile(file);
-    }
+      for (const file of otherFiles) {
+        totalSheetCount += await readExcelFile(file);
+      }
 
-    if (totalSheetCount > 10) {
-      showToast("Total number of sheets across files cannot exceed 10", "error");
-      setLoader(false);
+      if (totalSheetCount > 10) {
+        showToast("Total number of sheets across files cannot exceed 10", "error");
+        setLoader(false);
+        return;
+      } else {
+        setFile([...xlsbFiles, ...otherFiles]);
+        setFileResponse([]);
+        setLoader(false);
+      }
     } else {
-      setFile([...xlsbFiles, ...otherFiles]);
+      setFile(files);
       setFileResponse([]);
       setLoader(false);
     }

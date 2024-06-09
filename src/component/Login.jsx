@@ -32,7 +32,7 @@ console.log('userData to show:', userData);
   // useEffect(() => {
   //   if (userData) {
   //     // User data already exists, redirect to main page
-  //     navigate("/main");
+  //     navigate("/datageniee");
   //   }
   // }, [userData, navigate]);
 
@@ -96,7 +96,7 @@ console.log('userData to show:', userData);
         if(!getUser?.data?.verifiedUser){
           navigate("/confirm-mail", { state: { userMail: email } });
         } else if (getUser.data.primeUser) {
-          navigate("/main");
+          navigate("/datageniee");
         } else {
           navigate("/pricing");
         }
