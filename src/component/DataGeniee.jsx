@@ -46,7 +46,7 @@ const DataGeniee = () => {
               "Subcription has ended, Redirecting to Subcription page"
             );
             handleOpenConfirmModal();
-            // navigate("/pricing");
+            navigate("/pricing");
           }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -74,13 +74,13 @@ const DataGeniee = () => {
   
 
   return (
-    <div >
+    <div className='docg-container'>
     {showLoader ? <NewTabLoader /> : 
      (<>
      <Header interactionType={"| Datageniee"} />
       <div>
           <SideBar setSession={setSession} setFileResponse={setFileResponse} />
-          {!sessionId && (<Welcome />)}
+          {!sessionId && (<Welcome interactionType={"Datageniee"}/>)}
           <ChatBox sessionId={sessionId} fileResponse={fileResponse} setFileResponse={setFileResponse} />
       </div>
       {isConfirmModalOpen && (
