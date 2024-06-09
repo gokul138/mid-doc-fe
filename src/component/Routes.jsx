@@ -12,6 +12,7 @@ import NewTabLoader from "./helpers/NewTabLoader";
 import ConfirmMail from "./ConfirmMail";
 import Home from "./Home";
 import DocgenieeHome from "./DocgenieeHome";
+import Chatgeniee from "./Chatgeniee";
 
 const Route00 = () => {
   return (
