@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import UploadFile from "./helpers/FileDropper";
 
-const SideBar = ({setSession, setFileResponse}) => {
-  const [selectedMode, setSelectedMode] = useState("dataGeniee");
+const SideBar = ({ setSession, setFileResponse }) => {
+  const [isOverlayExpanded, setIsOverlayExpanded] = useState(false);
+  const [isIconRight, setIsIconRight] = useState(true);
 
-  const handleRadio = (event) => {
-    setSelectedMode(event.target.value);
+
+  const toggleOverlay = () => {
+    setIsOverlayExpanded(!isOverlayExpanded);
+    setIsIconRight(!isIconRight);
   };
 
   return (
     <div className="lftBox">
       <div className="interactionMode">
         <p>Choose your interaction mode:</p>
+        <br />
+        <a className="links" href="/datageniee">
+          Chatgeniee
+        </a>
+        <br />
+        <br />
+        <a className="links" href="/docgeniee">
+          Docgeniee
+        </a>
+
+        <br />
+      </div>
+      <div className="interactionMode">
         <br />
         {/* <label>
                     <input 
@@ -46,11 +62,12 @@ const SideBar = ({setSession, setFileResponse}) => {
       </div>
       <div className="uploadFile">
         <br />
-        {selectedMode === "dataGeniee" || selectedMode === "docGeniee" ? (
           <>
-            <UploadFile fileTypes={selectedMode} setSession={setSession} setFileResponse={setFileResponse} />
+            <UploadFile
+              setSession={setSession}
+              setFileResponse={setFileResponse}
+            />
           </>
-        ) : null}
       </div>
     </div>
   );
