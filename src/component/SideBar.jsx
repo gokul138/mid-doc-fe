@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import UploadFile from "./helpers/FileDropper";
 
 const SideBar = ({ setSession, setFileResponse }) => {
+  const [selectedMode, setSelectedMode] = useState("dataGeniee");
   const [isOverlayExpanded, setIsOverlayExpanded] = useState(false);
   const [isIconRight, setIsIconRight] = useState(true);
 
+  const handleRadio = (event) => {
+    setSelectedMode(event.target.value);
+  };
 
   const toggleOverlay = () => {
     setIsOverlayExpanded(!isOverlayExpanded);
@@ -49,16 +53,6 @@ const SideBar = ({ setSession, setFileResponse }) => {
                     /> Doc Geniee
                 </label> 
                 <br />*/}
-        <label>
-          <input
-            type="radio"
-            name="interactionMode"
-            checked={selectedMode === "dataGeniee"}
-            onChange={handleRadio}
-            value="dataGeniee"
-          />{" "}
-          Data Geniee
-        </label>
       </div>
       <div className="uploadFile">
         <br />
