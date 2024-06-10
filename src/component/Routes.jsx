@@ -25,9 +25,9 @@ const Route00 = () => {
               <Route path="/forgot-password" element={<Forgotpassword/>} />
               <Route path="/confirm-mail" element={<ConfirmMail/>} />
               <Route path="/pricing" element={<Pricing/>} />
-              <Route path="/home" element={<Home/>} />
+              {/* <Route path="/home" element={<Home/>} /> */}
               <Route path="/datageniee" element={<DataGeniee/>} />
-              <Route path="/docgeniee" element={<DocgenieeHome/>} />
+              {/* <Route path="/docgeniee" element={<DocgenieeHome/>} /> */}
               <Route path="/payment-failed" element={<PaymentFail/>} />
               <Route path="/payment-success" element={<PaymentSuccess/>} />
             </Routes>
