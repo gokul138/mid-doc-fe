@@ -8,7 +8,7 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("/home");
+      navigate("/datageniee");
     }, countdown * 1000);
 
     return () => clearTimeout(timeout);

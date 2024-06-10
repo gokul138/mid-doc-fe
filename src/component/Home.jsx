@@ -30,14 +30,14 @@ function Home() {
           open
         </button>
       </div>
-      <div className="interaction-type">
+      {/* <div className="interaction-type">
         <h3>DocGeniee</h3>
         <p>Integrate OpenAI models into your application or business</p>
         <button className="interaction-btn"
         onClick={() => handleClickChat('doc')}>
         open
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
