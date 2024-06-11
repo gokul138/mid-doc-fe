@@ -96,7 +96,7 @@ console.log('userData to show:', userData);
         if(!getUser?.data?.verifiedUser){
           navigate("/confirm-mail", { state: { userMail: email } });
         } else if (getUser.data.primeUser) {
-          navigate("/home");
+          navigate("/datageniee");
         } else {
           navigate("/pricing");
         }
