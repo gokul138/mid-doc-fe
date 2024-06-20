@@ -18,7 +18,7 @@ const SideBar = ({ setSession, setFileResponse }) => {
 
   return (
     <div className="lftBox">
-      <div className={`overlay ${isOverlayExpanded ? "expanded" : ""}`}>
+      {/* <div className={`overlay ${isOverlayExpanded ? "expanded" : ""}`}>
         <div className="arrow-icon" onClick={toggleOverlay}>
           {isIconRight ? (
             <CaretDoubleRight size={25} color="#673ab7" />
@@ -37,7 +37,7 @@ const SideBar = ({ setSession, setFileResponse }) => {
         </a>
 
         <br />
-      </div>
+      </div> */}
       <div className="interactionMode">
         <br />
         {/* <label>
