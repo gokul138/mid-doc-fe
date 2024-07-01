@@ -9,6 +9,7 @@ import  '../buttonLoader.css'
 
 const ConfirmMail = () => {
   const [showLoader, setShowLoader] = useState(false);
+  const [isOtpRequest, setOtpRequest] = useState(false);
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [notification, setNotification] = useState("");
@@ -18,8 +19,18 @@ const ConfirmMail = () => {
   const inputRefs = useRef(Array(6).fill(null));
   const navigate = useNavigate();
   const location = useLocation();
+  
+  useEffect(() => {
+    if (location.state && location.state.userMail) {
+      setEmail(location.state.userMail);
+    } else {
+      console.log('NO mail');
+      navigate('/');
+    }
+  }, [location.state, navigate]);
 
   const handleSendOTP = async (event) => {
+    event?.preventDefault();
     try {
       const response = await sendOTP(email, 'EMAIL');
       // Check response data if needed
@@ -32,24 +43,22 @@ const ConfirmMail = () => {
     } catch (error) {
       setError("Failed to send OTP. Please try again.");
     }
+    setOtpRequest(false);
   };
 
   useEffect(() => {
-    handleSendOTP();
+    console.log('EMAIL rendwer', email);
+    if(email){
+      handleSendOTP();
+    }
+  }, [email]);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setShowLoader(false);
     }, 1500);
     return () => clearTimeout(timeout);
   }, []);
-
-  useEffect(() => {
-    if (location.state) {
-      setEmail(location.state.userMail);
-    }else{
-      console.log('NO mail');
-      navigate('/');
-    }
-  }, [location.state, navigate]);
 
   useEffect(() => {
     if (buttonName === 'Verified') {
@@ -61,11 +70,11 @@ const ConfirmMail = () => {
     }
   }, [ buttonName ,navigate]);
 
-  const atIndex = email.indexOf('@');
+  const atIndex = email?.indexOf('@');
   const maskedEmail =
-    email.substring(0, 3) +
-    email.substring(3, atIndex).replace(/./g, "*") +
-    email.substring(atIndex);
+    email?.substring(0, 3) +
+    email?.substring(3, atIndex).replace(/./g, "*") +
+    email?.substring(atIndex);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -106,6 +115,7 @@ const ConfirmMail = () => {
       }
       if (response === "expired") {
         setError("OTP expired. Please request a new one.");
+        setOtpRequest(true);
         setbuttonLoader(false);
       }
     } catch (error) {
@@ -123,7 +133,7 @@ const ConfirmMail = () => {
           <div className="password-container">
             <div className="email-container">
               <FontAwesomeIcon icon={faUnlock} className="unlock-logo" />
-              <h3 className="password-heading">Confirm your email</h3>
+              <h3 className="password-heading">Please confirm your email for using this application</h3>
               <input
                 className="email-input"
                 type="email"
@@ -156,10 +166,15 @@ const ConfirmMail = () => {
                   />
                 ))}
               </div>
+              {isOtpRequest ?
+                <button className="btn-reset" onClick={handleSendOTP}>
+                Request OTP
+              </button> :
               <button className="btn-reset" onClick={handleVerifyMail}>
                 {buttonLoader ? <div className="button-loader"></div> 
                 : buttonName}
               </button>
+              }
               {error && <p className="error-msg">{error}</p>}
             </div>
           </div>

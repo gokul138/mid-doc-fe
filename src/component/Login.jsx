@@ -6,20 +6,11 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 import NewTabLoader from "./helpers/NewTabLoader";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeSlash, } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
 
 const Login = () => {
   const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 1500);
-    // Clean up the timeout on component unmount or when the flag is set to false
-    return () => clearTimeout(timeout);
-  }, [showLoader]);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({ email: "", password: "" });
@@ -29,10 +20,19 @@ const Login = () => {
   const navigate = useNavigate();
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 1500);
+    // Clean up the timeout on component unmount or when the flag is set to false
+    return () => clearTimeout(timeout);
+  }, [showLoader]);
+
+console.log('userData to show:', userData);
   // useEffect(() => {
   //   if (userData) {
   //     // User data already exists, redirect to main page
-  //     navigate("/main");
+  //     navigate("/datageniee");
   //   }
   // }, [userData, navigate]);
 
@@ -93,8 +93,10 @@ const Login = () => {
 
         setUserData(getUser.data);
 
-        if (getUser.data.primeUser) {
-          navigate("/main");
+        if(!getUser?.data?.verifiedUser){
+          navigate("/confirm-mail", { state: { userMail: email } });
+        } else if (getUser.data.primeUser) {
+          navigate("/datageniee");
         } else {
           navigate("/pricing");
         }

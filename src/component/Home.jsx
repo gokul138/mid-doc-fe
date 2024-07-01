@@ -1,99 +1,45 @@
-import React, { useEffect, useState } from "react";
-import Header from "./Header";
-import SideBar from "./SideBar";
-import ChatBox from "./ChatBox";
-import Welcome from "./Welcome";
-import Loader from "./helpers/Loader";
-import { useUserContext } from "./helpers/UserContext";
+import React from "react";
+import "../selectinteraction.css";
+import PricingBox from "./PricingBox";
 import { useNavigate } from "react-router-dom";
-import NewTabLoader from "./helpers/NewTabLoader";
-import axiosInstance from "./axiosInstance";
-import InfoModal from "./helpers/InfoModal";
-import GuidelinesModal from "./helpers/GuidlinesModal";
 
-const Home = () => {
-
-  const [showLoader, setShowLoader] = useState(true);
-  const [openGuidelines, setOpenGuidelines] = useState(true);
-  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
-  const [infoMessage, setInfoMessage] = useState("");
-
-  useEffect(() => {
-      const timeout = setTimeout(() => {
-        setShowLoader(false);
-      }, 1500);
-      // Clean up the timeout on component unmount or when the flag is set to false
-      return () => clearTimeout(timeout);
-    }, [showLoader]);
-    const handleOpenConfirmModal = () => {
-      setConfirmModalOpen(true);
-    };
-  
-    const handleCloseConfirmModal = () => {
-      setConfirmModalOpen(false);
-    };
-  
-  const { userData, setUserData } = useUserContext();
-  const [sessionId, setSession] = useState("");
-  const [fileResponse, setFileResponse] = useState([]);
-
+function Home() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  const fetchUserData = async () => {
-    try {
-        const getUser = await axiosInstance.get("doc-genie/user-info");
-        setUserData(getUser?.data);
-        if (getUser?.data?.primeUser === false) {
-          setInfoMessage(
-            "Subcription has ended, Redirecting to Subcription page"
-          );
-          handleOpenConfirmModal();
-          // navigate("/pricing");
-        }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      // Check if the error response contains "Invalid session" with status code 401
-      if (
-        error.response &&
-        error.response.status === 401
-      ) {
-        // Navigate the user to "/"
-        navigate("/");
-      }
+  const handleClickChat = (type) => {
+    console.log('YYPR', type);
+    if(type === 'doc'){
+      navigate("/docgeniee");
+    }else if(type === 'data'){
+      navigate("/datageniee");
+    }else{
+      // navigate("/datageniee");
     }
   };
-
-  const closeModal = () =>{
-    setOpenGuidelines(false);
-  }
-  
-
   return (
-    <div >
-    {showLoader ? <NewTabLoader /> : 
-     (<>
-     <Header interactionType={"| Datageniee"} />
-      <div>
-          <SideBar setSession={setSession} setFileResponse={setFileResponse} />
-          {!sessionId && (<Welcome />)}
-          <ChatBox sessionId={sessionId} fileResponse={fileResponse} setFileResponse={setFileResponse} />
+    <div className="interaction-home-div  show-overflow">
+      <div className="interaction-type">
+        <h3>DataGeniee</h3>
+        <p>
+          Interact with our flagship language models in a conversational
+          interface
+        </p>
+        <button 
+        className="interaction-btn" 
+        onClick={() => handleClickChat('data')}>
+          open
+        </button>
       </div>
-      {isConfirmModalOpen && (
-          <InfoModal
-            isOpen={isConfirmModalOpen}
-            onClose={handleCloseConfirmModal}
-            message={infoMessage}
-          />
-        )}
-      <GuidelinesModal isOpen={openGuidelines} onClose={closeModal}/>
-        </>
-      )}
+      {/* <div className="interaction-type">
+        <h3>DocGeniee</h3>
+        <p>Integrate OpenAI models into your application or business</p>
+        <button className="interaction-btn"
+        onClick={() => handleClickChat('doc')}>
+        open
+        </button>
+      </div> */}
     </div>
   );
-};
+}
 
 export default Home;

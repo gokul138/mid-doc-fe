@@ -8,7 +8,7 @@ import {
 import "../../src/chatbox.css";
 import Loader from "./helpers/Loader";
 import { LoadingProvider } from "./helpers/LoadingContext";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useLocation, useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
 import StartToastifyInstance from "toastify-js";
 import InfoModal from "./helpers/InfoModal";
 import axiosInstance from "./axiosInstance";
@@ -29,6 +29,8 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
   const [tableResponse, setTableResponse] = useState(null);
   const navigate = useNavigate(); // Initialize navigate function
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+  const location = useLocation();
+  let isDocgeniee = location.pathname === '/docgeniee';
 
   function handleInput() {
     const input = inputRef.current;
@@ -214,12 +216,13 @@ const ChatBox = ({ sessionId, fileResponse, setFileResponse }) => {
       <div className="rghtBox">
         {sessionId && (
           <div>
-            <MultiSelectComponent
+            {!isDocgeniee &&
+             <MultiSelectComponent
               sessionId={sessionId}
               fileResponse={fileResponse}
               setTableResponse={setTableResponse}
               setMessages={setMessages} // Pass setMessages to MultiSelectComponent
-            />
+            />}
             <div className="chatbox">
               <div className="messages-container" ref={messagesContainerRef}>
                 {messages?.map((message, index) => (

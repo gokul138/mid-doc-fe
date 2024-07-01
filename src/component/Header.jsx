@@ -13,7 +13,7 @@ const Header = ({interactionType}) => {
         <div className="header-logo"></div>
         <span className="app-name">Finsight<span className="seperator"></span> {interactionType}</span>
         <span className="subscription-days">
-          {userData && `Subscription expires in ${userData?.primeValidity}`}
+          {userData?.primeValidity && `Subscription expires in ${userData?.primeValidity}`}
         </span>
       </div>
       <div className="profile-container">

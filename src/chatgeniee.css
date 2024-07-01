@@ -1,0 +1,139 @@
+.cg-chatbox-main{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10%;
+}
+
+.cg-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+.hero-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* background-color: beige; */
+    /* margin-top: 7%; */
+    width: 50%;
+    height: 50vh;
+}
+
+.logo{
+    width:15%;
+    height:33%;
+}
+
+.responsive-logo{
+    width: 100%;
+    height: 100%;
+}
+
+.suggestions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    width: 100%;
+    gap: 5%;
+}
+
+.btn-random-suggestions {
+    width: 20%;
+    height: 13vh;
+    border-radius: 12px;
+    border: 1px solid #F3D0D7;
+    text-align: start;
+    padding-left: 8px;
+    padding-right: 2px;
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+    background-color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-random-suggestions:hover {
+    
+    background-color: #f8f9fa;
+}
+.cg-chatbox{
+    width: 100%;
+}
+
+.cg-user-input {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    /* border: 1px solid #e0e0e0; */
+    border-radius: 30px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 55%;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.cg-input-box {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 30px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    margin-right: 5px;
+    
+}
+
+.cg-send-button {
+    width: 50px;  
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background: none;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-icon-size {
+    font-size: 20px; 
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/* .cg-send-button:hover {
+    background-color: #0056b3;
+} */
+
+
+@media (max-width: 768px) {
+    .cg-user-input {
+        /* flex-direction: column; */
+        align-items: stretch;
+    }
+
+    .cg-input-box {
+        margin-right: 0;
+        margin-bottom: 5px;
+       
+    }
+
+    .cg-send-button {
+        width: 100%;
+    }
+}
