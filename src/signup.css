@@ -1,8 +1,11 @@
 .signup-container {
   display: flex;
-  justify-content: center;
+  padding-top: 1%;
+  
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
+  height: 100vh;
 
   .login-logo {
     margin: 0;
@@ -202,6 +205,7 @@ label{
 }
 
 .terms-checkbox label {
+  font-weight: normal;
   font-size: 14px;
 }
 
@@ -209,8 +213,13 @@ label{
 
 @media screen and (max-width: 670px){
 
-  .first-name-container h4{
-    margin-top: 20%;
+  .new-user-container{
+    width: 75%;
   }
-}
+
+  .signup-btn{
+      height: 4vh;
+  }
+  }
+
 

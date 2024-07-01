@@ -1,9 +1,12 @@
 import React from 'react';
 import './uploadLoader.css'; // Assuming the CSS is in a file named uploadLoader.css
+import './selectFileLoader.css';
 
-const UploadLoader = () => {
+const UploadLoader = ({type}) => {
   return (
-    <div className="uploadloader"></div>
+    <>
+      {type ==='select'? <div className='selectFileLoader'></div> : <div className="uploadloader"></div>}
+    </>
   );
 };
 

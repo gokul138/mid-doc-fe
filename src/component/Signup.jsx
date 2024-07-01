@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../signup.css";
-import StartToastifyInstance from "toastify-js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import NewTabLoader from "./helpers/NewTabLoader";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
@@ -13,17 +10,10 @@ const SignUp = () => {
   const [showLoader, setShowLoader] = useState(true);
   const [isTermsOpen, setTermsOpen] = useState(false);
   const [isTermsAccepted, setTermsAndCondition] = useState(false);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setShowLoader(false);
-    }, 1500);
-    // Clean up the timeout on component unmount or when the flag is set to false
-    return () => clearTimeout(timeout);
-  }, [showLoader]);
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,7 +27,14 @@ const SignUp = () => {
     confirmPassword: "",
     gst: "",
   });
-
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 1500);
+    // Clean up the timeout on component unmount or when the flag is set to false
+    return () => clearTimeout(timeout);
+  }, [showLoader]);
+  
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const navigate = useNavigate();
@@ -80,6 +77,7 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsError(false);
 
     // Perform client-side validation
     const newErrors = {};
@@ -119,7 +117,7 @@ const SignUp = () => {
     // If all validations pass, make API call to sign up
     try {
       const response = await axiosInstance.post(
-        "https://docgeniee.org/mid-doc/doc-genie/signup",
+        "/doc-genie/signup",
         {
           firstName,
           lastName,
@@ -130,34 +128,43 @@ const SignUp = () => {
       );
 
       if (response.data.msg === "success") {
-        navigate("/");
+        navigate("/confirm-mail", { state: { userMail: email } });
       }
 
       if (!response.data.success) {
         throw new Error(response.data.message);
       } else {
-        StartToastifyInstance({
-          text: "SignUp failed",
-          className: "info",
-          style: {
-            background: "linear-gradient(to right, #D32F2F, #D32F2F)",
-          },
-        }).showToast();
+        // StartToastifyInstance({
+        //   text: "SignUp failed",
+        //   className: "info",
+        //   style: {
+        //     background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+        //   },
+        // }).showToast();
       }
 
       // Handle successful sign up
-      console.log("User signed up successfully", response);
     } catch (error) {
       console.error("Error signing up:", error);
+      setIsError(true);
+      setErrorMessage(error?.response?.data?.msg);
+      // StartToastifyInstance({
+      //   text: error?.response?.data?.msg,
+      //   className: "info",
+      //   style: {
+      //     background: "linear-gradient(to right, #D32F2F, #D32F2F)",
+      //   },
+      // }).showToast();
       // Handle error here, e.g., display error message to user
     }
   };
 
   const handleTermsCheckboxChange = (event) =>{
     const value = event?.target?.value;
-    console.log('Value', value);
-    if(value === 'on'){
+    if(!isTermsAccepted){
       setTermsOpen(true);
+    } else{
+      setTermsAndCondition(!isTermsAccepted);
     }
   }
   const closeTermsModal = () =>{
@@ -171,8 +178,15 @@ const SignUp = () => {
     }
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
+
+
   return (
-    <div>
+    <div onKeyDown={handleKeyPress} tabIndex="0">
       {showLoader ? (
         <NewTabLoader />
       ) : (
@@ -294,6 +308,11 @@ const SignUp = () => {
             <button className="signup-btn" onClick={handleSubmit}>
               Sign Up
             </button>
+            {isError && (
+            <p className="error-msg">
+              {errorMessage}
+            </p>
+          )}
             <p className="login-existing-user">
               Already have an account? <a href="/">Log In</a>
             </p>

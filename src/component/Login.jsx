@@ -6,11 +6,19 @@ import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { useUserContext } from "./helpers/UserContext";
 import ConfirmModal from "./helpers/ConfirmModal";
 import NewTabLoader from "./helpers/NewTabLoader";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { Eye, EyeSlash, } from "@phosphor-icons/react";
 import axiosInstance from "./axiosInstance";
 
 const Login = () => {
   const [showLoader, setShowLoader] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [isInvalid, setIsInvalid] = useState(false);
+  const { userData, setUserData } = useUserContext();
+  const navigate = useNavigate();
+  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -20,14 +28,13 @@ const Login = () => {
     return () => clearTimeout(timeout);
   }, [showLoader]);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "" });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isInvalid, setIsInvalid] = useState(false);
-  const { setUserData } = useUserContext();
-  const navigate = useNavigate();
-  const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
+console.log('userData to show:', userData);
+  // useEffect(() => {
+  //   if (userData) {
+  //     // User data already exists, redirect to main page
+  //     navigate("/datageniee");
+  //   }
+  // }, [userData, navigate]);
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
@@ -37,7 +44,6 @@ const Login = () => {
     setErrors({ ...errors, email: "" });
     setIsInvalid(false);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
     setErrors({ ...errors, password: "" });
@@ -87,8 +93,10 @@ const Login = () => {
 
         setUserData(getUser.data);
 
-        if (getUser.data.primeUser) {
-          navigate("/main");
+        if(!getUser?.data?.verifiedUser){
+          navigate("/confirm-mail", { state: { userMail: email } });
+        } else if (getUser.data.primeUser) {
+          navigate("/datageniee");
         } else {
           navigate("/pricing");
         }
@@ -101,9 +109,14 @@ const Login = () => {
       }
     }
   };
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
 
   return (
-    <div>
+    <div onKeyDown={handleKeyPress} tabIndex="0">
       {showLoader ? (
         <NewTabLoader />
       ) : (

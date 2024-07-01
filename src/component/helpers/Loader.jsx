@@ -1,12 +1,5 @@
 import React from "react";
 import "../../loader.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFileExcel,
-  faFile,
-  faComputer,
-  faFolderOpen,
-} from "@fortawesome/free-solid-svg-icons";
 import { useLoading } from "./LoadingContext";
 
 
